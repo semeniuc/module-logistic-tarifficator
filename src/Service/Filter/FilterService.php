@@ -4,88 +4,34 @@ declare(strict_types=1);
 
 namespace App\Service\Filter;
 
-use App\DTO\FilterContainerDTO;
-use App\DTO\FilterRailwayDTO;
-use App\DTO\FilterSeaDTO;
-use App\Service\ItemsService;
+use App\DTO\Filter\ContainerFilterDTO;
+use App\DTO\Filter\RailwayFilterDTO;
+use App\DTO\Filter\SeaFilterDTO;
 
-class FilterService extends ItemsService
+class FilterService
 {
-    private FilterSeaDTO $filterSeaDTO;
+    private SeaFilterService $seaFilterService;
+    private RailwayFilterService $railwayFilterService;
+    private ContainerFilterService $containerFilterService;
 
-    public function __construct()
-    {
-        parent::__construct();
+    public function __construct() {
+        $this->seaFilterService = new SeaFilterService();
+        $this->railwayFilterService = new RailwayFilterService();
+        $this->containerFilterService = new ContainerFilterService();
     }
 
-    public function getSea(): FilterSeaDTO
+    public function getSea(): SeaFilterDTO
     {
-        $data = $this->entityRepository->getItems($this->entityTypeIds['sea']);
-        $fields = $this->getFieldsToFilter('sea');
-        $values = $this->getUniqueValues($fields, $data);
-
-        return new FilterSeaDTO(
-            pols: $values['pol'] ?? [],
-            pods: $values['pod'] ?? [],
-            destinations: $values['destination'] ?? [],
-        );
+        return $this->seaFilterService->getFilter();
     }
 
-    public function getRailway(): FilterRailwayDTO
+    public function getRailway(): RailwayFilterDTO
     {
-        $data = $this->entityRepository->getItems($this->entityTypeIds['railway']);
-        $fields = $this->getFieldsToFilter('railway');
-        $values = $this->getUniqueValues($fields, $data);
-
-        return new FilterRailwayDTO(
-            pods: $values['pod'] ?? [],
-            destinations: $values['destination'] ?? [],
-        );
+        return $this->railwayFilterService->getFilter();
     }
 
-    public function getContainer(): FilterContainerDTO
+    public function getContainer(): ContainerFilterDTO
     {
-        $data = $this->entityRepository->getItems($this->entityTypeIds['container']);
-        $fields = $this->getFieldsToFilter('container');
-        $values = $this->getUniqueValues($fields, $data);
-
-        return new FilterContainerDTO(destinations: $values['destination'] ?? []);
+        return $this->containerFilterService->getFilter();
     }
-
-    public function getUniqueValues(array $fields, array $items): array
-    {
-        if (!empty($fields) && !empty($items)) {
-            foreach ($items as $item) {
-                foreach ($fields as $key => $fieldId) {
-                    if (isset($item[$fieldId])) {
-                        $values[$key][] = $item[$fieldId];
-                    }
-                }
-            }
-        }
-
-        if (!empty($values)) {
-            $values = array_map(function ($array) {
-                $uniqueValues = array_unique($array);
-                sort($uniqueValues);
-                return $uniqueValues;
-            }, $values);
-        }
-
-        return $values ?? [];
-    }
-
-    private function getFieldsToFilter(string $type): array
-    {
-        $fields = (include APP_PATH . '/config/fields/' . $type . '.php');
-
-        foreach ($fields as $key => $field) {
-            if ($field['view']['filter']) {
-                $result[$key] = $field['id'][APP_ENV];
-            }
-        }
-
-        return $result ?? [];
-    }
-
 }

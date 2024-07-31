@@ -6,15 +6,20 @@ namespace App\Service;
 
 use App\Repository\EntityRepository;
 
-abstract class ItemsService
+abstract class AbstractItemsService
 {
     protected EntityRepository $entityRepository;
-    protected array $entityTypeIds = [];
+    public array $entityTypeIds = [];
 
     public function __construct()
     {
         $this->entityRepository = new EntityRepository();
         $this->getEntityTypeIds();
+    }
+
+    public function getItems(int $entityTypeId): array
+    {
+        return $this->entityRepository->getItems($entityTypeId);
     }
 
     private function getEntityTypeIds(): void

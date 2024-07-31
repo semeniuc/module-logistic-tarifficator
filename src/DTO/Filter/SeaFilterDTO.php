@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\DTO;
+namespace App\DTO\Filter;
 
-class FilterContainerDTO
+class SeaFilterDTO implements FilterDTO
 {
     private array $containerOwners = [
         'soc',
@@ -17,6 +17,8 @@ class FilterContainerDTO
     ];
 
     public function __construct(
+        private readonly array $pols,
+        private readonly array $pods,
         private readonly array $destinations,
     )
     {
@@ -31,6 +33,17 @@ class FilterContainerDTO
     {
         return $this->containerTypes;
     }
+
+    public function getPols(): array
+    {
+        return $this->pols;
+    }
+
+    public function getPods(): array
+    {
+        return $this->pods;
+    }
+
     public function getDestinations(): array
     {
         return $this->destinations;
