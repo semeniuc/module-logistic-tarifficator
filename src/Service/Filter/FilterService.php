@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\Filter;
 
+use App\DTO\FilterRailwayDTO;
 use App\DTO\FilterSeaDTO;
 use App\Service\ItemsService;
 
@@ -24,6 +25,18 @@ class FilterService extends ItemsService
 
         return new FilterSeaDTO(
             pols: $values['pol'] ?? [],
+            pods: $values['pod'] ?? [],
+            destinations: $values['destination'] ?? [],
+        );
+    }
+
+    public function getRailway(): FilterRailwayDTO
+    {
+        $data = $this->entityRepository->getItems($this->entityTypeIds['railway']);
+        $fields = $this->getFieldsToFilter('railway');
+        $values = $this->getUniqueValues($fields, $data);
+
+        return new FilterRailwayDTO(
             pods: $values['pod'] ?? [],
             destinations: $values['destination'] ?? [],
         );

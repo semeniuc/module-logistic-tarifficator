@@ -23,6 +23,7 @@ class HomeController extends Controller
         $filterService = new FilterService();
 
         $filterSea = $filterService->getSea();
+        $filterRailway = $filterService->getRailway();
 
         /*
          * todo: Filter
@@ -39,6 +40,7 @@ class HomeController extends Controller
 
         dd([
             'filterSea' => $filterSea,
+            'filterRailway' => $filterRailway,
         ]);
     }
 }
