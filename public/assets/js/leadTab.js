@@ -3,10 +3,10 @@ function openPopup(url, title) {
         width: 1000, // Ширина попапа, можно изменить по необходимости
         height: 600, // Высота попапа, можно изменить по необходимости
         loader: 'Y',
-        cacheable: false,
+        allowChangeHistory: false,
         title: title,
         label: {
-            text: 'Тарификатор',
+            text: title,
         },
         events: {
             onLoad: function(event) {
