@@ -1,3 +1,24 @@
+function openPopup(url, title) {
+    BX.SidePanel.Instance.open(url, {
+        width: 1000, // Ширина попапа, можно изменить по необходимости
+        height: 600, // Высота попапа, можно изменить по необходимости
+        loader: 'Y',
+        cacheable: false,
+        title: title,
+        label: {
+            text: 'Тарификатор',
+        },
+        events: {
+            onLoad: function(event) {
+                console.log('Popup loaded');
+            },
+            onClose: function(event) {
+                console.log('Popup closed');
+            }
+        }
+    });
+}
+
 function initialize_foo_crm_detail_tab(params) {
     params = params || {};
 
@@ -31,26 +52,26 @@ function initialize_foo_crm_detail_tab(params) {
     })).then(
         function (tabManager) {
             var tabData = {
-                id: 'tab_tarifficator',
+                id: 'module_tarifficator',
                 name: 'Tarifficator',
                 html: `
-            <span class="main-buttons-item-link">
-                <span class="main-buttons-item-icon"></span>
-                <span class="main-buttons-item-text">
-                    <span class="main-buttons-item-drag-button" data-slider-ignore-autobinding="true"></span>
-                    <span class="main-buttons-item-text-title">
-                        <span class="main-buttons-item-text-box">Тарификатор<span class="main-buttons-item-menu-arrow"></span></span>
+                <span class="main-buttons-item-link">
+                    <span class="main-buttons-item-icon"></span>
+                    <span class="main-buttons-item-text">
+                        <span class="main-buttons-item-drag-button" data-slider-ignore-autobinding="true"></span>
+                        <span class="main-buttons-item-text-title">
+                            <span class="main-buttons-item-text-box">Тарификатор<span class="main-buttons-item-menu-arrow"></span></span>
+                        </span>
+                        <span class="main-buttons-item-edit-button" data-slider-ignore-autobinding="true"></span>
+                        <span class="main-buttons-item-text-marker"></span>
                     </span>
-                    <span class="main-buttons-item-edit-button" data-slider-ignore-autobinding="true"></span>
-                    <span class="main-buttons-item-text-marker"></span>
-                </span>
-                <span class="main-buttons-item-counter"></span>
-            </span>`,
+                    <span class="main-buttons-item-counter"></span>
+                </span>`,
                 loader: {
-                    serviceUrl: '/foo.php?sessid=' + BX.bitrix_sessid(),
+                    serviceUrl: '/local/modules/logistic.tarifficator?sessid=' + BX.bitrix_sessid(),
                     componentData: {foo: 'bar'},
                     container: null, // Обновлено: будет установлено позже
-                    tabId: 'tab_tarifficator'
+                    tabId: 'module_tarifficator'
                 }
             };
 
@@ -66,6 +87,11 @@ function initialize_foo_crm_detail_tab(params) {
                     html: tabData.html
                 }
             );
+
+            // Добавление обработчика клика для открытия попапа
+            BX.bind(tabContainer, 'click', function () {
+                openPopup('/local/modules/logistic.tarifficator?sessid=' + BX.bitrix_sessid(), 'Тарификатор');
+            });
 
             // Найти контейнер для добавления новой вкладки
             var container = document.querySelector('.main-buttons-inner-container');
@@ -90,4 +116,7 @@ function initialize_foo_crm_detail_tab(params) {
                 );
             }
 
-        })}
+        }).catch(function () {
+        console.error('Не удалось найти менеджер вкладок');
+    });
+}

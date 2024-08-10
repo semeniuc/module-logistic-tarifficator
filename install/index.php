@@ -19,9 +19,11 @@ class logistic_tarifficator extends CModule
         $this->PARTNER_URI = "http://legende-log.ru/";
     }
 
-    public function DoInstall()
+    public function DoInstall(): void
     {
         ModuleManager::registerModule($this->MODULE_ID);
+
+        $this->InstallEvents();
 
         global $APPLICATION;
 
@@ -31,9 +33,11 @@ class logistic_tarifficator extends CModule
         );
     }
 
-    public function DoUninstall()
+    public function DoUninstall(): void
     {
         ModuleManager::unRegisterModule($this->MODULE_ID);
+
+        $this->UnInstallEvents();
 
         global $APPLICATION;
 
@@ -41,5 +45,17 @@ class logistic_tarifficator extends CModule
             "Module removed",
             __DIR__ . '/unstep.php'
         );
+    }
+
+    public function InstallEvents(): void
+    {
+        $eventManager = EventManager::getInstance();
+        $eventManager->registerEventHandler('main', 'onProlog', $this->MODULE_ID, '\App\Listener\TarifficatorTabListener', 'handler');
+    }
+
+    public function UnInstallEvents(): void
+    {
+        $eventManager = EventManager::getInstance();
+        $eventManager->unRegisterEventHandler('main', 'onProlog', $this->MODULE_ID, '\App\Listener\TarifficatorTabListener', 'handler');
     }
 }
