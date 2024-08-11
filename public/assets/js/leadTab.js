@@ -1,6 +1,6 @@
 function openPopup(url, title) {
     BX.SidePanel.Instance.open(url, {
-        width: 1000, // Ширина попапа, можно изменить по необходимости
+        width: 1100, // Ширина попапа, можно изменить по необходимости
         height: 600, // Высота попапа, можно изменить по необходимости
         loader: 'Y',
         allowChangeHistory: false,

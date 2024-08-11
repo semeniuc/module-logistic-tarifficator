@@ -1,55 +1,102 @@
 body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
     background-color: #f8f9fa;
 }
 
+/* Основной контейнер */
 .container {
-    margin: 20px;
-}
-
-form {
+    margin-top: 20px;
     margin-bottom: 20px;
 }
 
+/* Заголовки */
+h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: bold ;
+}
+
+/* Формы */
+form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #E0E0E0;
+    border-radius: 5px;
+}
+
+/* Поля выбора */
+form div {
+    flex: 1 1 auto; /* Поля будут занимать доступное пространство, но не больше установленной ширины */
+    max-width: 200px; /* Устанавливаем максимальную ширину для полей */
+}
+
+form div.form-select-small {
+    max-width: 100px;
+}
+
+/* Метки и поля ввода */
+form label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 11px;
+    color: #555;
+}
+
+form select {
+    padding: 8px;
+    border: 1px solid #CCC;
+    border-radius: 3px;
+    width: 100%; /* Заполняет доступное пространство */
+    background-color: #FFF;
+}
+
+/* Таблицы */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
+    background-color: #FFF;
+    border: 1px solid #E0E0E0;
+    font-size: 13px;
 }
 
-table, th, td {
-    border: 1px solid black;
+table thead th {
+    background-color: #DBDFFB;
+    color: #333;
+    padding: 10px;
+    border: 1px solid #E0E0E0;
+    font-weight: bold;
+    font-size: 13px;
+    text-align: center;
 }
 
-th, td {
-    padding: 8px;
-    text-align: left;
+table tbody td {
+    padding: 10px;
+    border: 1px solid #E0E0E0;
 }
 
-th {
-    background-color: #f2f2f2;
+table tbody tr:nth-child(even) {
+    background-color: #F8F8F8;
 }
 
-.spinner {
-    display: none;
-    border: 16px solid #f3f3f3; /* Light grey */
-    border-top: 16px solid #3498db; /* Blue */
-    border-radius: 50%;
-    width: 120px;
-    height: 120px;
-    animation: spin 2s linear infinite;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1000;
+table tbody tr:hover {
+    background-color: #E0E0E0;
 }
 
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+/* Особые стили для ячеек */
+.note {
+    background-color: #FFF5F5;
+    padding: 5px;
+    border-radius: 3px;
+    color: #C00;
 }
+
+.highlight {
+    background-color: #FFD700;
+}
+

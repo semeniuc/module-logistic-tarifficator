@@ -19,41 +19,12 @@ class EntityRepository
         $this->container = Container::getInstance();
     }
 
-    public function getItems(int $entityTypeId): array
+    public function getItems(int $entityTypeId, array $params = []): array
     {
-        $result = [];
-
-        if ($items = $this->getObjects($entityTypeId)) {
+        if ($items = $this->getObjects($entityTypeId, $params)) {
             foreach ($items as $item) {
                 $result[] = $item->getData();
             }
-        }
-
-        return $result;
-    }
-
-    public function deleteItems(int $entityTypeId)
-    {
-        if ($items = $this->getObjects($entityTypeId)) {
-            foreach ($items as $item) {
-                $item->delete();
-            }
-        }
-    }
-
-    /**
-     * @param int $entityTypeId
-     * @param array $items
-     * @return Item []
-     */
-    public function createItems(int $entityTypeId, array $items): array
-    {
-        $factory = $this->container->getFactory($entityTypeId);
-
-        foreach ($items as $key => $data) {
-            $item = $factory->createItem()->setFromCompatibleData($data);
-            $operation = $factory->getAddOperation($item)->disableCheckAccess()->enableCheckFields();
-            $result[$key] = $operation->launch();
         }
 
         return $result ?? [];
@@ -63,9 +34,10 @@ class EntityRepository
      * @param int $entityTypeId
      * @return Item []
      */
-    private function getObjects(int $entityTypeId): array
+    private function getObjects(int $entityTypeId, array $params): array
     {
         $factory = $this->container->getFactory($entityTypeId);
-        return $factory->getItems();
+        return $factory->getItems($params);
     }
+
 }

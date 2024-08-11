@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Kernel\Controller\Controller;
 use App\Service\Filter\FilterService;
+use App\Service\List\SeaListService;
 
 class HomeController extends Controller
 {
@@ -16,15 +17,33 @@ class HomeController extends Controller
 //            headers: ['Content-Type' => 'application/json'],
 //        );
 
-//        $this->view('home', [
-//            'title' => 'Тарификатор',
-//        ]);
+
 
         $filterService = new FilterService();
 
         $filterSea = $filterService->getSea();
         $filterRailway = $filterService->getRailway();
         $filterContainer = $filterService->getContainer();
+
+        $this->view('home', [
+            'title' => 'Тарификатор',
+            'filters' => [
+                'sea' => $filterSea,
+                'railway' => $filterRailway,
+                'container' => $filterContainer,
+            ],
+        ]);
+
+
+//        $listSea = (new SeaListService())->getList(
+//            [
+//                'pol' => 'Qingdao',
+//                'pod' => 'Владивосток (ВМТП)',
+//                'destination' => 'Иркутск',
+//                'containerOwner' => 'coc',
+//                'containerType' => '20dry',
+//            ]
+//        );
 
         /*
          * todo: Filter
@@ -39,10 +58,10 @@ class HomeController extends Controller
          */
 
 
-        dd([
-            'filterSea' => $filterSea,
-            'filterRailway' => $filterRailway,
-            'filterContainer' => $filterContainer,
-        ]);
+//        dd([
+//            'filterSea' => $filterSea,
+//            'filterRailway' => $filterRailway,
+//            'filterContainer' => $filterContainer,
+//        ]);
     }
 }
