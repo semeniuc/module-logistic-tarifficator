@@ -8,6 +8,7 @@ body {
 .container {
     margin-top: 20px;
     margin-bottom: 20px;
+    max-width: 1140px;
 }
 
 /* Заголовки */
@@ -71,8 +72,13 @@ table thead th {
     padding: 10px;
     border: 1px solid #E0E0E0;
     font-weight: bold;
-    font-size: 13px;
+    font-size: 12px;
     text-align: center;
+    min-width: 100px; /* Минимальная ширина ячеек */
+    max-width: 200px; /* Максимальная ширина ячеек */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 table tbody td {
