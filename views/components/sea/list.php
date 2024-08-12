@@ -30,7 +30,7 @@
 
         <td><?= htmlspecialchars($item->deliveryCost); ?></td>
         <td><?= htmlspecialchars($item->deliveryPriceValidFrom); ?></td>
-        <td class="note"><?= htmlspecialchars($item->comment) ?></td>
+        <td><?= htmlspecialchars($list->comment); ?></td>
     </tr>
     <?php endforeach; ?>
     </tbody>

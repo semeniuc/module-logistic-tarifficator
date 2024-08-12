@@ -21,6 +21,101 @@ document.addEventListener('DOMContentLoaded', function() {
         xhr.send(JSON.stringify(data));
     }
 
+    // Функция для обновления таблицы
+    function updateTable(data, formId) {
+        const tableId = formId.replace('-form', '-results');
+        const tableBody = document.querySelector(`#${tableId} tbody`);
+
+        // Функция для плавного удаления строк
+        function removeRows() {
+            return new Promise(resolve => {
+                const existingRows = tableBody.querySelectorAll('tr');
+                const totalRows = existingRows.length;
+                let removedCount = 0;
+
+                existingRows.forEach(row => {
+                    row.classList.add('hide');
+                    row.addEventListener('transitionend', () => {
+                        row.remove();
+                        removedCount++;
+                        if (removedCount === totalRows) {
+                            resolve(); // Разрешаем промис, когда все строки удалены
+                        }
+                    }, { once: true }); // Событие срабатывает один раз
+                });
+
+                // Если нет строк для удаления, сразу разрешаем промис
+                if (totalRows === 0) {
+                    resolve();
+                }
+            });
+        }
+
+        // Функция для плавного добавления строк
+        function addRows() {
+            data.forEach(row => {
+                const tr = document.createElement('tr');
+                Object.values(row).forEach(cellData => {
+                    const td = document.createElement('td');
+
+                    // Проверяем длину текста
+                    if (cellData.length > 60) {
+                        td.setAttribute('title', cellData); // Полное содержимое в атрибут title
+                        td.textContent = cellData.slice(0, 60) + '...'; // Ограничиваем текст и добавляем троеточие
+                    } else {
+                        td.textContent = cellData;
+                    }
+
+                    tr.appendChild(td);
+                });
+
+                // Добавляем строку скрытой
+                tr.classList.add('hide');
+                tableBody.appendChild(tr);
+
+                // Плавное появление строки
+                setTimeout(() => {
+                    tr.classList.remove('hide');
+                    tr.classList.add('show');
+                }, 0);
+            });
+        }
+
+
+        // Асинхронное обновление таблицы
+        async function update() {
+            await removeRows(); // Дожидаемся завершения удаления строк
+            addRows(); // Добавляем новые строки
+        }
+
+        update(); // Запускаем обновление таблицы
+    }
+
+    // Функция для отправки данных всех форм при загрузке страницы
+    function sendFormOnLoad() {
+        const forms = document.querySelectorAll('form');
+        forms.forEach(form => {
+            const formData = new FormData(form);
+            const data = {};
+            data['formId'] = form.id;
+            data['fields'] = {};
+
+            // Преобразуем данные формы в объект
+            formData.forEach((value, key) => {
+                data['fields'][key] = value;
+            });
+
+            // Определяем URL для отправки формы
+            const formAction = form.getAttribute('action') || '/local/modules/logistic.tarifficator/api/list/get';
+
+            // Отправляем запрос при загрузке страницы
+            sendAjaxRequest(formAction, 'POST', data, function(response) {
+                // Обновление таблицы с новыми данными
+                updateTable(response, form.id);
+            });
+        });
+    }
+
     // Обработка изменения значений в полях всех форм на странице
     const forms = document.querySelectorAll('form');
     forms.forEach(form => {
@@ -40,33 +135,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Отправляем запрос при изменении полей формы
             sendAjaxRequest(formAction, 'POST', data, function(response) {
-                // console.log('Ответ от сервера для формы:', response);
                 // Обновление таблицы с новыми данными
                 updateTable(response, form.id);
             });
         });
     });
-
-    // Функция для обновления таблицы
-    function updateTable(data, formId) {
-        // Определяем таблицу, которая должна быть обновлена, на основе formId
-        const tableId = formId.replace('-form', '-results'); // предположение, что id формы соответствует id таблицы
-        const tableBody = document.querySelector(`#${tableId} tbody`);
-
-        // Очистка старых данных
-        tableBody.innerHTML = '';
-
-        // Заполнение таблицы новыми данными
-        data.forEach(row => {
-            const tr = document.createElement('tr');
-            Object.values(row).forEach(cellData => {
-                const td = document.createElement('td');
-                td.textContent = cellData;
-                tr.appendChild(td);
-            });
-            tableBody.appendChild(tr);
-        });
-    }
 
     // Обработка выбора строки в таблицах на странице
     const tableRows = document.querySelectorAll('table tbody tr');
@@ -89,4 +162,8 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     });
+
+    // Вызываем функцию для отправки данных всех форм при загрузке страницы
+    sendFormOnLoad();
+
 });

@@ -68,38 +68,45 @@ table {
     font-size: 13px;
 }
 
-table thead th {
+table th, table td {
+    min-width: 100px;
+    text-align: center;
+    vertical-align: middle !important;
+}
+
+table th {
     background-color: #DBDFFB;
     color: #333;
-    padding: 10px;
-    border: 1px solid #E0E0E0;
     font-weight: bold;
     font-size: 12px;
-    text-align: center;
-    vertical-align: middle !important;
-    min-width: 100px; /* Минимальная ширина ячеек */
-    max-width: 200px; /* Максимальная ширина ячеек */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
-table tbody td {
-    padding: 10px;
-    border: 1px solid #E0E0E0;
-    text-align: center;
-    vertical-align: middle !important;
-}
-
-table tbody td.note {
+table tbody td:last-child {
+    width: 250px;
     text-align: left;
-}
-
-table tbody tr:nth-child(even) {
-    background-color: #F8F8F8;
 }
 
 table tbody tr:hover {
     background-color: #EECDD0;
     border: 1px solid #DBDFFB;
+}
+
+/* Начальные стили для анимации */
+table tbody tr {
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Стили для появления строки */
+table tbody tr.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Стили для удаления строки */
+table tbody tr.hide {
+    opacity: 0;
+    transform: translateY(10px);
 }
