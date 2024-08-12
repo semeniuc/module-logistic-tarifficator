@@ -37,6 +37,12 @@ class ApiGetListDataController extends Controller
                 containerOwner: $filter['containerOwner'] ?? '',
                 containerType: $filter['containerType'] ?? '',
             ),
+            'rail' => $listService->getRailListService(
+                pod: $filter['pod'] ?? '',
+                destination: $filter['destination'] ?? '',
+                containerOwner: $filter['containerOwner'] ?? '',
+                containerType: $filter['containerType'] ?? '',
+            ),
             default => [],
         };
     }

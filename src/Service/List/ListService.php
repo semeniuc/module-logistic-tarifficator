@@ -7,9 +7,12 @@ namespace App\Service\List;
 class ListService
 {
     private SeaListService $seaListService;
+    private RailListService $railListService;
+
     public function __construct()
     {
         $this->seaListService = new SeaListService();
+        $this->railListService = new RailListService();
     }
 
     public function getSeaListService(
@@ -21,6 +24,16 @@ class ListService
     ): array
     {
         return $this->seaListService->getList($pol, $pod, $destination, $containerOwner, $containerType);
+    }
+
+    public function getRailListService(
+        string $pod,
+        string $destination,
+        string $containerOwner,
+        string $containerType,
+    ): array
+    {
+        return $this->railListService->getList($pod, $destination, $containerOwner, $containerType);
     }
 
 }
