@@ -116,8 +116,16 @@ table tbody tr.hide {
 }
 
 /* Стили для выбранной строки */
-.table-row-selected > td {
+.table-row-selected {
     background-color: rgba(238, 205, 208, 0.5);
+}
+
+.table-row-disabled,
+.table-row-disabled:hover,
+.table-row-disabled:active {
+    cursor: auto;
+    background-color: #f8f9fa;
+    border: 1px solid #E0E0E0;
 }
 
 
