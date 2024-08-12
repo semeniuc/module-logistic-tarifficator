@@ -15,14 +15,10 @@ class HomeController extends Controller
     {
         $filters = $this->getFilters();
 
-        foreach ($filters as $filterId => $filter) {
-            $lists[$filterId] = $this->getListData($filterId, $filter);
-        }
-
         $this->view('home', [
             'title' => 'Тарификатор',
             'filters' => $filters,
-            'lists' => $lists ?? [],
+            'lists' => [],
         ]);
     }
 

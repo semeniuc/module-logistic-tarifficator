@@ -39,14 +39,6 @@ class SeaListService extends AbstractListService
         return $result ?? [];
     }
 
-    private function getFilterParam()
-    {
-
-        return [
-//            $filterFields['pol'] =>
-        ];
-    }
-
     protected function prepareDTO(array $item, string $containerOwner, string $containerType): SeaListDTO
     {
         $listFields = $this->getFieldsToList('sea');
