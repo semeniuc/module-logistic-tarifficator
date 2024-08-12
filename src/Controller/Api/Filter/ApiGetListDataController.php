@@ -15,7 +15,7 @@ class ApiGetListDataController extends Controller
 
         $this->response()->send(
             content: json_encode($content),
-            headers:['Content-Type' => 'application/json']
+            headers: ['Content-Type' => 'application/json']
         );
     }
 
@@ -39,6 +39,11 @@ class ApiGetListDataController extends Controller
             ),
             'rail' => $listService->getRailListService(
                 pod: $filter['pod'] ?? '',
+                destination: $filter['destination'] ?? '',
+                containerOwner: $filter['containerOwner'] ?? '',
+                containerType: $filter['containerType'] ?? '',
+            ),
+            'container' => $listService->getContainerListService(
                 destination: $filter['destination'] ?? '',
                 containerOwner: $filter['containerOwner'] ?? '',
                 containerType: $filter['containerType'] ?? '',

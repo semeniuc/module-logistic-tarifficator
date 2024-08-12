@@ -8,11 +8,13 @@ class ListService
 {
     private SeaListService $seaListService;
     private RailListService $railListService;
+    private ContainerListService $containerListService;
 
     public function __construct()
     {
         $this->seaListService = new SeaListService();
         $this->railListService = new RailListService();
+        $this->containerListService = new ContainerListService();
     }
 
     public function getSeaListService(
@@ -21,8 +23,7 @@ class ListService
         string $destination,
         string $containerOwner,
         string $containerType,
-    ): array
-    {
+    ): array {
         return $this->seaListService->getList($pol, $pod, $destination, $containerOwner, $containerType);
     }
 
@@ -31,10 +32,16 @@ class ListService
         string $destination,
         string $containerOwner,
         string $containerType,
-    ): array
-    {
+    ): array {
         return $this->railListService->getList($pod, $destination, $containerOwner, $containerType);
     }
 
+    public function getContainerListService(
+        string $destination,
+        string $containerOwner,
+        string $containerType,
+    ): array {
+        return $this->containerListService->getList($destination, $containerOwner, $containerType);
+    }
 }
 
