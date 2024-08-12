@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 
     // Функция для отправки AJAX запроса
     function sendAjaxRequest(url, method, data, callback) {
@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
         xhr.open(method, url, true);
         xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
 
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 if (xhr.status === 200) {
                     // Успешный ответ от сервера
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         if (removedCount === totalRows) {
                             resolve(); // Разрешаем промис, когда все строки удалены
                         }
-                    }, { once: true }); // Событие срабатывает один раз
+                    }, {once: true}); // Событие срабатывает один раз
                 });
 
                 // Если нет строк для удаления, сразу разрешаем промис
@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const formAction = form.getAttribute('action') || '/local/modules/logistic.tarifficator/api/list/get';
 
             // Отправляем запрос при загрузке страницы
-            sendAjaxRequest(formAction, 'POST', data, function(response) {
+            sendAjaxRequest(formAction, 'POST', data, function (response) {
                 // Обновление таблицы с новыми данными
                 updateTable(response, form.id);
             });
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Обработка изменения значений в полях всех форм на странице
     const forms = document.querySelectorAll('form');
     forms.forEach(form => {
-        form.addEventListener('change', function() {
+        form.addEventListener('change', function () {
             const formData = new FormData(form);
             const data = {};
             data['formId'] = form.id;
@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const formAction = form.getAttribute('action') || '/local/modules/logistic.tarifficator/api/list/get';
 
             // Отправляем запрос при изменении полей формы
-            sendAjaxRequest(formAction, 'POST', data, function(response) {
+            sendAjaxRequest(formAction, 'POST', data, function (response) {
                 // Обновление таблицы с новыми данными
                 updateTable(response, form.id);
             });
@@ -158,24 +158,34 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Обработка выбора строки в таблицах на странице
-    const tableRows = document.querySelectorAll('table tbody tr');
-    tableRows.forEach(row => {
-        row.addEventListener('click', function() {
-            const selectedRowData = {};
+    const tableBodies = document.querySelectorAll('table tbody');
+    tableBodies.forEach(tbody => {
+        tbody.addEventListener('click', function (event) {
+            // Проверяем, был ли клик по строке таблицы
+            const row = event.target.closest('tr');
+            if (row) {
+                // Удаляем класс выбора со всех строк
+                tbody.querySelectorAll('tr').forEach(tr => tr.classList.remove('table-row-selected'));
 
-            // Сбор данных из выбранной строки
-            for (let i = 0; i < this.cells.length; i++) {
-                selectedRowData[`column${i}`] = this.cells[i].innerText;
+                // Добавляем класс выбора к выбранной строке
+                row.classList.add('table-row-selected');
+
+                const selectedRowData = {};
+
+                // Сбор данных из выбранной строки
+                for (let i = 0; i < row.cells.length; i++) {
+                    selectedRowData[`column${i}`] = row.cells[i].innerText;
+                }
+
+                // Определяем URL для отправки данных строки
+                const tableAction = row.closest('table').getAttribute('data-action') || '/local/modules/logistic.tarifficator/api/list/select';
+
+                // Отправляем данные выбранной строки
+                sendAjaxRequest(tableAction, 'POST', selectedRowData, function (response) {
+                    console.log('Ответ от сервера для строки:', response);
+                    // Здесь можно выполнить дополнительные действия на основе ответа
+                });
             }
-
-            // Определяем URL для отправки данных строки
-            const tableAction = row.closest('table').getAttribute('data-action') || '/local/modules/logistic.tarifficator/api/list/select';
-
-            // Отправляем данные выбранной строки
-            sendAjaxRequest(tableAction, 'POST', selectedRowData, function(response) {
-                console.log('Ответ от сервера для строки:', response);
-                // Здесь можно выполнить дополнительные действия на основе ответа
-            });
         });
     });
 

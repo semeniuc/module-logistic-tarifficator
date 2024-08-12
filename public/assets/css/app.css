@@ -16,7 +16,7 @@ h2 {
     color: #333;
     margin-bottom: 20px;
     font-size: 18px;
-    font-weight: bold ;
+    font-weight: bold;
 }
 
 /* Формы */
@@ -92,8 +92,7 @@ table tbody td:last-child {
 }
 
 table tbody tr:hover {
-    background-color: #EECDD0;
-    border: 1px solid #DBDFFB;
+    background-color: rgba(225, 225, 225, 0.5);
 }
 
 /* Начальные стили для анимации */
@@ -115,3 +114,10 @@ table tbody tr.hide {
     opacity: 0;
     transform: translateY(10px);
 }
+
+/* Стили для выбранной строки */
+.table-row-selected > td {
+    background-color: rgba(238, 205, 208, 0.5);
+}
+
+
