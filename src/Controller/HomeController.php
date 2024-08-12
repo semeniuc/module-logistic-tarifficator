@@ -16,7 +16,6 @@ class HomeController extends Controller
         $filters = $this->getFilters();
 
         foreach ($filters as $filterId => $filter) {
-            $filterId = str_replace('_form', '', $filterId);
             $lists[$filterId] = $this->getListData($filterId, $filter);
         }
 
@@ -25,27 +24,6 @@ class HomeController extends Controller
             'filters' => $filters,
             'lists' => $lists ?? [],
         ]);
-
-
-
-        /*
-         * todo: Filter
-         * Получение уникальных значений
-         * Создания DTO
-         * Передача DTO в интерфейс
-         *
-         * todo: Select
-         * Получение всех значений попадающих под фильтр
-         * Передача выбранных значений в бэкенд
-         *
-         */
-
-
-//        dd([
-//            'filterSea' => $filterSea,
-//            'filterRailway' => $filterRailway,
-//            'filterContainer' => $filterContainer,
-//        ]);
     }
 
     private function getFilters(): array

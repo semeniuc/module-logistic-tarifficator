@@ -40,11 +40,33 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Отправляем запрос при изменении полей формы
             sendAjaxRequest(formAction, 'POST', data, function(response) {
-                console.log('Ответ от сервера для формы:', response);
-                // Здесь можно обновить таблицу или другой контент
+                // console.log('Ответ от сервера для формы:', response);
+                // Обновление таблицы с новыми данными
+                updateTable(response, form.id);
             });
         });
     });
+
+    // Функция для обновления таблицы
+    function updateTable(data, formId) {
+        // Определяем таблицу, которая должна быть обновлена, на основе formId
+        const tableId = formId.replace('-form', '-results'); // предположение, что id формы соответствует id таблицы
+        const tableBody = document.querySelector(`#${tableId} tbody`);
+
+        // Очистка старых данных
+        tableBody.innerHTML = '';
+
+        // Заполнение таблицы новыми данными
+        data.forEach(row => {
+            const tr = document.createElement('tr');
+            Object.values(row).forEach(cellData => {
+                const td = document.createElement('td');
+                td.textContent = cellData;
+                tr.appendChild(td);
+            });
+            tableBody.appendChild(tr);
+        });
+    }
 
     // Обработка выбора строки в таблицах на странице
     const tableRows = document.querySelectorAll('table tbody tr');

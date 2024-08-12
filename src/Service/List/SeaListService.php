@@ -22,14 +22,11 @@ class SeaListService extends AbstractListService
     {
         $filterFields = $this->getFieldsToFilter('sea');
 
-//        $filter = [
-//            '=' . $filterFields['pol'] => $pol,
-//            '=' . $filterFields['pod'] => $pod,
-//            '=' . $filterFields['destination'] => $destination,
-//        ];
-
-        $filter = [];
-
+        $filter = [
+            '=' . $filterFields['pol'] => $pol,
+            '=' . $filterFields['pod'] => $pod,
+            '=' . $filterFields['destination'] => $destination,
+        ];
 
         $items = $this->getItems($this->entityTypeIds['sea'], ['filter' => $filter]);
 
