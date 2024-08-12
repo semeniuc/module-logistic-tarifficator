@@ -11,6 +11,15 @@ function updateTable(data, formId) {
             let removedCount = 0;
 
             existingRows.forEach(row => {
+                // Проверяем, если строка имеет класс table-row-selected, пропускаем её
+                if (row.classList.contains('table-row-selected')) {
+                    removedCount++;
+                    if (removedCount === totalRows) {
+                        resolve(); // Разрешаем промис, когда все строки удалены или пропущены
+                    }
+                    return;
+                }
+
                 row.classList.add('hide');
                 row.addEventListener('transitionend', () => {
                     row.remove();
@@ -27,6 +36,7 @@ function updateTable(data, formId) {
             }
         });
     }
+
 
     // Функция для плавного добавления строк
     function addRows() {
