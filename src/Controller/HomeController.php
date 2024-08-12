@@ -18,7 +18,6 @@ class HomeController extends Controller
         $this->view('home', [
             'title' => 'Тарификатор',
             'filters' => $filters,
-            'lists' => [],
         ]);
     }
 

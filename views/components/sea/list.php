@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @var \App\DTO\List\SeaListDTO[] $list
- */
-
 ?>
 
 <table id="sea-results" class="table table-bordered">
@@ -20,18 +16,5 @@
     </tr>
     </thead>
     <tbody>
-    <?php foreach ($list as $item):?>
-    <tr>
-        <td><?= htmlspecialchars($item->contractor); ?></td>
-        <td><?= htmlspecialchars($item->route); ?></td>
-        <td><?= htmlspecialchars($item->destination); ?></td>
-        <td><?= htmlspecialchars(mb_convert_case($item->containerOwner, MB_CASE_UPPER)); ?></td>
-        <td><?= htmlspecialchars(mb_convert_case($item->containerType, MB_CASE_UPPER)); ?></td>
-
-        <td><?= htmlspecialchars($item->deliveryCost); ?></td>
-        <td><?= htmlspecialchars($item->deliveryPriceValidFrom); ?></td>
-        <td><?= htmlspecialchars($list->comment); ?></td>
-    </tr>
-    <?php endforeach; ?>
     </tbody>
 </table>

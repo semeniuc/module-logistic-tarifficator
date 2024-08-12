@@ -53,34 +53,50 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Функция для плавного добавления строк
         function addRows() {
-            data.forEach(row => {
+            if (data.length === 0) {
                 const tr = document.createElement('tr');
-                Object.values(row).forEach(cellData => {
-                    const td = document.createElement('td');
+                const td = document.createElement('td');
+                td.textContent = 'Нет данных';
+                td.setAttribute('colspan', tableBody.closest('table').querySelectorAll('th').length);
+                td.style.textAlign = 'center';
+                tr.appendChild(td);
 
-                    // Проверяем длину текста
-                    if (cellData.length > 60) {
-                        td.setAttribute('title', cellData); // Полное содержимое в атрибут title
-                        td.textContent = cellData.slice(0, 60) + '...'; // Ограничиваем текст и добавляем троеточие
-                    } else {
-                        td.textContent = cellData;
-                    }
-
-                    tr.appendChild(td);
-                });
-
-                // Добавляем строку скрытой
                 tr.classList.add('hide');
                 tableBody.appendChild(tr);
 
-                // Плавное появление строки
                 setTimeout(() => {
                     tr.classList.remove('hide');
                     tr.classList.add('show');
                 }, 0);
-            });
-        }
+            } else {
+                data.forEach(row => {
+                    const tr = document.createElement('tr');
+                    Object.values(row).forEach(cellData => {
+                        const td = document.createElement('td');
 
+                        // Проверяем длину текста
+                        if (cellData.length > 60) {
+                            td.setAttribute('title', cellData); // Полное содержимое в атрибут title
+                            td.textContent = cellData.slice(0, 60) + '...'; // Ограничиваем текст и добавляем троеточие
+                        } else {
+                            td.textContent = cellData;
+                        }
+
+                        tr.appendChild(td);
+                    });
+
+                    // Добавляем строку скрытой
+                    tr.classList.add('hide');
+                    tableBody.appendChild(tr);
+
+                    // Плавное появление строки
+                    setTimeout(() => {
+                        tr.classList.remove('hide');
+                        tr.classList.add('show');
+                    }, 0);
+                });
+            }
+        }
 
         // Асинхронное обновление таблицы
         async function update() {
