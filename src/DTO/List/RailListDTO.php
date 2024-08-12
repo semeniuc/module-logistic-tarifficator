@@ -12,6 +12,7 @@ class RailListDTO implements ListDTO
         public readonly string $containerOwner,
         public readonly string $containerType,
         public readonly string $deliveryCost,
+        public readonly string $securityCost,
         public readonly string $deliveryPriceValidFrom,
         public readonly string $comment,
     )

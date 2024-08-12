@@ -48,6 +48,7 @@ class RailListService extends AbstractListService
             containerOwner:  $containerOwner,
             containerType:  $containerType,
             deliveryCost: "",
+            securityCost: "",
             deliveryPriceValidFrom: "6/20/2024",
             comment: $item[$listFields['comment']]
         );

@@ -79,6 +79,7 @@ table th {
     color: #333;
     font-weight: bold;
     font-size: 12px;
+    white-space: nowrap;
 }
 
 table th:last-child {
