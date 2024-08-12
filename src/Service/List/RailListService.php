@@ -6,7 +6,6 @@ namespace App\Service\List;
 
 use App\DTO\List\ListDTO;
 use App\DTO\List\RailListDTO;
-use App\DTO\List\SeaListDTO;
 
 class RailListService extends AbstractListService
 {
