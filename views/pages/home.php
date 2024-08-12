@@ -15,7 +15,7 @@ $view->component('header', $data);
     <h2>Морская перевозка</h2>
     <?php
         $view->component('sea/filter', ['filter' => $data['filters']['sea']]);
-        $view->component('sea/list', ['list' => []]);
+        $view->component('sea/list', ['list' => $data['lists']['sea']]);
     ?>
 
 

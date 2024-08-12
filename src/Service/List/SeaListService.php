@@ -5,33 +5,64 @@ declare(strict_types=1);
 namespace App\Service\List;
 
 use App\DTO\List\ListDTO;
+use App\DTO\List\SeaListDTO;
 
 class SeaListService extends AbstractListService
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     /**
      * @return ListDTO[]
      */
-    public function getList(array $params): array
+    public function getList(
+        string $pol,
+        string $pod,
+        string $destination,
+        string $containerOwner,
+        string $containerType
+    ): array
     {
-        $result = $this->entityRepository->getItems($this->entityTypeIds['sea']);
+        $filterFields = $this->getFieldsToFilter('sea');
 
-        dd([
-            'fields' => $this->getFieldsToList('sea'),
-            'sea' => $result,
+//        $filter = [
+//            '=' . $filterFields['pol'] => $pol,
+//            '=' . $filterFields['pod'] => $pod,
+//            '=' . $filterFields['destination'] => $destination,
+//        ];
 
-        ]);
+        $filter = [];
 
-        return [];
+
+        $items = $this->getItems($this->entityTypeIds['sea'], ['filter' => $filter]);
+
+        if (count($items) > 0) {
+            foreach ($items as $item) {
+                $result[] = $this->prepareDTO($item, $containerOwner, $containerType);
+            }
+        }
+
+        return $result ?? [];
     }
 
-    private function getParams()
+    private function getFilterParam()
     {
-        
+
+        return [
+//            $filterFields['pol'] =>
+        ];
     }
 
+    protected function prepareDTO(array $item, string $containerOwner, string $containerType): SeaListDTO
+    {
+        $listFields = $this->getFieldsToList('sea');
+
+        return new SeaListDTO(
+            contractor: $item[$listFields['contractor']],
+            route: $item[$listFields['route']],
+            destination: $item[$listFields['destination']],
+            containerOwner:  $containerOwner,
+            containerType:  $containerType,
+            deliveryCost: "",
+            deliveryPriceValidFrom: "6/20/2024",
+            comment: $item[$listFields['comment']]
+        );
+    }
 }

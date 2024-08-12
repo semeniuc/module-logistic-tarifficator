@@ -10,14 +10,21 @@ class ApiGetListDataController extends Controller
 {
     public function execute(): void
     {
-        $result = $this->request()->post;
+        $content = $this->prepareResponse($this->request()->post);
 
         $this->response()->send(
-            content: json_encode([
-                'result' => $result ?? [],
-                'class' => 'ApiGetListDataController',
-            ]),
+            content: json_encode($content),
             headers:['Content-Type' => 'application/json']
         );
+    }
+
+    private function getEntityName(): string
+    {
+        return "";
+    }
+
+    private function prepareResponse(array $post): array
+    {
+        return [];
     }
 }

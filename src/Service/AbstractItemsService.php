@@ -17,9 +17,9 @@ abstract class AbstractItemsService
         $this->getEntityTypeIds();
     }
 
-    public function getItems(int $entityTypeId): array
+    public function getItems(int $entityTypeId, array $params = []): array
     {
-        return $this->entityRepository->getItems($entityTypeId);
+        return $this->entityRepository->getItems($entityTypeId, $params);
     }
 
     private function getEntityTypeIds(): void
