@@ -7,7 +7,7 @@
     <tr>
         <th>Арендодатель</th>
         <th>Пункт назначения</th>
-        <th>Drop off</th>
+        <th class="container-dynamic-name">Drop off</th>
         <th>Стоимость</th>
         <th>Срок действия</th>
         <th>Нотация</th>

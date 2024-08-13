@@ -14,7 +14,7 @@
             foreach ($filter->getDestinations() as $destination) {
                 ?>
                 <option value="<?= $destination ?>"><?= $destination ?></option>
-            <?php
+                <?php
             } ?>
         </select>
     </div>
@@ -25,18 +25,18 @@
             foreach ($filter->getContainerOwners() as $containerOwner) {
                 ?>
                 <option value="<?= $containerOwner ?>"><?= mb_convert_case($containerOwner, MB_CASE_UPPER) ?></option>
-            <?php
+                <?php
             } ?>
         </select>
     </div>
     <div class="form-select-small">
         <label for="container-container" class="form-label">Контейнер:</label>
-        <select id="container-container" class="form-select disabled" name="containerType" disabled>
+        <select id="container-container" class="form-select" name="containerType">
             <?php
             foreach ($filter->getContainerTypes() as $containerType) {
                 ?>
                 <option value="<?= $containerType ?>"><?= mb_convert_case($containerType, MB_CASE_UPPER) ?></option>
-            <?php
+                <?php
             } ?>
         </select>
     </div>

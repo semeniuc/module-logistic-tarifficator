@@ -63,9 +63,9 @@ function updateTable(data, formId) {
                     const td = document.createElement('td');
 
                     // Проверяем длину текста
-                    if (cellData.length > 60) {
+                    if (cellData.length > 30) {
                         td.setAttribute('title', cellData); // Полное содержимое в атрибут title
-                        td.textContent = cellData.slice(0, 60) + '...'; // Ограничиваем текст и добавляем троеточие
+                        td.textContent = cellData.slice(0, 30) + '...'; // Ограничиваем текст и добавляем троеточие
                     } else {
                         td.textContent = cellData;
                     }
