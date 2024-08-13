@@ -18,8 +18,7 @@ class SeaListService extends AbstractListService
         string $destination,
         string $containerOwner,
         string $containerType
-    ): array
-    {
+    ): array {
         $filterFields = $this->getFieldsToFilter('sea');
 
         $filter = [
@@ -42,15 +41,15 @@ class SeaListService extends AbstractListService
     protected function prepareDTO(array $item, string $containerOwner, string $containerType): SeaListDTO
     {
         $listFields = $this->getFieldsToList('sea');
-
+        
         return new SeaListDTO(
             contractor: $item[$listFields['contractor']],
             route: $item[$listFields['route']],
             destination: $item[$listFields['destination']],
-            containerOwner:  $containerOwner,
-            containerType:  $containerType,
+            containerOwner: $containerOwner,
+            containerType: $containerType,
             deliveryCost: "",
-            deliveryPriceValidFrom: "6/20/2024",
+            deliveryPriceValidFrom: $this->getDate($item[$listFields['deliveryPriceValidTill']]),
             comment: $item[$listFields['comment']]
         );
     }

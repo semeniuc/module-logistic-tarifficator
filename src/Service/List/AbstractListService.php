@@ -42,4 +42,13 @@ abstract class AbstractListService extends AbstractItemsService
 
         return $result;
     }
+
+    protected function getDate(string $value, string $format = 'Y-m-d'): string
+    {
+        if (!empty($value) && $timestamp = strtotime($value)) {
+            return date($format, $timestamp);
+        }
+
+        return $value;
+    }
 }

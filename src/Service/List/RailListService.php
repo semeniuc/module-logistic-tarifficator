@@ -17,8 +17,7 @@ class RailListService extends AbstractListService
         string $destination,
         string $containerOwner,
         string $containerType
-    ): array
-    {
+    ): array {
         $filterFields = $this->getFieldsToFilter('railway');
 
         $filter = [
@@ -44,11 +43,11 @@ class RailListService extends AbstractListService
         return new RailListDTO(
             contractor: $item[$listFields['contractor']],
             destination: $item[$listFields['destination']],
-            containerOwner:  $containerOwner,
-            containerType:  $containerType,
+            containerOwner: $containerOwner,
+            containerType: $containerType,
             deliveryCost: "",
             securityCost: "",
-            deliveryPriceValidFrom: "6/20/2024",
+            deliveryPriceValidFrom: $this->getDate($item[$listFields['deliveryPriceValidTill']]),
             comment: $item[$listFields['comment']]
         );
     }

@@ -43,7 +43,7 @@ class ContainerListService extends AbstractListService
             destination: $item[$listFields['destination']],
             containerType: $containerType,
             rentalCost: "",
-            rentalPriceValidFrom: "6/20/2024",
+            rentalPriceValidFrom: $this->getDate($item[$listFields['priceValidTill']]),
             comment: $item[$listFields['comment']]
         );
     }
