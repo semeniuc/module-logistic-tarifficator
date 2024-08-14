@@ -62,6 +62,14 @@ export function updateTable(data, formId) {
                 Object.values(row).forEach(cellData => {
                     const td = document.createElement('td');
 
+                    // Проверяем, содержит ли значение подстроки "soc", "coc", "40hc", "20dry"
+                    const keywords = ['soc', 'coc', '40hc', '20dry'];
+                    keywords.forEach(keyword => {
+                        if (cellData.toLowerCase().includes(keyword)) {
+                            cellData = cellData.toUpperCase();
+                        }
+                    });
+
                     // Проверяем длину текста
                     if (cellData.length > 30) {
                         td.setAttribute('title', cellData); // Полное содержимое в атрибут title
