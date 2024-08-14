@@ -5,15 +5,21 @@ import {updateTable} from "./updateTable.js";
 export function sendFormOnLoad() {
     const forms = document.querySelectorAll('form');
     forms.forEach(form => {
-        const formData = new FormData(form);
-        const data = {};
-        data['formId'] = form.id;
-        data['fields'] = {};
+        const formElement = document.querySelector(`#${form.id}`);
+        const formData = new FormData();
 
-        // Преобразуем данные формы в объект
-        formData.forEach((value, key) => {
-            data['fields'][key] = value;
+        // Обходим все элементы формы, включая отключённые
+        const elements = formElement.querySelectorAll('input, select, textarea');
+        elements.forEach(element => {
+            if (element.name) {
+                formData.append(element.name, element.value);
+            }
         });
+
+        const data = {
+            formId: form.id,
+            fields: Object.fromEntries(formData.entries())
+        };
 
         // Определяем URL для отправки формы
         const formAction = form.getAttribute('action') || '/local/modules/logistic.tarifficator/api/list/get';
@@ -23,5 +29,28 @@ export function sendFormOnLoad() {
             // Обновление таблицы с новыми данными
             updateTable(response, form.id);
         });
+    });
+}
+
+function updateResults(formId) {
+    const formElement = document.querySelector(`#${formId}`);
+    const formData = new FormData();
+
+    // Обходим все элементы формы, включая отключённые
+    const elements = formElement.querySelectorAll('input, select, textarea');
+    elements.forEach(element => {
+        if (element.name) {
+            formData.append(element.name, element.value);
+        }
+    });
+
+    const data = {
+        formId: formId,
+        fields: Object.fromEntries(formData.entries())
+    };
+
+    const formAction = '/local/modules/logistic.tarifficator/api/list/get';
+    sendAjaxRequest(formAction, 'POST', data, function (response) {
+        updateTable(response, formId);
     });
 }

@@ -25,16 +25,25 @@ export function handleSeaContainerChange() {
 
 // Функция для обновления списка rail-results
 function updateRailResults() {
-    const formData = new FormData(document.querySelector('#rail-form'));
+    const formElement = document.querySelector(`#rail-form`);
+    const formData = new FormData();
+
+    // Обходим все элементы формы, включая отключённые
+    const elements = formElement.querySelectorAll('input, select, textarea');
+    elements.forEach(element => {
+        if (element.name) {
+            formData.append(element.name, element.value);
+        }
+    });
+
     const data = {
         formId: 'rail-form',
         fields: Object.fromEntries(formData.entries())
     };
 
-    // Отправляем запрос для обновления списка
     const formAction = '/local/modules/logistic.tarifficator/api/list/get';
     sendAjaxRequest(formAction, 'POST', data, function (response) {
-        updateTable(response, 'rail-form'); // Обновляем таблицу с новыми данными
+        updateTable(response, 'rail-form');
     });
 }
 
