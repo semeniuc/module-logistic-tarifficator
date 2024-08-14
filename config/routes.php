@@ -1,5 +1,6 @@
 <?php
 
+use App\Controller\Api\ExchangeRate\ApiGetExchangeRateController;
 use App\Controller\Api\Filter\ApiGetFilterDataController;
 use App\Controller\Api\Filter\ApiGetListDataController;
 use App\Controller\HomeController;
@@ -14,4 +15,5 @@ return [
     Route::get(APP_URL, [HomeController::class, 'index']),
     Route::get(APP_URL . 'api/list/get', [ApiGetListDataController::class, 'execute']),
     Route::get(APP_URL . 'api/list/select', [ApiGetFilterDataController::class, 'execute']),
+    Route::get(APP_URL . 'api/rate/get', [ApiGetExchangeRateController::class, 'execute']),
 ];
