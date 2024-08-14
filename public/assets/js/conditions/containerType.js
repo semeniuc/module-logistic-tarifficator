@@ -1,7 +1,7 @@
+// Обработчик изменения значения в формах
 import {sendAjaxRequest} from "../action/ajax.js";
 import {updateTable} from "../action/updateTable.js";
 
-// Обработчик изменения значения в формах
 export function handleContainerTypeChange() {
     const seaContainerType = document.querySelector('#sea-form select[name="containerType"]');
     const railContainerType = document.querySelector('#rail-form select[name="containerType"]');
@@ -13,14 +13,22 @@ export function handleContainerTypeChange() {
         // ЖД
         if (railContainerType.value !== '40hc') {
             railContainerType.value = '40hc';
-            updateResults('rail-form');
+            // updateResults('rail-form');
+
+            const railForm = railContainerType.form;
+
+            console.log('railForm', railForm.elements);
+            updateResults(railForm);
         }
         railContainerType.disabled = true;
 
         // Аренда
         if (boxContainerType.value !== '40hc') {
             boxContainerType.value = '40hc';
-            updateResults('container-form');
+            // updateResults('container-form');
+
+            const boxForm = boxContainerType.form;
+            updateResults(boxForm);
         }
         boxContainerType.disabled = true;
 
@@ -29,6 +37,10 @@ export function handleContainerTypeChange() {
         // ЖД
         if (railContainerType.value === '40hc') {
             railContainerType.value = '20dry (<24т)';
+            // updateResults('rail-form');
+
+            const railForm = railContainerType.form;
+            updateResults(railForm);
         }
 
         // Блокируем выбор 40hc
@@ -40,17 +52,28 @@ export function handleContainerTypeChange() {
         // Аренда
         if (boxContainerType.value !== '20dry') {
             boxContainerType.value = '20dry';
-            updateResults('container-form');
+            // updateResults('container-form');
+
+            const boxForm = boxContainerType.form;
+            updateResults(boxForm);
         }
         boxContainerType.disabled = true;
     }
 }
 
 // Функция для обновления списка
-function updateResults(formId) {
-    const formData = new FormData(document.querySelector(`#${formId}`));
+function updateResults(formElement) {
+    const formData = new FormData();
+
+    // Обходим все элементы формы, включая отключённые
+    const elements = formElement.querySelectorAll('input, select, textarea');
+    elements.forEach(element => {
+        if (element.name) {
+            formData.append(element.name, element.value);
+        }
+    });
+
     const data = {
-        formId: formId,
         fields: Object.fromEntries(formData.entries())
     };
 
@@ -58,7 +81,7 @@ function updateResults(formId) {
 
     const formAction = '/local/modules/logistic.tarifficator/api/list/get';
     sendAjaxRequest(formAction, 'POST', data, function (response) {
-        updateTable(response, formId);
+        updateTable(response, formElement.id); // Если нужен ID формы
     });
 }
 

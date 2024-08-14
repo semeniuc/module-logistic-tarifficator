@@ -10,6 +10,7 @@ export function handleFormChanges() {
             const data = {};
             data['formId'] = form.id;
             data['fields'] = {};
+            data['handler'] = 'listenerForm';
 
             // Преобразуем данные формы в объект
             formData.forEach((value, key) => {
