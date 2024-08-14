@@ -9,11 +9,11 @@ function openPopup(url, title) {
             text: title,
         },
         events: {
-            onLoad: function(event) {
-                console.log('Popup loaded');
+            onLoad: function (event) {
+                // console.log('Popup loaded');
             },
-            onClose: function(event) {
-                console.log('Popup closed');
+            onClose: function (event) {
+                // console.log('Popup closed');
             }
         }
     });

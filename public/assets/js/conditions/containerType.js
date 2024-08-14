@@ -1,5 +1,8 @@
-// Обработчик изменения значения в sea-form
-function handleContainerTypeChange() {
+import {sendAjaxRequest} from "../action/ajax.js";
+import {updateTable} from "../action/updateTable.js";
+
+// Обработчик изменения значения в формах
+export function handleContainerTypeChange() {
     const seaContainerType = document.querySelector('#sea-form select[name="containerType"]');
     const railContainerType = document.querySelector('#rail-form select[name="containerType"]');
     const boxContainerType = document.querySelector('#container-form select[name="containerType"]');
@@ -10,14 +13,14 @@ function handleContainerTypeChange() {
         // ЖД
         if (railContainerType.value !== '40hc') {
             railContainerType.value = '40hc';
-            updateRailResults();
+            updateResults('rail-form');
         }
         railContainerType.disabled = true;
 
         // Аренда
         if (boxContainerType.value !== '40hc') {
             boxContainerType.value = '40hc';
-            updateContainerResults();
+            updateResults('container-form');
         }
         boxContainerType.disabled = true;
 
@@ -37,40 +40,25 @@ function handleContainerTypeChange() {
         // Аренда
         if (boxContainerType.value !== '20dry') {
             boxContainerType.value = '20dry';
-            updateContainerResults();
+            updateResults('container-form');
         }
         boxContainerType.disabled = true;
     }
-
 }
 
-// Функция для обновления списка rail-results
-function updateRailResults() {
-    const formData = new FormData(document.querySelector('#rail-form'));
+// Функция для обновления списка
+function updateResults(formId) {
+    const formData = new FormData(document.querySelector(`#${formId}`));
     const data = {
-        formId: 'rail-form',
+        formId: formId,
         fields: Object.fromEntries(formData.entries())
     };
 
-    // Отправляем запрос для обновления списка
+    console.log('updateResults', data);
+
     const formAction = '/local/modules/logistic.tarifficator/api/list/get';
     sendAjaxRequest(formAction, 'POST', data, function (response) {
-        updateTable(response, 'rail-form'); // Обновляем таблицу с новыми данными
-    });
-}
-
-// Функция для обновления списка container-results
-function updateContainerResults() {
-    const formData = new FormData(document.querySelector('#container-form'));
-    const data = {
-        formId: 'container-form',
-        fields: Object.fromEntries(formData.entries())
-    };
-
-    // Отправляем запрос для обновления списка
-    const formAction = '/local/modules/logistic.tarifficator/api/list/get';
-    sendAjaxRequest(formAction, 'POST', data, function (response) {
-        updateTable(response, 'container-form'); // Обновляем таблицу с новыми данными
+        updateTable(response, formId);
     });
 }
 

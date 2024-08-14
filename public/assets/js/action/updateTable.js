@@ -1,5 +1,5 @@
 // Функция для обновления таблицы
-function updateTable(data, formId) {
+export function updateTable(data, formId) {
     const tableId = formId.replace('-form', '-results');
     const tableBody = document.querySelector(`#${tableId} tbody`);
 

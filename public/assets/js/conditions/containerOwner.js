@@ -1,5 +1,8 @@
 // Обработчик изменения значения в sea-form
-function handleSeaContainerChange() {
+import {sendAjaxRequest} from "../action/ajax.js";
+import {updateTable} from "../action/updateTable.js";
+
+export function handleSeaContainerChange() {
     const seaContainerOwner = document.querySelector('#sea-form select[name="containerOwner"]');
     const railContainerOwner = document.querySelector('#rail-form select[name="containerOwner"]');
 

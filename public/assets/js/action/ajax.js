@@ -1,5 +1,5 @@
 // Функция для отправки AJAX запроса
-function sendAjaxRequest(url, method, data, callback) {
+export function sendAjaxRequest(url, method, data, callback) {
     const xhr = new XMLHttpRequest();
     xhr.open(method, url, true);
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
