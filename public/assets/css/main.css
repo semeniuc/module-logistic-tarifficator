@@ -1,0 +1,22 @@
+body {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    background-color: #f8f9fa;
+    padding-left: 30px;
+    padding-right: 20px;
+}
+
+/* Основной контейнер */
+.container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    max-width: 1140px;
+}
+
+/* Заголовки */
+h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}

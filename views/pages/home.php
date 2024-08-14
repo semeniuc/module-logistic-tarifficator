@@ -28,7 +28,12 @@ $view->component('header', $data);
         <h2 class="container-dynamic-name">Drop Off</h2>
         <?php
         $view->component('container/filter', ['filter' => $data['filters']['container']]);
-        $view->component('container/list', ['list' => []]);
+        $view->component('container/list');
+        ?>
+
+        <h2>Итог</h2>
+        <?php
+        $view->component('result/form');
         ?>
     </div>
 
