@@ -59,10 +59,18 @@ export function updateTable(data, formId) {
         } else {
             data.forEach(row => {
                 const tr = document.createElement('tr');
+
+                // Создаем чекбокс и добавляем его в первую ячейку
+                const checkboxTd = document.createElement('td');
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkboxTd.classList.add('select-box');
+                checkboxTd.appendChild(checkbox);
+                tr.appendChild(checkboxTd);
+
                 Object.values(row).forEach(cellData => {
                     const td = document.createElement('td');
 
-                    // Проверяем, содержит ли значение подстроки "soc", "coc", "40hc", "20dry"
                     const keywords = ['soc', 'coc', '40hc', '20dry'];
                     keywords.forEach(keyword => {
                         if (cellData.toLowerCase().includes(keyword)) {
@@ -70,10 +78,9 @@ export function updateTable(data, formId) {
                         }
                     });
 
-                    // Проверяем длину текста
                     if (cellData.length > 30) {
-                        td.setAttribute('title', cellData); // Полное содержимое в атрибут title
-                        td.textContent = cellData.slice(0, 30) + '...'; // Ограничиваем текст и добавляем троеточие
+                        td.setAttribute('title', cellData);
+                        td.textContent = cellData.slice(0, 30) + '...';
                     } else {
                         td.textContent = cellData;
                     }
@@ -81,11 +88,9 @@ export function updateTable(data, formId) {
                     tr.appendChild(td);
                 });
 
-                // Добавляем строку скрытой
                 tr.classList.add('hide');
                 tableBody.appendChild(tr);
 
-                // Плавное появление строки
                 setTimeout(() => {
                     tr.classList.remove('hide');
                     tr.classList.add('show');

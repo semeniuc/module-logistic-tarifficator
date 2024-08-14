@@ -2,6 +2,8 @@ body {
     font-family: Arial, sans-serif;
     font-size: 12px;
     background-color: #f8f9fa;
+    padding-left: 30px;
+    padding-right: 20px;
 }
 
 /* Основной контейнер */
@@ -61,17 +63,20 @@ form select {
 /* Таблицы */
 table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: collapse !important;
     margin-bottom: 20px;
     background-color: #FFF;
-    border: 1px solid #E0E0E0;
+    /*border: 1px solid #E0E0E0;*/
+    border-left: none !important;
     font-size: 13px;
 }
 
 table th, table td {
-    min-width: 100px;
+    width: 200px;
     text-align: center;
     vertical-align: middle !important;
+    /*padding-left: 30px !important;*/
+    /*padding-right: 30px !important;*/
 }
 
 table th {
@@ -83,11 +88,11 @@ table th {
 }
 
 table th:last-child {
-    width: 250px;
+    min-width: 260px;
 }
 
 table tbody td:last-child {
-    width: 250px;
+    min-width: 260px;
     text-align: left;
 }
 
@@ -129,4 +134,20 @@ table tbody tr.hide {
     border: 1px solid #E0E0E0;
 }
 
+table td.select-box,
+table th:first-child {
+    position: absolute;
+    top: 14px;
+    left: -25px;
+    border: none;
+    padding: 0;
+    width: 0;
+}
 
+table th:first-child {
+    background-color: #f8f9fa;
+}
+
+input[type="checkbox"] {
+    cursor: pointer;
+}

@@ -5,6 +5,7 @@
 <table id="sea-results" class="table table-bordered">
     <thead class="table-light">
     <tr>
+        <th></th>
         <th>Агент</th>
         <th>Морская линия</th>
         <th>Пункт назначения</th>
