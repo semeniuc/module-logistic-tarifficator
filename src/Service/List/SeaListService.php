@@ -41,16 +41,35 @@ class SeaListService extends AbstractListService
     protected function prepareDTO(array $item, string $containerOwner, string $containerType): SeaListDTO
     {
         $listFields = $this->getFieldsToList('sea');
-        
+
+        $deliveryCost = $this->getDeliveryCost($item, $containerOwner, $containerType);
+
         return new SeaListDTO(
             contractor: $item[$listFields['contractor']],
             route: $item[$listFields['route']],
             destination: $item[$listFields['destination']],
             containerOwner: $containerOwner,
             containerType: $containerType,
-            deliveryCost: "",
+            deliveryCost: $deliveryCost,
             deliveryPriceValidFrom: $this->getDate($item[$listFields['deliveryPriceValidTill']]),
             comment: $item[$listFields['comment']]
         );
+    }
+
+    private function getDeliveryCost(array $item, string $containerOwner, string $containerType): ?string
+    {
+        $listFields = $this->getFieldsToList('sea');
+
+        if ($containerType === '40hc') {
+            $value = $item[$listFields['deliveryCostSoc40Hc']];
+        } else {
+            if ($containerOwner === 'soc') {
+                $value = $item[$listFields['deliveryCostSoc20Dry']];
+            } else {
+                $value = $item[$listFields['deliveryCostCoc20Dry']];
+            }
+        }
+
+        return $this->getCost($value ?? '', '$');
     }
 }

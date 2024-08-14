@@ -39,16 +39,58 @@ class RailListService extends AbstractListService
     protected function prepareDTO(array $item, string $containerOwner, string $containerType): RailListDTO
     {
         $listFields = $this->getFieldsToList('railway');
+        $deliveryCost = $this->getDeliveryCost($item, $containerOwner, $containerType);
+        $securityCost = $this->getSecurityCost($item, $containerType);
 
         return new RailListDTO(
             contractor: $item[$listFields['contractor']],
             destination: $item[$listFields['destination']],
             containerOwner: $containerOwner,
             containerType: $containerType,
-            deliveryCost: "",
-            securityCost: "",
+            deliveryCost: $deliveryCost,
+            securityCost: $securityCost,
             deliveryPriceValidFrom: $this->getDate($item[$listFields['deliveryPriceValidTill']]),
             comment: $item[$listFields['comment']]
         );
+    }
+
+    private function getDeliveryCost(array $item, string $containerOwner, string $containerType): ?string
+    {
+        $listFields = $this->getFieldsToList('railway');
+
+        if ($containerType === '40hc') {
+            if ($containerOwner === 'soc') {
+                $value = $item[$listFields['deliveryCostSoc40Hc']];
+            } else {
+                $value = $item[$listFields['deliveryCostCoc40Hc']];
+            }
+        } elseif ($containerType === '20dry (<24т)') {
+            if ($containerOwner === 'soc') {
+                $value = $item[$listFields['deliveryCostSoc20DryLess24']];
+            } else {
+                $value = $item[$listFields['deliveryCostCoc20DryLess24']];
+            }
+        } elseif ($containerType === '20dry (>24т)') {
+            if ($containerOwner === 'soc') {
+                $value = $item[$listFields['deliveryCostSoc20DryMore24']];
+            } else {
+                $value = $item[$listFields['deliveryCostCoc20DryMore24']];
+            }
+        }
+
+        return $this->getCost($value ?? '');
+    }
+
+    private function getSecurityCost(array $item, string $containerType): string
+    {
+        $listFields = $this->getFieldsToList('railway');
+
+        if ($containerType === '40hc') {
+            $value = $item[$listFields['securityCost40Hc']];
+        } else {
+            $value = $item[$listFields['securityCost20Dry']];
+        }
+
+        return $this->getCost($value ?? '');
     }
 }

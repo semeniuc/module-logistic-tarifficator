@@ -37,14 +37,28 @@ class ContainerListService extends AbstractListService
     protected function prepareDTO(array $item, string $containerOwner, string $containerType): ContainerListDTO
     {
         $listFields = $this->getFieldsToList('container');
+        $rentalCost = $this->getRentalCost($item, $containerOwner, $containerType);
 
         return new ContainerListDTO(
             contractor: $item[$listFields['contractor']],
             destination: $item[$listFields['destination']],
             containerType: $containerType,
-            rentalCost: "",
+            rentalCost: $rentalCost,
             rentalPriceValidFrom: $this->getDate($item[$listFields['priceValidTill']]),
             comment: $item[$listFields['comment']]
         );
+    }
+
+    private function getRentalCost(array $item, string $containerOwner, string $containerType): ?string
+    {
+        $listFields = $this->getFieldsToList('container');
+
+        if ($containerType === '40hc') {
+            $value = $item[$listFields['cost40Hc']];
+        } else {
+            $value = $item[$listFields['cost20Dry']];
+        }
+
+        return $this->getCost($value ?? '', '$');
     }
 }

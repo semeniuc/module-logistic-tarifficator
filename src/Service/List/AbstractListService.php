@@ -13,8 +13,6 @@ abstract class AbstractListService extends AbstractItemsService
         parent::__construct();
     }
 
-//    abstract public function getList(...$ar): array;
-
     protected function getFieldsToFilter(string $type): array
     {
         $fields = (include APP_PATH . '/config/fields/' . $type . '.php');
@@ -50,5 +48,19 @@ abstract class AbstractListService extends AbstractItemsService
         }
 
         return $value;
+    }
+
+    protected function getCost(int|string $value, string $currency = '₽'): string
+    {
+        if ($value) {
+            $result = str_replace(['.', ','], '', $value);
+            $result = number_format(
+                num: (floatval($result)),
+                thousands_separator: ' ',
+            );
+            return $result . ' ' . $currency;
+        }
+
+        return 0 . ' ' . $currency;
     }
 }
