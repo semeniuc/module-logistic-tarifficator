@@ -10,6 +10,9 @@ export function handleRowSelection() {
                 const checkbox = row.querySelector('input[type="checkbox"]');
 
                 if (checkbox) {
+                    // Переключение состояния чекбокса при клике на строку
+                    checkbox.checked = !checkbox.checked;
+
                     if (checkbox.checked) {
                         // Удаляем класс выделения у всех строк, кроме текущей
                         tbody.querySelectorAll('tr').forEach(tr => {
@@ -20,7 +23,7 @@ export function handleRowSelection() {
                             }
                         });
 
-                        // Добавляем классы выделения и фона к текущей строке
+                        // Добавляем класс выделения к текущей строке
                         row.classList.add('table-row-selected');
 
                         const selectedRowData = {};
@@ -39,7 +42,7 @@ export function handleRowSelection() {
                             // Здесь можно выполнить дополнительные действия на основе ответа
                         });
                     } else {
-                        // Если чекбокс не отмечен, снимаем выделение
+                        // Если чекбокс снят, снимаем выделение
                         row.classList.remove('table-row-selected');
                     }
                 }
