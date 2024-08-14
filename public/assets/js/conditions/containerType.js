@@ -13,22 +13,14 @@ export function handleContainerTypeChange() {
         // ЖД
         if (railContainerType.value !== '40hc') {
             railContainerType.value = '40hc';
-            // updateResults('rail-form');
-
-            const railForm = railContainerType.form;
-
-            console.log('railForm', railForm.elements);
-            updateResults(railForm);
+            updateResults('rail-form');
         }
         railContainerType.disabled = true;
 
         // Аренда
         if (boxContainerType.value !== '40hc') {
             boxContainerType.value = '40hc';
-            // updateResults('container-form');
-
-            const boxForm = boxContainerType.form;
-            updateResults(boxForm);
+            updateResults('container-form');
         }
         boxContainerType.disabled = true;
 
@@ -37,10 +29,7 @@ export function handleContainerTypeChange() {
         // ЖД
         if (railContainerType.value === '40hc') {
             railContainerType.value = '20dry (<24т)';
-            // updateResults('rail-form');
-
-            const railForm = railContainerType.form;
-            updateResults(railForm);
+            updateResults('rail-form');
         }
 
         // Блокируем выбор 40hc
@@ -52,17 +41,15 @@ export function handleContainerTypeChange() {
         // Аренда
         if (boxContainerType.value !== '20dry') {
             boxContainerType.value = '20dry';
-            // updateResults('container-form');
-
-            const boxForm = boxContainerType.form;
-            updateResults(boxForm);
+            updateResults('container-form');
         }
         boxContainerType.disabled = true;
     }
 }
 
 // Функция для обновления списка
-function updateResults(formElement) {
+function updateResults(formId) {
+    const formElement = document.querySelector(`#${formId}`);
     const formData = new FormData();
 
     // Обходим все элементы формы, включая отключённые
@@ -74,14 +61,13 @@ function updateResults(formElement) {
     });
 
     const data = {
+        formId: formId,
         fields: Object.fromEntries(formData.entries())
     };
 
-    console.log('updateResults', data);
-
     const formAction = '/local/modules/logistic.tarifficator/api/list/get';
     sendAjaxRequest(formAction, 'POST', data, function (response) {
-        updateTable(response, formElement.id); // Если нужен ID формы
+        updateTable(response, formId);
     });
 }
 
