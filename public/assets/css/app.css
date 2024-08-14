@@ -75,8 +75,6 @@ table th, table td {
     width: 200px;
     text-align: center;
     vertical-align: middle !important;
-    /*padding-left: 30px !important;*/
-    /*padding-right: 30px !important;*/
 }
 
 table th {
@@ -121,7 +119,7 @@ table tbody tr.hide {
     transform: translateY(10px);
 }
 
-/* Стили для выбранной строки */
+/* Стили для отмеченной строки */
 .table-row-selected {
     background-color: rgba(238, 205, 208, 0.5);
 }
