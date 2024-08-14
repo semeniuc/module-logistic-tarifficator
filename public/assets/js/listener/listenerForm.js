@@ -6,15 +6,21 @@ export function handleFormChanges() {
     const forms = document.querySelectorAll('form');
     forms.forEach(form => {
         form.addEventListener('change', function () {
-            const formData = new FormData(form);
-            const data = {};
-            data['formId'] = form.id;
-            data['fields'] = {};
+            const formElement = document.querySelector(`#${form.id}`);
+            const formData = new FormData();
 
-            // Преобразуем данные формы в объект
-            formData.forEach((value, key) => {
-                data['fields'][key] = value;
+            // Обходим все элементы формы, включая отключённые
+            const elements = formElement.querySelectorAll('input, select, textarea');
+            elements.forEach(element => {
+                if (element.name) {
+                    formData.append(element.name, element.value);
+                }
             });
+
+            const data = {
+                formId: form.id,
+                fields: Object.fromEntries(formData.entries())
+            };
 
             // Определяем URL для отправки формы
             const formAction = form.getAttribute('action') || '/local/modules/logistic.tarifficator/api/list/get';
