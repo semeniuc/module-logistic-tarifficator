@@ -1,4 +1,4 @@
-import {sendAjaxRequest} from "../action/ajax.js";
+import {updateSummationForm} from "../action/summationRowSelected.js";
 
 // Обработка выбора строки в таблицах на странице
 export function handleRowSelection() {
@@ -32,20 +32,13 @@ export function handleRowSelection() {
                         for (let i = 0; i < row.cells.length; i++) {
                             selectedRowData[`column${i}`] = row.cells[i].innerText;
                         }
-
-                        // Определяем URL для отправки данных строки
-                        const tableAction = row.closest('table').getAttribute('data-action') || '/local/modules/logistic.tarifficator/api/list/select';
-
-                        // Отправляем данные выбранной строки
-                        sendAjaxRequest(tableAction, 'POST', selectedRowData, function (response) {
-                            console.log('Ответ от сервера для строки:', response);
-                            // Здесь можно выполнить дополнительные действия на основе ответа
-                        });
                     } else {
                         // Если чекбокс снят, снимаем выделение
                         row.classList.remove('table-row-selected');
                     }
                 }
+
+                updateSummationForm();
             }
         });
     });
