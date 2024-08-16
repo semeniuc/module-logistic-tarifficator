@@ -3,6 +3,8 @@ import './action/ajax.js';
 import './action/updateTable.js';
 import './action/updateSummationForm.js';
 import {sendFormOnLoad} from './action/sendFormOnLoad.js';
+import {fetchAndUpdateExchangeRate} from "./action/getExchangeRate.js";
+
 import './conditions/containerOwner.js';
 import './conditions/containerType.js';
 
@@ -16,4 +18,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     handleFormChanges(); // Подписка на изменение форм (select)
     handleRowSelection(); // Подписка на выбор строк (row)
+
+    fetchAndUpdateExchangeRate(); // Обновление курса
 });

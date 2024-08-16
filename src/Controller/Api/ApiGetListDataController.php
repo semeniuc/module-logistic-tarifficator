@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Api\Filter;
+namespace App\Controller\Api;
 
 use App\Kernel\Controller\Controller;
 use App\Service\List\ListService;
