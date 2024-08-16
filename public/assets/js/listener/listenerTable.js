@@ -1,4 +1,4 @@
-import {updateSummationForm} from "../action/summationRowSelected.js";
+import {updateSummationForm} from "../action/updateSummationForm.js";
 
 // Обработка выбора строки в таблицах на странице
 export function handleRowSelection() {

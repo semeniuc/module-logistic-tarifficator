@@ -1,6 +1,7 @@
 // Action
 import './action/ajax.js';
 import './action/updateTable.js';
+import './action/updateSummationForm.js';
 import {sendFormOnLoad} from './action/sendFormOnLoad.js';
 import './conditions/containerOwner.js';
 import './conditions/containerType.js';
