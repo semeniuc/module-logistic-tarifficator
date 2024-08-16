@@ -1,11 +1,18 @@
 import {sendAjaxRequest} from "../action/ajax.js";
 import {updateTable} from "../action/updateTable.js";
+import {updateSummationForm} from "../action/updateSummationForm.js";
 
 // Обработка изменения значений в полях всех форм на странице
 export function handleFormChanges() {
     const forms = document.querySelectorAll('form');
     forms.forEach(form => {
         form.addEventListener('change', function () {
+            if (form.id === 'result-form') {
+                // Запускаем функцию для обновления формы
+                updateSummationForm();
+                return; // Прерываем обработчик, чтобы не отправлять данные формы
+            }
+
             const formElement = document.querySelector(`#${form.id}`);
             const formData = new FormData();
 

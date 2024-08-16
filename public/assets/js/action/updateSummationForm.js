@@ -16,10 +16,16 @@ function getSumFromTable(tableId, cellIndexes) {
 }
 
 // Получение комиссии из формы
-function getCommission(commissionId) {
-    return parseFloat(
-        document.getElementById(commissionId).value.replace(',', '.').replace(/[^0-9.-]+/g, "")
-    ) || 0;
+function getCommission(id) {
+    const element = document.getElementById(id);
+    const value = parseFloat(
+        element.value.replace(',', '.').replace(/[^0-9.-]+/g, "")
+    );
+    if (isNaN(value)) {
+        element.value = '';
+        return 0;
+    }
+    return element.value = value;
 }
 
 // Форматирование суммы
@@ -61,9 +67,9 @@ export function updateSummationForm() {
     // Расчет итоговой суммы
     totalSum = seaSum + railSum + dropOffSum;
     if (totalCommission > 0) {
-        totalSum = (seaSum + railSum + dropOffSum) * (totalCommission / 100);
+        totalSum += totalSum * (totalCommission / 100);
     }
-
+    
     // Форматируем значения
     const formattedSeaSum = formatSum(seaSum);
     const formattedDropOffSum = formatSum(dropOffSum);
