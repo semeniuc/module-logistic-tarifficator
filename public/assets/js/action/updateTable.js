@@ -3,6 +3,10 @@ export function updateTable(data, formId) {
     const tableId = formId.replace('-form', '-results');
     const tableBody = document.querySelector(`#${tableId} tbody`);
 
+    if (!tableBody) {
+        return;
+    }
+
     // Функция для плавного удаления строк
     function removeRows() {
         return new Promise(resolve => {

@@ -31,26 +31,3 @@ export function sendFormOnLoad() {
         });
     });
 }
-
-function updateResults(formId) {
-    const formElement = document.querySelector(`#${formId}`);
-    const formData = new FormData();
-
-    // Обходим все элементы формы, включая отключённые
-    const elements = formElement.querySelectorAll('input, select, textarea');
-    elements.forEach(element => {
-        if (element.name) {
-            formData.append(element.name, element.value);
-        }
-    });
-
-    const data = {
-        formId: formId,
-        fields: Object.fromEntries(formData.entries())
-    };
-
-    const formAction = '/local/modules/logistic.tarifficator/api/list/get';
-    sendAjaxRequest(formAction, 'POST', data, function (response) {
-        updateTable(response, formId);
-    });
-}
