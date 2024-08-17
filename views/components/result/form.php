@@ -46,15 +46,16 @@
                 <h5>Авто</h5>
             </div>
             <div class="row">
-                <div class="col-8">
+                <div class="col-12">
                     <label for="result-auto-cost" class="form-label">Сумма</label>
                     <input id="result-auto-cost" class="form-control" name="auto-cost" placeholder="0,00 ₽">
                 </div>
-                <div class="col-4">
-                    <label for="result-auto-commission" class="form-label">Комиссия</label>
-                    <input id="result-auto-commission" class="form-control" name="auto-commission" placeholder="0">
-                    <small class="text-muted">Введите %</small>
-                </div>
+                <!--                <div class="col-4">-->
+                <!--                    <label for="result-auto-commission" class="form-label">Комиссия</label>-->
+                <!--                    <input id="result-auto-commission" class="form-control" name="auto-commission" placeholder="0"-->
+                <!--                           disabled>-->
+                <!--                    <small class="text-muted">Введите %</small>-->
+                <!--                </div>-->
             </div>
         </div>
 
@@ -81,9 +82,9 @@
             <div class="row">
                 <div class="col-2">
                     <label for="exchange-rate" class="form-label">Курс USD</label>
-                    <input id="exchange-rate" class="form-control" name="exchange-rate" value="86,33"
+                    <input id="exchange-rate" class="form-control" name="exchange-rate" value="00,00"
                            disabled>
-                    <small id="date-exchange-rate" class="text-muted">31.07.2024</small>
+                    <small id="date-exchange-rate" class="text-muted">Дата обновление курса</small>
                 </div>
                 <div class="col-3">
                     <label for="result-total-cost" class="form-label">Сумма</label>
