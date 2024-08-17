@@ -18,6 +18,11 @@ function getSumFromTable(tableId, cellIndexes) {
 // Получение комиссии из формы
 function getValueFromInput(id) {
     const element = document.getElementById(id);
+
+    if (!element) {
+        return 0;
+    }
+
     const value = parseFloat(
         element.value.replace(',', '.').replace(/[^0-9.-]+/g, "")
     );
