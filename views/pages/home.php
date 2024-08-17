@@ -12,6 +12,11 @@ $view->component('header', $data);
 ?>
 
     <div class="container">
+        <h2>Итог</h2>
+        <?php
+        $view->component('result/form');
+        ?>
+
         <h2>Морская перевозка</h2>
         <?php
         $view->component('sea/filter', ['filter' => $data['filters']['sea']]);
@@ -29,11 +34,6 @@ $view->component('header', $data);
         <?php
         $view->component('container/filter', ['filter' => $data['filters']['container']]);
         $view->component('container/list');
-        ?>
-
-        <h2>Итог</h2>
-        <?php
-        $view->component('result/form');
         ?>
     </div>
 

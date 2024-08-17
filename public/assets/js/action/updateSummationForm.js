@@ -16,7 +16,7 @@ function getSumFromTable(tableId, cellIndexes) {
 }
 
 // Получение комиссии из формы
-function getCommission(id) {
+function getValueFromInput(id) {
     const element = document.getElementById(id);
     const value = parseFloat(
         element.value.replace(',', '.').replace(/[^0-9.-]+/g, "")
@@ -42,12 +42,14 @@ export function updateSummationForm() {
     let seaSum = getSumFromTable('sea-results', [6]);
     let railSum = getSumFromTable('rail-results', [5, 6]);
     let dropOffSum = getSumFromTable('container-results', [4]);
+    let autoSum = getValueFromInput('result-auto-cost');
     let totalSum = 0;
 
     // Получаем комиссии и курс обмена
-    const seaCommission = getCommission('result-sea-commission');
-    const railCommission = getCommission('result-rail-commission');
-    const totalCommission = getCommission('result-total-commission')
+    const seaCommission = getValueFromInput('result-sea-commission');
+    const railCommission = getValueFromInput('result-rail-commission');
+    const autoSumCommission = getValueFromInput('result-auto-commission');
+    const totalCommission = getValueFromInput('result-total-commission');
     const exchangeRate = parseFloat(
         document.getElementById('exchange-rate').value.replace(',', '.').replace(/[^0-9.-]+/g, "")
     ) || 1;
@@ -59,26 +61,31 @@ export function updateSummationForm() {
     if (railCommission > 0) {
         railSum += railSum * (railCommission / 100);
     }
+    if (autoSumCommission > 0) {
+        autoSum += autoSum * (autoSumCommission / 100);
+    }
 
     // Конвертируем суммы из долларов в рубли и округляем до двух знаков после запятой
     seaSum = parseFloat(seaSum * exchangeRate);
     dropOffSum = parseFloat(dropOffSum * exchangeRate);
 
     // Расчет итоговой суммы
-    totalSum = seaSum + railSum + dropOffSum;
+    totalSum = seaSum + railSum + autoSum + dropOffSum;
     if (totalCommission > 0) {
         totalSum += totalSum * (totalCommission / 100);
     }
-    
+
     // Форматируем значения
     const formattedSeaSum = formatSum(seaSum);
     const formattedDropOffSum = formatSum(dropOffSum);
     const formattedRailSum = formatSum(railSum);
+    const formattedAutoSum = formatSum(autoSum);
     const formattedTotalSum = formatSum(totalSum);
 
     // Обновляем значения в форме суммирования
     document.getElementById('result-sea-cost').value = `${formattedSeaSum} ₽`;
     document.getElementById('result-rail-cost').value = `${formattedRailSum} ₽`;
     document.getElementById('result-rental-cost').value = `${formattedDropOffSum} ₽`;
+    document.getElementById('result-auto-cost').value = `${formattedAutoSum} ₽`;
     document.getElementById('result-total-cost').value = `${formattedTotalSum} ₽`;
 }

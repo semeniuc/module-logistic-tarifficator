@@ -48,7 +48,7 @@
             <div class="row">
                 <div class="col-8">
                     <label for="result-auto-cost" class="form-label">Сумма</label>
-                    <input id="result-auto-cost" class="form-control" name="auto-cost" value="0,00 ₽" disabled>
+                    <input id="result-auto-cost" class="form-control" name="auto-cost" placeholder="0,00 ₽">
                 </div>
                 <div class="col-4">
                     <label for="result-auto-commission" class="form-label">Комиссия</label>
