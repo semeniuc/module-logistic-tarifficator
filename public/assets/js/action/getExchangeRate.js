@@ -13,7 +13,7 @@ export function fetchAndUpdateExchangeRate() {
 
         // Обновляем поле ввода курсом доллара
         const exchangeRateInput = document.getElementById('exchange-rate');
-        exchangeRateInput.value = rate.toFixed(2); // Устанавливаем курс, округленный до двух знаков после запятой
+        exchangeRateInput.value = rate.toFixed(2) + ' ₽';
 
         // Обновляем элемент с датой
         const dateElement = document.getElementById('date-exchange-rate');

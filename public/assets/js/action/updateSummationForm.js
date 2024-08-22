@@ -54,43 +54,58 @@ export function updateSummationForm() {
     const seaCommission = getValueFromInput('result-sea-commission');
     const railCommission = getValueFromInput('result-rail-commission');
     const autoSumCommission = getValueFromInput('result-auto-commission');
-    const totalCommission = getValueFromInput('result-total-commission');
     const exchangeRate = parseFloat(
         document.getElementById('exchange-rate').value.replace(',', '.').replace(/[^0-9.-]+/g, "")
     ) || 1;
 
     // Прибавляем комиссии к суммам только если комиссия больше 0
     if (seaCommission > 0) {
-        seaSum += seaSum * (seaCommission / 100);
+        seaSum += seaCommission;
     }
     if (railCommission > 0) {
-        railSum += railSum * (railCommission / 100);
+        railSum += railCommission;
     }
     if (autoSumCommission > 0) {
         autoSum += autoSum * (autoSumCommission / 100);
     }
 
     // Конвертируем суммы из долларов в рубли и округляем до двух знаков после запятой
-    seaSum = parseFloat(seaSum * exchangeRate);
-    dropOffSum = parseFloat(dropOffSum * exchangeRate);
+    let seaSumRub = parseFloat(seaSum * exchangeRate);
+    let dropOffSumRub = parseFloat(dropOffSum * exchangeRate);
 
     // Расчет итоговой суммы
-    totalSum = seaSum + railSum + autoSum + dropOffSum;
-    if (totalCommission > 0) {
-        totalSum += totalSum * (totalCommission / 100);
-    }
+    totalSum = seaSumRub + railSum + autoSum + dropOffSumRub;
 
-    // Форматируем значения
+    // Форматируем суммы
     const formattedSeaSum = formatSum(seaSum);
     const formattedDropOffSum = formatSum(dropOffSum);
     const formattedRailSum = formatSum(railSum);
     const formattedAutoSum = formatSum(autoSum);
     const formattedTotalSum = formatSum(totalSum);
 
-    // Обновляем значения в форме суммирования
-    document.getElementById('result-sea-cost').value = `${formattedSeaSum} ₽`;
+    // Обновляем суммы
+    document.getElementById('result-sea-cost').value = '$ ' + `${formattedSeaSum}`;
     document.getElementById('result-rail-cost').value = `${formattedRailSum} ₽`;
-    document.getElementById('result-rental-cost').value = `${formattedDropOffSum} ₽`;
-    document.getElementById('result-auto-cost').value = `${formattedAutoSum} ₽`;
+    document.getElementById('result-rental-cost').value = '$ ' + `${formattedDropOffSum}`;
     document.getElementById('result-total-cost').value = `${formattedTotalSum} ₽`;
+    if (autoSum > 0) {
+        document.getElementById('result-auto-cost').value = `${formattedAutoSum} ₽`;
+    } else {
+        document.getElementById('result-auto-cost').value = ``;
+    }
+
+    // Обновляем коммиссии
+    if (seaCommission > 0) {
+        const formattedSeaCommission = formatSum(seaCommission);
+        document.getElementById('result-sea-commission').value = `$ ${formattedSeaCommission}`;
+    } else {
+        document.getElementById('result-sea-commission').value = ``;
+    }
+
+    if (railCommission > 0) {
+        const formattedRailCommission = formatSum(railCommission);
+        document.getElementById('result-rail-commission').value = `${formattedRailCommission}  ₽`;
+    } else {
+        document.getElementById('result-rail-commission').value = ``;
+    }
 }

@@ -42,16 +42,12 @@ form#result-form {
     display: block;
 }
 
-#result-form .row {
-    width: 100%;
-}
-
 #result-form label {
     cursor: default;
 }
 
 #result-form h5 {
     font-size: 16px;
-    margin-left: 15px;
+    /*margin-left: 15px;*/
     padding-bottom: 0;
 }
