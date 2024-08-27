@@ -15,7 +15,7 @@ class RailListDTO implements ListDTO
         public readonly string $securityCost,
         public readonly string $deliveryPriceValidFrom,
         public readonly string $comment,
-    )
-    {
+        public readonly bool $isActive,
+    ) {
     }
 }

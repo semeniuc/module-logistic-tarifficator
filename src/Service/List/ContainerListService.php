@@ -38,14 +38,16 @@ class ContainerListService extends AbstractListService
     {
         $listFields = $this->getFieldsToList('container');
         $rentalCost = $this->getRentalCost($item, $containerOwner, $containerType);
+        $validTill = $this->getDate($item[$listFields['priceValidTill']]);
 
         return new ContainerListDTO(
             contractor: $item[$listFields['contractor']],
             destination: $item[$listFields['destination']],
             containerType: $containerType,
             rentalCost: $rentalCost,
-            rentalPriceValidFrom: $this->getDate($item[$listFields['priceValidTill']]),
-            comment: $item[$listFields['comment']]
+            rentalPriceValidFrom: $validTill,
+            comment: $item[$listFields['comment']],
+            isActive: $this->isActive($validTill),
         );
     }
 

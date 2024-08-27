@@ -41,6 +41,7 @@ class RailListService extends AbstractListService
         $listFields = $this->getFieldsToList('railway');
         $deliveryCost = $this->getDeliveryCost($item, $containerOwner, $containerType);
         $securityCost = $this->getSecurityCost($item, $containerType);
+        $validTill = $this->getDate($item[$listFields['deliveryPriceValidTill']]);
 
         return new RailListDTO(
             contractor: $item[$listFields['contractor']],
@@ -49,8 +50,9 @@ class RailListService extends AbstractListService
             containerType: $containerType,
             deliveryCost: $deliveryCost,
             securityCost: $securityCost,
-            deliveryPriceValidFrom: $this->getDate($item[$listFields['deliveryPriceValidTill']]),
-            comment: $item[$listFields['comment']]
+            deliveryPriceValidFrom: $validTill,
+            comment: $item[$listFields['comment']],
+            isActive: $this->isActive($validTill),
         );
     }
 

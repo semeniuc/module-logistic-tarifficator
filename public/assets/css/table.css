@@ -65,9 +65,9 @@ table tbody tr.hide {
 .table-row-disabled,
 .table-row-disabled:hover,
 .table-row-disabled:active {
-    cursor: auto;
+    cursor: default;
     background-color: #f8f9fa;
-    border: 1px solid #E0E0E0;
+    border: none !important;
 }
 
 table td.select-box,
@@ -86,4 +86,8 @@ table th:first-child {
 
 input[type="checkbox"] {
     cursor: pointer;
+}
+
+input[type="checkbox"]:disabled {
+    cursor: default;
 }

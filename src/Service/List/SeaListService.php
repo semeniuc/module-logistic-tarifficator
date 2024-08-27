@@ -43,6 +43,7 @@ class SeaListService extends AbstractListService
         $listFields = $this->getFieldsToList('sea');
 
         $deliveryCost = $this->getDeliveryCost($item, $containerOwner, $containerType);
+        $validTill = $this->getDate($item[$listFields['deliveryPriceValidTill']]);
 
         return new SeaListDTO(
             contractor: $item[$listFields['contractor']],
@@ -51,8 +52,9 @@ class SeaListService extends AbstractListService
             containerOwner: $containerOwner,
             containerType: $containerType,
             deliveryCost: $deliveryCost,
-            deliveryPriceValidFrom: $this->getDate($item[$listFields['deliveryPriceValidTill']]),
-            comment: $item[$listFields['comment']]
+            deliveryPriceValidFrom: $validTill,
+            comment: $item[$listFields['comment']],
+            isActive: $this->isActive($validTill),
         );
     }
 

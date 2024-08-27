@@ -50,6 +50,19 @@ abstract class AbstractListService extends AbstractItemsService
         return $value;
     }
 
+    protected function isActive(string $value): bool
+    {
+        if (!empty($value)) {
+            if ($timestamp = strtotime($value)) {
+                return date('Y-m-d', $timestamp) >= date('Y-m-d');
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
     protected function getCost(int|string $value, string $currency = '₽'): string
     {
         if ($value) {

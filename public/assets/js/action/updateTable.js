@@ -64,6 +64,11 @@ export function updateTable(data, formId) {
             data.forEach(row => {
                 const tr = document.createElement('tr');
 
+                // Если isActive равно false, добавляем класс table-row-disabled
+                if (row.isActive === false) {
+                    tr.classList.add('table-row-disabled');
+                }
+
                 // Создаем чекбокс и добавляем его в первую ячейку
                 const checkboxTd = document.createElement('td');
                 const checkbox = document.createElement('input');
@@ -72,24 +77,33 @@ export function updateTable(data, formId) {
                 checkboxTd.appendChild(checkbox);
                 tr.appendChild(checkboxTd);
 
-                Object.values(row).forEach(cellData => {
-                    const td = document.createElement('td');
+                // Делаем чекбокс неактивным, если isActive равно false
+                if (row.isActive === false) {
+                    checkbox.disabled = true;
+                }
 
-                    const keywords = ['soc', 'coc', '40hc', '20dry'];
-                    keywords.forEach(keyword => {
-                        if (cellData.toLowerCase().includes(keyword)) {
-                            cellData = cellData.toUpperCase();
+                // Проходим по ключам, кроме isActive
+                Object.keys(row).forEach(key => {
+                    if (key !== 'isActive') {
+                        const td = document.createElement('td');
+                        let cellData = row[key];
+
+                        const keywords = ['soc', 'coc', '40hc', '20dry'];
+                        keywords.forEach(keyword => {
+                            if (cellData.toLowerCase().includes(keyword)) {
+                                cellData = cellData.toUpperCase();
+                            }
+                        });
+
+                        if (cellData.length > 30) {
+                            td.setAttribute('title', cellData);
+                            td.textContent = cellData.slice(0, 30) + '...';
+                        } else {
+                            td.textContent = cellData;
                         }
-                    });
 
-                    if (cellData.length > 30) {
-                        td.setAttribute('title', cellData);
-                        td.textContent = cellData.slice(0, 30) + '...';
-                    } else {
-                        td.textContent = cellData;
+                        tr.appendChild(td);
                     }
-
-                    tr.appendChild(td);
                 });
 
                 tr.classList.add('hide');
