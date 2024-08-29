@@ -62,12 +62,22 @@ table tbody tr.hide {
     background-color: rgba(238, 205, 208, 0.5);
 }
 
+.table-row-not-found,
+.table-row-not-found:hover,
+.table-row-not-found:active {
+    cursor: default;
+    background-color: #f8f9fa;
+    border: none !important;
+}
+
 .table-row-disabled,
 .table-row-disabled:hover,
 .table-row-disabled:active {
     cursor: default;
-    background-color: #f8f9fa;
-    border: none !important;
+    background-color: rgba(246, 246, 246, 0.5);
+    color: rgba(51, 51, 51, 0.5);
+    text-decoration: line-through;
+    /*border: none !important;*/
 }
 
 table td.select-box,

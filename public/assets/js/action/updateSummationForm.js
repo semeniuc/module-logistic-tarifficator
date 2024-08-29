@@ -104,7 +104,7 @@ export function updateSummationForm() {
 
     if (railCommission > 0) {
         const formattedRailCommission = formatSum(railCommission);
-        document.getElementById('result-rail-commission').value = `${formattedRailCommission}  ₽`;
+        document.getElementById('result-rail-commission').value = `${formattedRailCommission} ₽`;
     } else {
         document.getElementById('result-rail-commission').value = ``;
     }

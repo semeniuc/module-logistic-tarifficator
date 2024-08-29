@@ -52,7 +52,7 @@ export function updateTable(data, formId) {
             td.style.textAlign = 'center';
             tr.appendChild(td);
 
-            tr.setAttribute('class', 'table-row-disabled');
+            tr.setAttribute('class', 'table-row-not-found');
             tr.classList.add('hide');
             tableBody.appendChild(tr);
 
