@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Kernel\View;
+namespace Tarifficator\Kernel\View;
 
-use App\Kernel\Exceptions\ViewNotFoundException;
+use Tarifficator\Kernel\Exceptions\ViewNotFoundException;
 
 class View
 {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Api;
+namespace Tarifficator\Controller\Api;
 
-use App\Kernel\Controller\Controller;
 use SimpleXMLElement;
+use Tarifficator\Kernel\Controller\Controller;
 
 class ApiGetExchangeRateController extends Controller
 {

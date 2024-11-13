@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\DTO\List;
+namespace Tarifficator\DTO\List;
 
 class ContainerListDTO implements ListDTO
 {
@@ -13,7 +13,8 @@ class ContainerListDTO implements ListDTO
         public readonly string $rentalCost,
         public readonly string $rentalPriceValidFrom,
         public readonly string $comment,
-        public readonly bool $isActive,
-    ) {
+        public readonly bool   $isActive,
+    )
+    {
     }
 }

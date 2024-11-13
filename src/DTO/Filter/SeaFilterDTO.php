@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\DTO\Filter;
+namespace Tarifficator\DTO\Filter;
 
 class SeaFilterDTO implements FilterDTO
 {
     private array $containerOwners = [
-        'soc',
         'coc',
+        'soc',
     ];
 
     private array $containerTypes = [

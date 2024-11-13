@@ -7,9 +7,11 @@ export function handleFormChanges() {
     const forms = document.querySelectorAll('form');
     forms.forEach(form => {
         form.addEventListener('change', function () {
+
+            // Запускаем функцию для обновления формы
+            updateSummationForm();
+
             if (form.id === 'result-form') {
-                // Запускаем функцию для обновления формы
-                updateSummationForm();
                 return; // Прерываем обработчик, чтобы не отправлять данные формы
             }
 
@@ -28,7 +30,7 @@ export function handleFormChanges() {
                 formId: form.id,
                 fields: Object.fromEntries(formData.entries())
             };
-
+            
             // Определяем URL для отправки формы
             const formAction = form.getAttribute('action') || '/local/modules/logistic.tarifficator/api/list/get';
 

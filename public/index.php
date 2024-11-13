@@ -2,9 +2,9 @@
 
 define('APP_PATH', dirname(__DIR__));
 
-use App\Kernel\App;
-use App\Kernel\Http\Response;
 use Symfony\Component\Dotenv\Dotenv;
+use Tarifficator\Kernel\App;
+use Tarifficator\Kernel\Http\Response;
 
 try {
     require_once $_SERVER['DOCUMENT_ROOT'] . '/bitrix/modules/main/include/prolog_before.php';
@@ -20,7 +20,7 @@ try {
 
     define("APP_ENV", $_SERVER['APP_ENV']);
     define("APP_URL", $_SERVER['APP_URL']);
-
+    
     $app = new App();
     $app->run();
 } catch (Throwable $th) {

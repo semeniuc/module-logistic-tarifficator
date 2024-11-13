@@ -33,6 +33,12 @@ class logistic_tarifficator extends CModule
         );
     }
 
+    public function InstallEvents(): void
+    {
+        $eventManager = EventManager::getInstance();
+        $eventManager->registerEventHandler('main', 'onProlog', $this->MODULE_ID, '\Tarifficator\Listener\TarifficatorTabListener', 'handler');
+    }
+
     public function DoUninstall(): void
     {
         ModuleManager::unRegisterModule($this->MODULE_ID);
@@ -47,15 +53,9 @@ class logistic_tarifficator extends CModule
         );
     }
 
-    public function InstallEvents(): void
-    {
-        $eventManager = EventManager::getInstance();
-        $eventManager->registerEventHandler('main', 'onProlog', $this->MODULE_ID, '\App\Listener\TarifficatorTabListener', 'handler');
-    }
-
     public function UnInstallEvents(): void
     {
         $eventManager = EventManager::getInstance();
-        $eventManager->unRegisterEventHandler('main', 'onProlog', $this->MODULE_ID, '\App\Listener\TarifficatorTabListener', 'handler');
+        $eventManager->unRegisterEventHandler('main', 'onProlog', $this->MODULE_ID, '\Tarifficator\Listener\TarifficatorTabListener', 'handler');
     }
 }

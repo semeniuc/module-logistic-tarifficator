@@ -1,22 +1,36 @@
+@import "form.css";
+@import "table.css";
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Open Sans', sans-serif;
+    background-color: #EEF2F4;
     font-size: 12px;
-    background-color: #f8f9fa;
-    padding-left: 30px;
-    padding-right: 20px;
+    color: #333333;
 }
 
-/* Основной контейнер */
-.container {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    max-width: 1140px;
-}
-
-/* Заголовки */
 h2 {
-    color: #333;
-    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+h5 {
     font-size: 18px;
-    font-weight: bold;
+}
+
+.container {
+    min-width: 100%;
+}
+
+.content {
+    display: block;
+    margin: 20px 20px 30px 20px;
+    box-sizing: border-box;
+}
+
+.content-block {
+    display: block;
+    padding: 20px 30px;
+    margin: 15px 0 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DTO\Filter;
+namespace Tarifficator\DTO\Filter;
 
 interface FilterDTO
 {

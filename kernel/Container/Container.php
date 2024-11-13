@@ -2,20 +2,21 @@
 
 declare(strict_types=1);
 
-namespace App\Kernel\Container;
+namespace Tarifficator\Kernel\Container;
 
-use App\Kernel\Http\Request;
-use App\Kernel\Http\Response;
-use App\Kernel\Router\Router;
-use App\Kernel\View\View;
+use Tarifficator\Kernel\Http\Request;
+use Tarifficator\Kernel\Http\Response;
+use Tarifficator\Kernel\Router\Router;
+use Tarifficator\Kernel\View\View;
 
 class Container
 {
     public function __construct(
         public readonly Request $request,
-        public readonly Router $router,
-        public readonly View $view,
-    ) {
+        public readonly Router  $router,
+        public readonly View    $view,
+    )
+    {
     }
 
     public static function registerServices(): static

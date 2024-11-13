@@ -1,39 +1,40 @@
-/* Таблицы */
+:root {
+    --table-color: #666;
+    --row-active: #EDFFEB;
+    --row-hover: #F8F8F8;
+    --row-disabled: #FFF7FA;
+    --border-light: #dee2e6;
+    --border-dark: #333;
+}
+
 table {
-    width: 100%;
-    border-collapse: collapse !important;
-    margin-bottom: 20px;
-    background-color: #FFF;
-    /*border: 1px solid #E0E0E0;*/
-    border-left: none !important;
-    font-size: 13px;
+    display: table !important;
+    border: none !important;
+    color: var(--table-color) !important;
 }
 
 table th, table td {
-    width: 200px;
     text-align: center;
     vertical-align: middle !important;
+    font-weight: normal !important;
+    border: none !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 table th {
     background-color: #DBDFFB;
     color: #333;
-    font-weight: bold;
-    font-size: 12px;
-    white-space: nowrap;
 }
 
-table th:last-child {
-    min-width: 260px;
+table th:last-child,
+table tbody td:last-child {
+    /*width: 50px;*/
 }
 
 table tbody td:last-child {
-    min-width: 260px;
     text-align: left;
-}
-
-table tbody tr:hover {
-    background-color: rgba(225, 225, 225, 0.5);
 }
 
 /* Начальные стили для анимации */
@@ -42,6 +43,11 @@ table tbody tr {
     opacity: 0;
     transform: translateY(-10px);
     transition: opacity 0.3s ease, transform 0.3s ease;
+    border: 1px solid var(--border-light) !important;
+}
+
+table tbody tr:hover {
+    background-color: var(--row-hover);
 }
 
 /* Стили для появления строки */
@@ -59,7 +65,11 @@ table tbody tr.hide {
 
 /* Стили для отмеченной строки */
 .table-row-selected {
-    background-color: rgba(238, 205, 208, 0.5);
+    background-color: var(--row-active) !important;
+}
+
+.table-row-selected:hover {
+    background-color: #E5F6E4FF !important;
 }
 
 .table-row-not-found,
@@ -67,17 +77,17 @@ table tbody tr.hide {
 .table-row-not-found:active {
     cursor: default;
     background-color: #f8f9fa;
-    border: none !important;
 }
 
 .table-row-disabled,
 .table-row-disabled:hover,
 .table-row-disabled:active {
     cursor: default;
-    background-color: rgba(246, 246, 246, 0.5);
-    color: rgba(51, 51, 51, 0.5);
-    text-decoration: line-through;
-    /*border: none !important;*/
+    background-color: var(--row-disabled);
+}
+
+.table-row-disabled > td:nth-last-child(2) {
+    color: #ED91AA;
 }
 
 table td.select-box,
@@ -94,10 +104,72 @@ table th:first-child {
     background-color: #f8f9fa;
 }
 
+input:disabled:hover,
+select:disabled:hover {
+    border-color: var(--border-light) !important;
+}
+
 input[type="checkbox"] {
     cursor: pointer;
+    display: none; /* !!! Выключены чекбоксы */
 }
 
 input[type="checkbox"]:disabled {
     cursor: default;
+}
+
+/* Нотации */
+td.comment-icon {
+    position: relative;
+    text-align: center;
+    display: flex;
+    align-items: center; /* Вертикальное выравнивание */
+    justify-content: center; /* Горизонтальное выравнивание */
+    height: 100%; /* Убедитесь, что ячейка занимает всю высоту */
+}
+
+.icon {
+    display: inline-block;
+    width: 50px;
+    height: 16px;
+    content: '';
+    --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'%3E%3Cpath fill='%23000' d='M480 674V192c0-18 14-32 32-32s32 14 32 32v482zm0 63h64v60h-64zM0 512C0 229 229 0 512 0s512 229 512 512s-229 512-512 512S0 795 0 512m961 0c0-247-202-448-449-448S64 265 64 512s201 448 448 448s449-201 449-448'/%3E%3C/svg%3E");
+    background-color: #2FC6F6;
+    -webkit-mask-image: var(--svg);
+    mask-image: var(--svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+}
+
+/* Стили для кастомной подсказки */
+.comment {
+    position: absolute;
+    background-color: #fff;
+    color: var(--table-color);
+    padding: 15px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-width: 300px;
+    z-index: 1000;
+    display: none;
+    pointer-events: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .05);
+}
+
+.comment::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: -10px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent #fff transparent !important;
+}
+
+#result-form input:disabled {
+    color: #484646;
 }

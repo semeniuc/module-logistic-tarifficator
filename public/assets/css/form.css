@@ -1,53 +1,51 @@
-/* Формы */
-form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-bottom: 20px;
-    padding: 15px;
-    border: 1px solid #E0E0E0;
-    border-radius: 5px;
+label {
+    color: #828B97 !important;
+    font-size: 12px !important;
+    padding-bottom: 0 !important;
 }
 
-/* Поля выбора */
-/*form div {*/
-/*    flex: 1 1 auto; !* Поля будут занимать доступное пространство, но не больше установленной ширины *!*/
-/*    max-width: 200px; !* Устанавливаем максимальную ширину для полей *!*/
-/*}*/
-
-form div.form-select-small {
-    max-width: 100px;
+input {
+    border: 1px solid #D9D9D9 !important;
 }
 
-/* Метки и поля ввода */
-form label {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 11px;
-    color: #555;
+input:disabled {
+    background-color: #F8F8F8 !important;
+    cursor: default !important;
+}
+
+input:disabled:hover {
+    background-color: #F8F8F8 !important;
+}
+
+input:hover,
+input:focus,
+select:hover,
+select:focus {
+    border: 1px solid #49DDFD !important;
+}
+
+select {
     cursor: pointer;
 }
 
-form select {
-    padding: 8px;
-    border: 1px solid #CCC;
-    border-radius: 3px;
-    width: 100%; /* Заполняет доступное пространство */
-    background-color: #FFF;
-    cursor: pointer;
+.ui-form-row {
+    margin-bottom: 10px !important;
 }
 
-/* Итого */
-form#result-form {
-    display: block;
+#date-exchange-rate {
+    font-size: 9px !important;
+    padding: 4px 6px !important;
+    height: auto !important;
+    top: -12px !important;
 }
 
-#result-form label {
-    cursor: default;
+.ui-ctl-icon-clear {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: opacity 0.3s ease, visibility 0.3s ease !important;
 }
 
-#result-form h5 {
-    font-size: 16px;
-    /*margin-left: 15px;*/
-    padding-bottom: 0;
+.ui-ctl-icon-clear.show {
+    opacity: 1 !important;
+    visibility: visible !important;
 }

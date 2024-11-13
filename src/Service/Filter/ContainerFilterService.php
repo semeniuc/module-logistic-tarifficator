@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Filter;
+namespace Tarifficator\Service\Filter;
 
-use App\DTO\Filter\ContainerFilterDTO;
+use Tarifficator\DTO\Filter\ContainerFilterDTO;
 
 class ContainerFilterService extends AbstractFilterService
 {

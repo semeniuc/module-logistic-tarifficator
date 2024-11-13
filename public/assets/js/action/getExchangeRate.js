@@ -17,7 +17,7 @@ export function fetchAndUpdateExchangeRate() {
 
         // Обновляем элемент с датой
         const dateElement = document.getElementById('date-exchange-rate');
-        dateElement.textContent = `Курс на ${formattedDate}`;
+        dateElement.textContent = formattedDate;
     });
 }
 

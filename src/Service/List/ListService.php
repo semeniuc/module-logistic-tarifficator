@@ -2,18 +2,20 @@
 
 declare(strict_types=1);
 
-namespace App\Service\List;
+namespace Tarifficator\Service\List;
 
 class ListService
 {
     private SeaListService $seaListService;
     private RailListService $railListService;
+    private AutoListService $autoListService;
     private ContainerListService $containerListService;
 
     public function __construct()
     {
         $this->seaListService = new SeaListService();
         $this->railListService = new RailListService();
+        $this->autoListService = new AutoListService();
         $this->containerListService = new ContainerListService();
     }
 
@@ -23,7 +25,8 @@ class ListService
         string $destination,
         string $containerOwner,
         string $containerType,
-    ): array {
+    ): array
+    {
         return $this->seaListService->getList($pol, $pod, $destination, $containerOwner, $containerType);
     }
 
@@ -32,15 +35,27 @@ class ListService
         string $destination,
         string $containerOwner,
         string $containerType,
-    ): array {
+    ): array
+    {
         return $this->railListService->getList($pod, $destination, $containerOwner, $containerType);
+    }
+
+    public function getAutoListService(
+        string $station,
+        string $point,
+        string $containerOwner,
+        string $containerType,
+    ): array
+    {
+        return $this->autoListService->getList($station, $point, $containerOwner, $containerType);
     }
 
     public function getContainerListService(
         string $destination,
         string $containerOwner,
         string $containerType,
-    ): array {
+    ): array
+    {
         return $this->containerListService->getList($destination, $containerOwner, $containerType);
     }
 }

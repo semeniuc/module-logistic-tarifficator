@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Kernel\Controller;
+namespace Tarifficator\Kernel\Controller;
 
-use App\Kernel\Exceptions\ViewNotFoundException;
-use App\Kernel\Http\Request;
-use App\Kernel\Http\Response;
-use App\Kernel\View\View;
+use Tarifficator\Kernel\Exceptions\ViewNotFoundException;
+use Tarifficator\Kernel\Http\Request;
+use Tarifficator\Kernel\Http\Response;
+use Tarifficator\Kernel\View\View;
 
 abstract class Controller
 {

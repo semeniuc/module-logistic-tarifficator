@@ -1,3 +1,28 @@
+// Обработчик для кнопок очистки
+document.querySelectorAll('.ui-ctl-icon-clear').forEach((button) => {
+    button.addEventListener('click', (event) => {
+        event.preventDefault(); // Отключаем стандартное действие кнопки
+
+        const targetId = button.getAttribute('data-clear-target'); // Получаем ID инпута для очистки
+        const input = document.getElementById(targetId);
+        if (input) {
+            input.value = ''; // Очищаем поле
+            updateSummationForm();
+        }
+    });
+});
+
+// Обработчик для нажатия Enter в инпутах
+document.querySelectorAll('input').forEach((input) => {
+    input.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Отключаем стандартное поведение (отправку формы)
+            input.blur(); // Снимаем фокус с инпута
+
+        }
+    });
+});
+
 // Получение суммы из таблицы
 function getSumFromTable(tableId, cellIndexes) {
     let sum = 0;
@@ -18,18 +43,23 @@ function getSumFromTable(tableId, cellIndexes) {
 // Получение комиссии из формы
 function getValueFromInput(id) {
     const element = document.getElementById(id);
+    const button = element.nextElementSibling;
 
     if (!element) {
         return 0;
     }
 
-    const value = parseFloat(
+    let value = parseFloat(
         element.value.replace(',', '.').replace(/[^0-9.-]+/g, "")
     );
+
     if (isNaN(value)) {
-        element.value = '';
+        value = '';
+        button.classList.remove('show'); // Скрыть кнопку плавно
         return 0;
     }
+
+    button.classList.add('show'); // Показать кнопку плавно
     return element.value = value;
 }
 
@@ -44,16 +74,41 @@ function formatSum(sum) {
 // Основная функция обновления формы
 export function updateSummationForm() {
     // Получаем суммы из таблиц
+    let seaConversion = getSumFromTable('sea-results', [7]);
     let seaSum = getSumFromTable('sea-results', [6]);
-    let railSum = getSumFromTable('rail-results', [5, 6]);
+
+    console.log('seaConversion', seaConversion);
+
+    if (seaConversion > 0) {
+        seaSum += (seaSum * seaConversion / 100);
+    }
+
+    let railSum = 0;
+    let autoSum = 0;
+
+    // Проверяем доп. опции
+    const isRailSecurity = document.getElementById('rail-security').checked;
+    if (isRailSecurity) {
+        railSum = getSumFromTable('rail-results', [5, 6]);
+    } else {
+        railSum = getSumFromTable('rail-results', [5]);
+    }
+
+    // Проверяем доп. опции
+    const isAccreditation = document.getElementById('accreditation').checked;
+    if (isAccreditation) {
+        autoSum = getSumFromTable('auto-results', [5, 7]);
+    } else {
+        autoSum = getSumFromTable('auto-results', [5]);
+    }
+
     let dropOffSum = getSumFromTable('container-results', [4]);
-    let autoSum = getValueFromInput('result-auto-cost');
     let totalSum = 0;
 
     // Получаем комиссии и курс обмена
     const seaCommission = getValueFromInput('result-sea-commission');
     const railCommission = getValueFromInput('result-rail-commission');
-    const autoSumCommission = getValueFromInput('result-auto-commission');
+    const autoCommission = getValueFromInput('result-auto-commission');
     const exchangeRate = parseFloat(
         document.getElementById('exchange-rate').value.replace(',', '.').replace(/[^0-9.-]+/g, "")
     ) || 1;
@@ -65,8 +120,8 @@ export function updateSummationForm() {
     if (railCommission > 0) {
         railSum += railCommission;
     }
-    if (autoSumCommission > 0) {
-        autoSum += autoSum * (autoSumCommission / 100);
+    if (autoCommission > 0) {
+        autoSum += autoCommission;
     }
 
     // Конвертируем суммы из долларов в рубли и округляем до двух знаков после запятой
@@ -83,16 +138,13 @@ export function updateSummationForm() {
     const formattedAutoSum = formatSum(autoSum);
     const formattedTotalSum = formatSum(totalSum);
 
+
     // Обновляем суммы
     document.getElementById('result-sea-cost').value = '$ ' + `${formattedSeaSum}`;
     document.getElementById('result-rail-cost').value = `${formattedRailSum} ₽`;
+    document.getElementById('result-auto-cost').value = `${formattedAutoSum} ₽`;
     document.getElementById('result-rental-cost').value = '$ ' + `${formattedDropOffSum}`;
     document.getElementById('result-total-cost').value = `${formattedTotalSum} ₽`;
-    if (autoSum > 0) {
-        document.getElementById('result-auto-cost').value = `${formattedAutoSum} ₽`;
-    } else {
-        document.getElementById('result-auto-cost').value = ``;
-    }
 
     // Обновляем коммиссии
     if (seaCommission > 0) {
@@ -107,5 +159,12 @@ export function updateSummationForm() {
         document.getElementById('result-rail-commission').value = `${formattedRailCommission} ₽`;
     } else {
         document.getElementById('result-rail-commission').value = ``;
+    }
+
+    if (autoCommission > 0) {
+        const formattedAutoCommission = formatSum(autoCommission);
+        document.getElementById('result-auto-commission').value = `${formattedAutoCommission} ₽`;
+    } else {
+        document.getElementById('result-auto-commission').value = ``;
     }
 }

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Filter;
+namespace Tarifficator\Service\Filter;
 
-use App\DTO\Filter\RailwayFilterDTO;
+use Tarifficator\DTO\Filter\RailwayFilterDTO;
 
 class RailwayFilterService extends AbstractFilterService
 {

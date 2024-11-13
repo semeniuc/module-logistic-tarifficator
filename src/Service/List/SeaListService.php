@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Service\List;
+namespace Tarifficator\Service\List;
 
-use App\DTO\List\ListDTO;
-use App\DTO\List\SeaListDTO;
+use Tarifficator\DTO\List\ListDTO;
+use Tarifficator\DTO\List\SeaListDTO;
 
 class SeaListService extends AbstractListService
 {
@@ -18,24 +18,40 @@ class SeaListService extends AbstractListService
         string $destination,
         string $containerOwner,
         string $containerType
-    ): array {
-        $filterFields = $this->getFieldsToFilter('sea');
+    ): array
+    {
+        $filter = $this->prepareFilter($pol, $pod, $destination);
 
-        $filter = [
-            '=' . $filterFields['pol'] => $pol,
-            '=' . $filterFields['pod'] => $pod,
-            '=' . $filterFields['destination'] => $destination,
-        ];
+        if ($filter && $containerType && $containerOwner) {
+            $items = $this->getItems($this->entityTypeIds['sea'], ['filter' => $filter]);
 
-        $items = $this->getItems($this->entityTypeIds['sea'], ['filter' => $filter]);
-
-        if (count($items) > 0) {
-            foreach ($items as $item) {
-                $result[] = $this->prepareDTO($item, $containerOwner, $containerType);
+            if (count($items) > 0) {
+                foreach ($items as $item) {
+                    $result[] = $this->prepareDTO($item, $containerOwner, $containerType);
+                }
             }
         }
 
         return $result ?? [];
+    }
+
+    private function prepareFilter(string $pol, string $pod, string $destination): ?array
+    {
+        $filterFields = $this->getFieldsToFilter('sea');
+
+        if (!empty($pol)) {
+            $filter['=' . $filterFields['pol']] = $pol;
+        }
+
+        if (!empty($pod)) {
+            $filter['=' . $filterFields['pod']] = $pod;
+        }
+
+        if (!empty($destination)) {
+            $filter['=' . $filterFields['destination']] = $destination;
+        }
+
+        return $filter ?? null;
     }
 
     protected function prepareDTO(array $item, string $containerOwner, string $containerType): SeaListDTO
@@ -52,6 +68,7 @@ class SeaListService extends AbstractListService
             containerOwner: $containerOwner,
             containerType: $containerType,
             deliveryCost: $deliveryCost,
+            conversion: $this->getFloat($item[$listFields['conversion']]) . ' %',
             deliveryPriceValidFrom: $validTill,
             comment: $item[$listFields['comment']],
             isActive: $this->isActive($validTill),
@@ -63,7 +80,11 @@ class SeaListService extends AbstractListService
         $listFields = $this->getFieldsToList('sea');
 
         if ($containerType === '40hc') {
-            $value = $item[$listFields['deliveryCostSoc40Hc']];
+            if ($containerOwner === 'soc') {
+                $value = $item[$listFields['deliveryCostSoc40Hc']];
+            } else {
+                $value = $item[$listFields['deliveryCostCoc40Hc']];
+            }
         } else {
             if ($containerOwner === 'soc') {
                 $value = $item[$listFields['deliveryCostSoc20Dry']];

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Kernel;
+namespace Tarifficator\Kernel;
 
-use App\Kernel\Container\Container;
+use Tarifficator\Kernel\Container\Container;
 
 class App
 {

@@ -1,17 +1,12 @@
 <?php
 
-use App\Controller\Api\ApiGetExchangeRateController;
-use App\Controller\Api\ApiGetListDataController;
-use App\Controller\HomeController;
-use App\Kernel\Router\Route;
+use Tarifficator\Controller\Api\ApiGetExchangeRateController;
+use Tarifficator\Controller\Api\ApiGetListDataController;
+use Tarifficator\Controller\TarifficatorController;
+use Tarifficator\Kernel\Router\Route;
 
 return [
-    Route::post(APP_URL, [HomeController::class, 'index']),
-    Route::post(APP_URL . 'api/list/get', [ApiGetListDataController::class, 'execute']),
-    Route::post(APP_URL . 'api/rate/get', [ApiGetExchangeRateController::class, 'execute']),
-
-    # Test
-    Route::get(APP_URL, [HomeController::class, 'index']),
-    Route::get(APP_URL . 'api/list/get', [ApiGetListDataController::class, 'execute']),
-    Route::get(APP_URL . 'api/rate/get', [ApiGetExchangeRateController::class, 'execute']),
+    Route::get('/local/modules/logistic.tarifficator/', [TarifficatorController::class, 'index']),
+    Route::post('/local/modules/logistic.tarifficator/' . 'api/list/get', [ApiGetListDataController::class, 'execute']),
+    Route::post('/local/modules/logistic.tarifficator/' . 'api/rate/get', [ApiGetExchangeRateController::class, 'execute']),
 ];

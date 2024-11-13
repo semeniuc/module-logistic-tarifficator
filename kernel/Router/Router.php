@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Kernel\Router;
+namespace Tarifficator\Kernel\Router;
 
-use App\Kernel\Http\Request;
-use App\Kernel\Http\Response;
-use App\Kernel\View\View;
+use Tarifficator\Kernel\Http\Request;
+use Tarifficator\Kernel\Http\Response;
+use Tarifficator\Kernel\View\View;
 
 class Router
 {
@@ -16,17 +16,37 @@ class Router
     ];
 
     public function __construct(
-        public readonly Request $request,
+        public readonly Request  $request,
         public readonly Response $response,
-        public readonly View $view
-    ) {
+        public readonly View     $view
+    )
+    {
         $this->initRoutes();
+    }
+
+    private function initRoutes(): void
+    {
+        $routes = $this->getRoutes();
+
+        if (!empty($routes)) {
+            foreach ($routes as $route) {
+                $this->routes[$route->getMethod()][$route->getUri()] = $route;
+            }
+        }
+    }
+
+    /**
+     * @return Route[]
+     */
+    private function getRoutes(): array
+    {
+        return require_once APP_PATH . '/config/routes.php';
     }
 
     public function dispath(string $uri, string $method): void
     {
         $route = $this->findRoute($uri, $method);
-
+        
         if ($route === null) {
             $this->notFound();
         }
@@ -57,24 +77,5 @@ class Router
     private function notFound(): void
     {
         exit('404 | Not Found');
-    }
-
-    private function initRoutes(): void
-    {
-        $routes = $this->getRoutes();
-
-        if (!empty($routes)) {
-            foreach ($routes as $route) {
-                $this->routes[$route->getMethod()][$route->getUri()] = $route;
-            }
-        }
-    }
-
-    /**
-     * @return Route[]
-     */
-    private function getRoutes(): array
-    {
-        return require_once APP_PATH . '/config/routes.php';
     }
 }

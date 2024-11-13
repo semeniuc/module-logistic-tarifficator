@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Service\List;
+namespace Tarifficator\Service\List;
 
-use App\DTO\List\ContainerListDTO;
-use App\DTO\List\ListDTO;
+use Tarifficator\DTO\List\ContainerListDTO;
+use Tarifficator\DTO\List\ListDTO;
 
 class ContainerListService extends AbstractListService
 {
@@ -16,15 +16,17 @@ class ContainerListService extends AbstractListService
         string $destination,
         string $containerOwner,
         string $containerType
-    ): array {
+    ): array
+    {
         $filterFields = $this->getFieldsToFilter('container');
 
         $filter = [
             '=' . $filterFields['destination'] => $destination,
+            '=' . $filterFields['type'] => mb_convert_case($containerOwner, MB_CASE_UPPER),
         ];
 
         $items = $this->getItems($this->entityTypeIds['container'], ['filter' => $filter]);
-
+        
         if (count($items) > 0) {
             foreach ($items as $item) {
                 $result[] = $this->prepareDTO($item, $containerOwner, $containerType);

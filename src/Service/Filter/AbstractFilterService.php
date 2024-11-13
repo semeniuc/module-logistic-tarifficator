@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Filter;
+namespace Tarifficator\Service\Filter;
 
-use App\DTO\Filter\FilterDTO;
-use App\Service\AbstractItemsService;
+use Tarifficator\DTO\Filter\FilterDTO;
+use Tarifficator\Service\AbstractItemsService;
 
 abstract class AbstractFilterService extends AbstractItemsService
 {

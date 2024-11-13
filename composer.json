@@ -3,8 +3,8 @@
   "type": "module",
   "autoload": {
     "psr-4": {
-      "App\\": "src/",
-      "App\\Kernel\\": "kernel/"
+      "Tarifficator\\": "src/",
+      "Tarifficator\\Kernel\\": "kernel/"
     }
   },
   "authors": [

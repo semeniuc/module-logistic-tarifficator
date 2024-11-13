@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Listener;
-use App\Kernel\Controller\Controller;
-use App\Service\LoggingService;
+namespace Tarifficator\Listener;
+
+use Tarifficator\Service\LoggingService;
 use Bitrix\Main\UI\Extension;
 
 define('APP_PATH', dirname(__DIR__, 2));
@@ -29,14 +29,14 @@ class TarifficatorTabListener
         }
 
         // Проверим валидность типа сущности
-        $allowTypes = ['lead'];
+        $allowTypes = ['lead', 'deal'];
         $variables['entity_type'] = strtolower($variables['entity_type']);
         if (!in_array($variables['entity_type'], $allowTypes, true)) {
             return;
         }
 
         // Проверим валидность идентификатора сущности
-        $variables['entity_id'] = (int) $variables['entity_id'];
+        $variables['entity_id'] = (int)$variables['entity_id'];
         if (0 >= $variables['entity_id']) {
             return;
         }
@@ -49,7 +49,7 @@ class TarifficatorTabListener
         // Подготовим параметры функции
         $jsParams = \Bitrix\Main\Web\Json::encode(
             $variables,
-            JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE
+            JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
         );
 
         // Инициализируем добавление таба
@@ -57,7 +57,7 @@ class TarifficatorTabListener
             <script>
                 BX.ready(function () {
                     if (typeof initialize_foo_crm_detail_tab === "function") {
-                        initialize_foo_crm_detail_tab('.$jsParams.');
+                        initialize_foo_crm_detail_tab(' . $jsParams . ');
                     }
                 });
             </script>

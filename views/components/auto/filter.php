@@ -1,52 +1,52 @@
 <?php
 
 /**
- * @var \Tarifficator\DTO\Filter\RailwayFilterDTO $filter
+ * @var \Tarifficator\DTO\Filter\AutoFilterDTO $filter
  */
 
 ?>
 
-<form id="rail-form" class="mb-4">
+<form id="auto-form" class="mb-4">
     <div class="ui-form row">
-        <!-- Станция отправления -->
+        <!-- Станция назначения -->
         <div class="col-md-2">
             <div class="ui-form-label">
-                <label for="rail-departure-station" class="ui-ctl-label-text">Станция отправления</label>
+                <label for="auto-station" class="ui-ctl-label-text">Станция назначения</label>
             </div>
             <div class="ui-form-content">
                 <div class="ui-ctl ui-ctl-after-icon ui-ctl-dropdown">
                     <div class="ui-ctl-after ui-ctl-icon-angle"></div>
-                    <select id="rail-departure-station" class="ui-ctl-element" name="pod">
+                    <select id="auto-station" class="ui-ctl-element" name="station">
                         <option value="">
                             Выбрать станцию
                         </option>
                         <?php
-                        foreach ($filter->getPods() as $pod) {
+                        foreach ($filter->getStations() as $station) {
                             ?>
-                            <option value="<?= $pod ?>"><?= $pod ?></option>
+                            <option value="<?= $station ?>">
+                                <?= $station ?></option>
                         <?php } ?>
                     </select>
                 </div>
             </div>
         </div>
 
-        <!-- Станция назначения -->
+        <!-- Пункт отправления -->
         <div class="col-md-2">
             <div class="ui-form-label">
-                <label for="rail-destination-station" class="ui-ctl-label-text">Станция назначения</label>
+                <label for="auto-point" class="ui-ctl-label-text">Пункт назначения</label>
             </div>
             <div class="ui-form-content">
                 <div class="ui-ctl ui-ctl-after-icon ui-ctl-dropdown">
                     <div class="ui-ctl-after ui-ctl-icon-angle"></div>
-                    <select id="rail-destination-station" class="ui-ctl-element" name="destination">
+                    <select id="auto-point" class="ui-ctl-element" name="point">
                         <option value="">
-                            Выбрать станцию
+                            Выбрать пункт
                         </option>
                         <?php
-                        foreach ($filter->getDestinations() as $destination) {
+                        foreach ($filter->getPoints() as $point) {
                             ?>
-                            <option value="<?= $destination ?>">
-                                <?= $destination ?></option>
+                            <option value="<?= $point ?>"><?= $point ?></option>
                         <?php } ?>
                     </select>
                 </div>
@@ -56,12 +56,12 @@
         <!-- Собственность -->
         <div class="col-md-2">
             <div class="ui-form-label">
-                <label for="rail-ownership" class="ui-ctl-label-text">Собственность</label>
+                <label for="auto-ownership" class="ui-ctl-label-text">Собственность</label>
             </div>
             <div class="ui-form-content">
                 <div class="ui-ctl ui-ctl-after-icon ui-ctl-dropdown">
                     <div class="ui-ctl-after ui-ctl-icon-angle"></div>
-                    <select id="rail-ownership" class="ui-ctl-element" name="containerOwner">
+                    <select id="auto-ownership" class="ui-ctl-element" name="containerOwner">
                         <option value="">
                             Выбрать принадлежность
                         </option>
@@ -79,12 +79,12 @@
         <!-- Контейнер -->
         <div class="col-md-2">
             <div class="ui-form-label">
-                <label for="rail-container" class="ui-ctl-label-text">Контейнер</label>
+                <label for="auto-container" class="ui-ctl-label-text">Контейнер</label>
             </div>
             <div class="ui-form-content">
                 <div class="ui-ctl ui-ctl-after-icon ui-ctl-dropdown">
                     <div class="ui-ctl-after ui-ctl-icon-angle"></div>
-                    <select id="rail-container" class="ui-ctl-element" name="containerType">
+                    <select id="auto-container" class="ui-ctl-element" name="containerType">
                         <option value="">
                             Выбрать размер
                         </option>
@@ -104,10 +104,10 @@
             <div class="ui-form-label">
                 <label for="rail-container" class="ui-ctl-label-text">Включить в стоимость</label>
 
-                <div class="ui-form-label" data-form-row-hidden="">
+                <div class="ui-form-label">
                     <label class="ui-ctl ui-ctl-checkbox">
-                        <input type="checkbox" id='rail-security' class="ui-ctl-element">
-                        <div class="ui-ctl-label-text">Охрана</div>
+                        <input type="checkbox" id='accreditation' class="ui-ctl-element">
+                        <div class="ui-ctl-label-text">Раскредитация</div>
                     </label>
                 </div>
             </div>

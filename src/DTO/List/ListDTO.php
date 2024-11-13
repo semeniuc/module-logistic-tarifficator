@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DTO\List;
+namespace Tarifficator\DTO\List;
 
 interface ListDTO
 {

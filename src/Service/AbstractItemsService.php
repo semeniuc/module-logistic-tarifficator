@@ -2,24 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App\Service;
+namespace Tarifficator\Service;
 
-use App\Repository\EntityRepository;
+use Tarifficator\Repository\EntityRepository;
 
 abstract class AbstractItemsService
 {
-    protected EntityRepository $entityRepository;
     public array $entityTypeIds = [];
+    protected EntityRepository $entityRepository;
 
     public function __construct()
     {
         $this->entityRepository = new EntityRepository();
         $this->getEntityTypeIds();
-    }
-
-    public function getItems(int $entityTypeId, array $params = []): array
-    {
-        return $this->entityRepository->getItems($entityTypeId, $params);
     }
 
     private function getEntityTypeIds(): void
@@ -32,5 +27,10 @@ abstract class AbstractItemsService
                 $this->entityTypeIds = $types ?? [];
             }
         }
+    }
+
+    public function getItems(int $entityTypeId, array $params = []): array
+    {
+        return $this->entityRepository->getItems($entityTypeId, $params);
     }
 }

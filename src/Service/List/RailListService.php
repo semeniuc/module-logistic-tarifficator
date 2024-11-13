@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Service\List;
+namespace Tarifficator\Service\List;
 
-use App\DTO\List\ListDTO;
-use App\DTO\List\RailListDTO;
+use Tarifficator\DTO\List\ListDTO;
+use Tarifficator\DTO\List\RailListDTO;
 
 class RailListService extends AbstractListService
 {
@@ -17,7 +17,8 @@ class RailListService extends AbstractListService
         string $destination,
         string $containerOwner,
         string $containerType
-    ): array {
+    ): array
+    {
         $filterFields = $this->getFieldsToFilter('railway');
 
         $filter = [

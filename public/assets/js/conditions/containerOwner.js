@@ -5,27 +5,41 @@ import {updateTable} from "../action/updateTable.js";
 export function handleSeaContainerChange() {
     const seaContainerOwner = document.querySelector('#sea-form select[name="containerOwner"]');
     const railContainerOwner = document.querySelector('#rail-form select[name="containerOwner"]');
+    const autoContainerOwner = document.querySelector('#auto-form select[name="containerOwner"]');
+    const dropOffOwner = document.querySelector('#container-form select[name="containerOwner"]');
 
-    if (!seaContainerOwner || !railContainerOwner) return;
+    if (!seaContainerOwner) return;
 
-    const isSocSelected = seaContainerOwner.value === 'soc';
-
-    if (isSocSelected) {
-        if (railContainerOwner.value !== 'soc') {
-            railContainerOwner.value = 'soc';
-            updateRailResults();
+    // Rail
+    if (railContainerOwner) {
+        if (railContainerOwner.value !== seaContainerOwner.value) {
+            railContainerOwner.value = seaContainerOwner.value;
+            updateListResults('rail-form');
         }
-        railContainerOwner.disabled = true; // Блокируем изменение
-    } else {
-        railContainerOwner.disabled = false; // Разблокируем изменение
+    }
+
+    // Auto
+    if (autoContainerOwner) {
+        if (autoContainerOwner.value !== seaContainerOwner.value) {
+            autoContainerOwner.value = seaContainerOwner.value;
+            updateListResults('auto-form');
+        }
+    }
+
+    // Drop off
+    if (dropOffOwner) {
+        if (dropOffOwner.value !== seaContainerOwner.value) {
+            dropOffOwner.value = seaContainerOwner.value;
+            updateListResults('container-form');
+        }
     }
 
     updateContainerName();
 }
 
-// Функция для обновления списка rail-results
-function updateRailResults() {
-    const formElement = document.querySelector(`#rail-form`);
+// Функция для обновления списка rail-results, auto-results
+function updateListResults(name) {
+    const formElement = document.querySelector(`#${name}`);
     const formData = new FormData();
 
     // Обходим все элементы формы, включая отключённые
@@ -37,13 +51,13 @@ function updateRailResults() {
     });
 
     const data = {
-        formId: 'rail-form',
+        formId: name,
         fields: Object.fromEntries(formData.entries())
     };
 
     const formAction = '/local/modules/logistic.tarifficator/api/list/get';
     sendAjaxRequest(formAction, 'POST', data, function (response) {
-        updateTable(response, 'rail-form');
+        updateTable(response, name);
     });
 }
 
@@ -63,13 +77,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const seaContainerOwner = document.querySelector('#sea-form select[name="containerOwner"]');
     const railContainerOwner = document.querySelector('#rail-form select[name="containerOwner"]');
+    const autoContainerOwner = document.querySelector('#auto-form select[name="containerOwner"]');
 
     if (seaContainerOwner) {
         seaContainerOwner.addEventListener('change', handleSeaContainerChange);
     }
 
     if (railContainerOwner) {
-        railContainerOwner.addEventListener('change', updateRailResults);
+        railContainerOwner.addEventListener('change', function () {
+            updateListResults('rail-form');
+        });
+    }
+
+    if (autoContainerOwner) {
+        autoContainerOwner.addEventListener('change', function () {
+            updateListResults('auto-form');
+        });
     }
 
     // Инициализация обрабочика изменений

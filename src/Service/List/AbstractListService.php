@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Service\List;
+namespace Tarifficator\Service\List;
 
-use App\Service\AbstractItemsService;
+use Tarifficator\Service\AbstractItemsService;
 
 abstract class AbstractListService extends AbstractItemsService
 {
@@ -75,5 +75,15 @@ abstract class AbstractListService extends AbstractItemsService
         }
 
         return 0 . ' ' . $currency;
+    }
+
+    protected function getFloat(?string $value): string
+    {
+        if ($value) {
+            $value = floatval($value);
+            return (string)$value;
+        }
+
+        return '0';
     }
 }

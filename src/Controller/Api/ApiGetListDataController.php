@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Api;
+namespace Tarifficator\Controller\Api;
 
-use App\Kernel\Controller\Controller;
-use App\Service\List\ListService;
+use Tarifficator\Kernel\Controller\Controller;
+use Tarifficator\Service\List\ListService;
 
 class ApiGetListDataController extends Controller
 {
@@ -40,6 +40,12 @@ class ApiGetListDataController extends Controller
             'rail' => $listService->getRailListService(
                 pod: $filter['pod'] ?? '',
                 destination: $filter['destination'] ?? '',
+                containerOwner: $filter['containerOwner'] ?? '',
+                containerType: $filter['containerType'] ?? '',
+            ),
+            'auto' => $listService->getAutoListService(
+                station: $filter['station'] ?? '',
+                point: $filter['point'] ?? '',
                 containerOwner: $filter['containerOwner'] ?? '',
                 containerType: $filter['containerType'] ?? '',
             ),

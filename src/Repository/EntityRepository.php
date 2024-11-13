@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Repository;
+namespace Tarifficator\Repository;
 
 use Bitrix\Crm\Item;
 use Bitrix\Crm\Service\Container;

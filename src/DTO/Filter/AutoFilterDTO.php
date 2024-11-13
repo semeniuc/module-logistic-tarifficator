@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tarifficator\DTO\Filter;
 
-class ContainerFilterDTO implements FilterDTO
+class AutoFilterDTO implements FilterDTO
 {
     private array $containerOwners = [
         'coc',
@@ -12,12 +12,13 @@ class ContainerFilterDTO implements FilterDTO
     ];
 
     private array $containerTypes = [
-        '20dry',
-        '40hc',
+        '20dry (<18т)',
+        '40hc (<20т)',
     ];
 
     public function __construct(
-        private readonly array $destinations,
+        private readonly array $stations,
+        private readonly array $points,
     )
     {
     }
@@ -32,8 +33,13 @@ class ContainerFilterDTO implements FilterDTO
         return $this->containerTypes;
     }
 
-    public function getDestinations(): array
+    public function getStations(): array
     {
-        return $this->destinations;
+        return $this->stations;
+    }
+
+    public function getPoints(): array
+    {
+        return $this->points;
     }
 }

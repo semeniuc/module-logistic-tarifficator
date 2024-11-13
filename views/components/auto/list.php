@@ -2,17 +2,18 @@
 
 ?>
 
-<table id="rail-results" class="table">
+<table id="auto-results" class="table">
     <thead class="table-light">
     <tr>
         <th></th>
-        <th>Агент</th>
+        <th>Перевозчик</th>
         <th>Пункт назначения</th>
         <th>COC/SOC</th>
         <th>Контейнер</th>
         <th>Стоимость</th>
-        <th>Охрана</th>
-        <th>Срок действия</th>
+        <th>Кон. доставки</th>
+        <th>Раскредитация</th>
+        <th>Кон. раскредит.</th>
         <th>Нотация</th>
     </tr>
     </thead>

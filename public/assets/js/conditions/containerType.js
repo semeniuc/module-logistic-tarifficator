@@ -5,9 +5,11 @@ import {updateTable} from "../action/updateTable.js";
 export function handleContainerTypeChange() {
     const seaContainerType = document.querySelector('#sea-form select[name="containerType"]');
     const railContainerType = document.querySelector('#rail-form select[name="containerType"]');
+    const autoContainerType = document.querySelector('#auto-form select[name="containerType"]');
     const boxContainerType = document.querySelector('#container-form select[name="containerType"]');
 
-    if (!seaContainerType || !railContainerType || !boxContainerType) return;
+    if (!seaContainerType) return;
+
     // 40HC
     if (seaContainerType.value === '40hc') {
         // ЖД
@@ -15,35 +17,38 @@ export function handleContainerTypeChange() {
             railContainerType.value = '40hc';
             updateResults('rail-form');
         }
-        railContainerType.disabled = true;
+
+        // Авто
+        if (autoContainerType.value !== '40hc (<20т)') {
+            autoContainerType.value = '40hc (<20т)';
+            updateResults('auto-form');
+        }
 
         // Аренда
         if (boxContainerType.value !== '40hc') {
             boxContainerType.value = '40hc';
             updateResults('container-form');
         }
-        boxContainerType.disabled = true;
 
         // 20DRY
-    } else {
+    } else if (seaContainerType.value === '20dry') {
         // ЖД
         if (railContainerType.value === '40hc') {
             railContainerType.value = '20dry (<24т)';
             updateResults('rail-form');
         }
 
-        // Блокируем выбор 40hc
-        const optionToDisable = document.querySelector('#rail-form option[value="40hc"]');
-        optionToDisable.disabled = true;
-
-        railContainerType.disabled = false; // Разблокируем изменение
+        // Авто
+        if (autoContainerType.value !== '20dry (<18т)') {
+            autoContainerType.value = '20dry (<18т)';
+            updateResults('auto-form');
+        }
 
         // Аренда
         if (boxContainerType.value !== '20dry') {
             boxContainerType.value = '20dry';
             updateResults('container-form');
         }
-        boxContainerType.disabled = true;
     }
 }
 

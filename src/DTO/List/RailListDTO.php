@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\DTO\List;
+namespace Tarifficator\DTO\List;
 
 class RailListDTO implements ListDTO
 {
@@ -15,7 +15,8 @@ class RailListDTO implements ListDTO
         public readonly string $securityCost,
         public readonly string $deliveryPriceValidFrom,
         public readonly string $comment,
-        public readonly bool $isActive,
-    ) {
+        public readonly bool   $isActive,
+    )
+    {
     }
 }

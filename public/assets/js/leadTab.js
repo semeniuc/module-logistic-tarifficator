@@ -1,6 +1,6 @@
 function openPopup(url, title) {
     BX.SidePanel.Instance.open(url, {
-        width: 1200, // Ширина попапа, можно изменить по необходимости
+        width: 1620, // Ширина попапа, можно изменить по необходимости
         height: 600, // Высота попапа, можно изменить по необходимости
         loader: 'Y',
         allowChangeHistory: false,
@@ -117,6 +117,6 @@ function initialize_foo_crm_detail_tab(params) {
             }
 
         }).catch(function () {
-        console.error('Не удалось найти менеджер вкладок');
+        // console.error('Не удалось найти менеджер вкладок');
     });
 }
