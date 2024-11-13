@@ -20,19 +20,10 @@ try {
 
     define("APP_ENV", $_SERVER['APP_ENV']);
     define("APP_URL", $_SERVER['APP_URL']);
-    
+
     $app = new App();
     $app->run();
 } catch (Throwable $th) {
-//    LoggingService::save([
-//        'code' => $th->getCode(),
-//        'message' => $th->getMessage(),
-//        'file' => $th->getFile(),
-//        'line' => $th->getLine(),
-//    ], 'error', 'errors');
-
-//    echo json_encode(['result' => 'error']);
-
     $response = new Response();
     $response->send(
         content: json_encode([
