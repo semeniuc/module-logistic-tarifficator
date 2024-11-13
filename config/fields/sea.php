@@ -4,7 +4,7 @@ return [
     'pol' => [
         'id' => [
             'dev' => 'UF_CRM_4_POL',
-            'prod' => null,
+            'prod' => 'UF_CRM_4_POL',
         ],
         'view' => [
             'filter' => true,
@@ -14,7 +14,7 @@ return [
     'pod' => [
         'id' => [
             'dev' => 'UF_CRM_4_POD',
-            'prod' => null,
+            'prod' => 'UF_CRM_4_POD',
         ],
         'view' => [
             'filter' => true,
@@ -24,7 +24,7 @@ return [
     'destination' => [
         'id' => [
             'dev' => 'UF_CRM_4_DESTINATION',
-            'prod' => null,
+            'prod' => 'UF_CRM_4_DESTINATION',
         ],
         'view' => [
             'filter' => true,
@@ -34,7 +34,7 @@ return [
     'contractor' => [
         'id' => [
             'dev' => 'UF_CRM_4_CONTRACTOR',
-            'prod' => null,
+            'prod' => 'UF_CRM_4_CONTRACTOR',
         ],
         'view' => [
             'filter' => false,
@@ -44,7 +44,7 @@ return [
     'route' => [
         'id' => [
             'dev' => 'UF_CRM_4_ROUTE',
-            'prod' => null,
+            'prod' => 'UF_CRM_4_ROUTE',
         ],
         'view' => [
             'filter' => false,
@@ -54,7 +54,7 @@ return [
     'deliveryCostCoc20Dry' => [
         'id' => [
             'dev' => 'UF_CRM_4_DELIVERY_COST_COC_20DRY',
-            'prod' => null,
+            'prod' => 'UF_CRM_4_DELIVERY_COST_COC_20DRY',
         ],
         'view' => [
             'filter' => false,
@@ -64,14 +64,17 @@ return [
     'deliveryCostCoc40Hc' => [
         'id' => [
             'dev' => 'UF_CRM_4_DELIVERY_COST_COC_40HC',
-            'prod' => null,
+            'prod' => 'UF_CRM_4_DELIVERY_COST_COC_40HC',
         ],
-        'filter' => true
+        'view' => [
+            'filter' => true,
+            'list' => true,
+        ],
     ],
     'deliveryCostSoc20Dry' => [
         'id' => [
             'dev' => 'UF_CRM_4_DELIVERY_COST_SOC_20DRY',
-            'prod' => null,
+            'prod' => 'UF_CRM_4_DELIVERY_COST_SOC_20DRY',
         ],
         'view' => [
             'filter' => false,
@@ -81,7 +84,7 @@ return [
     'deliveryCostSoc40Hc' => [
         'id' => [
             'dev' => 'UF_CRM_4_DELIVERY_COST_SOC_40HC',
-            'prod' => null,
+            'prod' => 'UF_CRM_4_DELIVERY_COST_SOC_40HC',
         ],
         'view' => [
             'filter' => false,
@@ -91,7 +94,7 @@ return [
     'deliveryPriceValidFrom' => [
         'id' => [
             'dev' => 'UF_CRM_4_DELIVERY_PRICE_VALID_FROM',
-            'prod' => null,
+            'prod' => 'UF_CRM_4_DELIVERY_PRICE_VALID_FROM',
         ],
         'view' => [
             'filter' => false,
@@ -101,7 +104,17 @@ return [
     'deliveryPriceValidTill' => [
         'id' => [
             'dev' => 'UF_CRM_4_DELIVERY_PRICE_VALID_TILL',
-            'prod' => null,
+            'prod' => 'UF_CRM_4_DELIVERY_PRICE_VALID_TILL',
+        ],
+        'view' => [
+            'filter' => false,
+            'list' => true,
+        ],
+    ],
+    'conversion' => [
+        'id' => [
+            'dev' => 'UF_CRM_4_CONVERSION',
+            'prod' => 'UF_CRM_4_CONVERSION',
         ],
         'view' => [
             'filter' => false,
@@ -111,7 +124,7 @@ return [
     'comment' => [
         'id' => [
             'dev' => 'UF_CRM_4_COMMENT',
-            'prod' => null,
+            'prod' => 'UF_CRM_4_COMMENT',
         ],
         'view' => [
             'filter' => false,

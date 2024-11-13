@@ -4,17 +4,17 @@ return [
     'type' => [
         'id' => [
             'dev' => 'UF_CRM_7_TYPE',
-            'prod' => null,
+            'prod' => 'UF_CRM_7_TYPE',
         ],
         'view' => [
-            'filter' => false,
+            'filter' => true,
             'list' => false,
         ],
     ],
     'destination' => [
         'id' => [
             'dev' => 'UF_CRM_7_DESTINATION',
-            'prod' => null,
+            'prod' => 'UF_CRM_7_DESTINATION',
         ],
         'view' => [
             'filter' => true,
@@ -24,7 +24,7 @@ return [
     'contractor' => [
         'id' => [
             'dev' => 'UF_CRM_7_CONTRACTOR',
-            'prod' => null,
+            'prod' => 'UF_CRM_7_CONTRACTOR',
         ],
         'view' => [
             'filter' => false,
@@ -34,7 +34,7 @@ return [
     'cost20Dry' => [
         'id' => [
             'dev' => 'UF_CRM_7_COST_20DRY',
-            'prod' => null,
+            'prod' => 'UF_CRM_7_COST_20DRY',
         ],
         'view' => [
             'filter' => false,
@@ -44,7 +44,7 @@ return [
     'cost40Hc' => [
         'id' => [
             'dev' => 'UF_CRM_7_COST_40HC',
-            'prod' => null,
+            'prod' => 'UF_CRM_7_COST_40HC',
         ],
         'view' => [
             'filter' => false,
@@ -55,7 +55,7 @@ return [
     'priceValidFrom' => [
         'id' => [
             'dev' => 'UF_CRM_7_PRICE_VALID_FROM',
-            'prod' => null,
+            'prod' => 'UF_CRM_7_PRICE_VALID_FROM',
         ],
         'view' => [
             'filter' => false,
@@ -65,7 +65,7 @@ return [
     'priceValidTill' => [
         'id' => [
             'dev' => 'UF_CRM_7_PRICE_VALID_TILL',
-            'prod' => null,
+            'prod' => 'UF_CRM_7_PRICE_VALID_TILL',
         ],
         'view' => [
             'filter' => false,
@@ -75,7 +75,7 @@ return [
     'comment' => [
         'id' => [
             'dev' => 'UF_CRM_7_COMMENT',
-            'prod' => null,
+            'prod' => 'UF_CRM_7_COMMENT',
         ],
         'view' => [
             'filter' => false,
@@ -85,7 +85,7 @@ return [
     'pol' => [
         'id' => [
             'dev' => 'UF_CRM_7_POL',
-            'prod' => null,
+            'prod' => 'UF_CRM_7_POL',
         ],
         'view' => [
             'filter' => false,
