@@ -6,13 +6,19 @@ import {updateSummationForm} from "../action/updateSummationForm.js";
 export function handleFormChanges() {
     const forms = document.querySelectorAll('form');
     forms.forEach(form => {
-        form.addEventListener('change', function () {
-
+        form.addEventListener('change', function (event) {
             // Запускаем функцию для обновления формы
             updateSummationForm();
 
+            // Проверка: если изменённый элемент является чекбоксом, прерываем обработчик
+            const changedElement = event.target;
+            if (changedElement.type === 'checkbox') {
+                return;
+            }
+
+            // Прерываем обработчик, чтобы не отправлять данные формы
             if (form.id === 'result-form') {
-                return; // Прерываем обработчик, чтобы не отправлять данные формы
+                return;
             }
 
             const formElement = document.querySelector(`#${form.id}`);
@@ -30,7 +36,7 @@ export function handleFormChanges() {
                 formId: form.id,
                 fields: Object.fromEntries(formData.entries())
             };
-            
+
             // Определяем URL для отправки формы
             const formAction = form.getAttribute('action') || '/local/modules/logistic.tarifficator/api/list/get';
 

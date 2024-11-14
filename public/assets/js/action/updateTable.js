@@ -7,7 +7,7 @@ export function updateTable(data, formId) {
     if (!tableBody) return;
 
     async function removeRows() {
-        const existingRows = Array.from(tableBody.querySelectorAll('tr:not(.table-row-selected)'));
+        const existingRows = Array.from(tableBody.querySelectorAll('tr'));
         if (existingRows.length === 0) return;
 
         await Promise.all(existingRows.map(row =>
