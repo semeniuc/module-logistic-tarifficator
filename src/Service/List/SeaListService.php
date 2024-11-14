@@ -68,7 +68,7 @@ class SeaListService extends AbstractListService
             containerOwner: $containerOwner,
             containerType: $containerType,
             deliveryCost: $deliveryCost,
-            conversion: $this->getFloat($item[$listFields['conversion']]) . ' %',
+            conversion: $this->getFloat($item[$listFields['conversion']]),
             deliveryPriceValidFrom: $validTill,
             comment: $item[$listFields['comment']],
             isActive: $this->isActive($validTill),

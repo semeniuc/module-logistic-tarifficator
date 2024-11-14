@@ -173,3 +173,11 @@ td.comment-icon {
 #result-form input:disabled {
     color: #484646;
 }
+
+td.conversion-input > input {
+    display: inline-block;
+    width: 36px;
+    height: 30px;
+    text-align: center;
+    padding: 0 5px;
+}

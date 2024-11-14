@@ -32,7 +32,18 @@ function getSumFromTable(tableId, cellIndexes) {
         if (row.closest('table').id === tableId) {
             const cells = row.querySelectorAll('td');
             cellIndexes.forEach(index => {
-                sum += parseFloat(cells[index].textContent.replace(',', '.').replace(/[^0-9.-]+/g, "")) || 0;
+                let cellValue;
+
+                const input = cells[index].querySelector('input');
+                if (input) {
+                    // Если есть вложенный input, берем его значение
+                    cellValue = parseFloat(input.value.replace(',', '.').replace(/[^0-9.-]+/g, ""));
+                } else {
+                    // Если input нет, берем текстовое содержимое ячейки
+                    cellValue = parseFloat(cells[index].textContent.replace(',', '.').replace(/[^0-9.-]+/g, ""));
+                }
+
+                sum += cellValue || 0;
             });
         }
     });

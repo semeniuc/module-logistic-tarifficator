@@ -5,6 +5,11 @@ export function handleRowSelection() {
     const tableBodies = document.querySelectorAll('table tbody');
     tableBodies.forEach(tbody => {
         tbody.addEventListener('click', function (event) {
+            // Проверяем, что клик не по элементу input
+            if (event.target.tagName === 'INPUT' && event.target.type === 'text') {
+                return; // Прерываем обработку, если клик по input
+            }
+
             const row = event.target.closest('tr');
             if (row && !row.classList.contains('table-row-disabled')) {
                 const checkbox = row.querySelector('input[type="checkbox"]');

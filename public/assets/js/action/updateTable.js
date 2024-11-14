@@ -93,17 +93,29 @@ export function updateTable(data, formId) {
         Object.keys(row).forEach(key => {
             if (key !== 'isActive') {
                 const td = document.createElement('td');
-                td.textContent = formatCellData(row[key], key);
 
-                if (key === 'comment' && row[key].length > 0) {
-                    td.classList.add('comment-icon');
-                    td.setAttribute('data-title', row[key]);
-                    td.textContent = ''; // Очищаем текстовое содержимое ячейки
+                // Проверка: если ключ равен "conversion", делаем ячейку редактируемой
+                if (key === 'conversion') {
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.value = row[key];
+                    input.classList.add('ui-ctl-element');
 
-                    // Создаем внутренний span
-                    const iconSpan = document.createElement('span');
-                    iconSpan.className = 'icon'; // Устанавливаем класс для span
-                    td.appendChild(iconSpan); // Добавляем span в ячейку
+                    td.classList.add('conversion-input'); // Класс для стилизации
+                    td.appendChild(input); // Добавляем input в ячейку
+                } else {
+                    td.textContent = formatCellData(row[key], key);
+
+                    if (key === 'comment' && row[key].length > 0) {
+                        td.classList.add('comment-icon');
+                        td.setAttribute('data-title', row[key]);
+                        td.textContent = ''; // Очищаем текстовое содержимое ячейки
+
+                        // Создаем внутренний span для иконки
+                        const iconSpan = document.createElement('span');
+                        iconSpan.className = 'icon'; // Устанавливаем класс для span
+                        td.appendChild(iconSpan); // Добавляем span в ячейку
+                    }
                 }
 
                 tr.appendChild(td); // Добавляем ячейку в строку
@@ -132,9 +144,13 @@ export function updateTable(data, formId) {
 
     function formatCellData(cellData, key) {
         const keywords = ['soc', 'coc', '40hc', '20dry'];
-        if (keywords.some(keyword => cellData.toLowerCase().includes(keyword))) {
+
+        // Преобразуем только строковые данные к нижнему регистру и проверяем ключевые слова
+        if (typeof cellData === 'string' && keywords.some(keyword => cellData.toLowerCase().includes(keyword))) {
             return cellData.toUpperCase();
         }
+
+        // Если это не строка, просто возвращаем исходное значение
         return cellData;
     }
 
