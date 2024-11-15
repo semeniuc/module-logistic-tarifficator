@@ -64,6 +64,11 @@
                         <option value="">
                             Выбрать станцию
                         </option>
+                        <?php
+                        foreach ($filter->getDestinationStations() as $destinationStation) {
+                            ?>
+                            <option value="<?= $destinationStation ?>"><?= $destinationStation ?></option>
+                        <?php } ?>
                     </select>
                 </div>
             </div>

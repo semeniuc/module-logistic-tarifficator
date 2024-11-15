@@ -16,7 +16,8 @@ class RailwayFilterService extends AbstractFilterService
         
         return new RailwayFilterDTO(
             departureStations: $values['departureStation'] ?? [],
-            destinationPoints: $values['destinationPoint'] ?? []
+            destinationPoints: $values['destinationPoint'] ?? [],
+            destinationStations: $values['destinationStation'] ?? [],
         );
     }
 }

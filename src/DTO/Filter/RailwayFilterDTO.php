@@ -20,6 +20,7 @@ class RailwayFilterDTO implements FilterDTO
     public function __construct(
         private readonly array $departureStations,
         private readonly array $destinationPoints,
+        private readonly array $destinationStations,
     )
     {
     }
@@ -42,5 +43,10 @@ class RailwayFilterDTO implements FilterDTO
     public function getDestinationPoints(): array
     {
         return $this->destinationPoints;
+    }
+
+    public function getDestinationStations(): array
+    {
+        return $this->destinationStations;
     }
 }
