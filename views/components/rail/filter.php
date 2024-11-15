@@ -11,19 +11,41 @@
         <!-- Станция отправления -->
         <div class="col-md-2">
             <div class="ui-form-label">
-                <label for="rail-departure-station" class="ui-ctl-label-text">Станция отправления</label>
+                <label for="rail-departure-station" class="ui-ctl-label-text">Станция отправления *</label>
             </div>
             <div class="ui-form-content">
                 <div class="ui-ctl ui-ctl-after-icon ui-ctl-dropdown">
                     <div class="ui-ctl-after ui-ctl-icon-angle"></div>
-                    <select id="rail-departure-station" class="ui-ctl-element" name="pod">
+                    <select id="rail-departure-station" class="ui-ctl-element" name="departureStation">
                         <option value="">
                             Выбрать станцию
                         </option>
                         <?php
-                        foreach ($filter->getPods() as $pod) {
+                        foreach ($filter->getDepartureStations() as $departureStation) {
                             ?>
-                            <option value="<?= $pod ?>"><?= $pod ?></option>
+                            <option value="<?= $departureStation ?>"><?= $departureStation ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Пункт назначения -->
+        <div class="col-md-2">
+            <div class="ui-form-label">
+                <label for="rail-destination-point" class="ui-ctl-label-text">Пункт назначения</label>
+            </div>
+            <div class="ui-form-content">
+                <div class="ui-ctl ui-ctl-after-icon ui-ctl-dropdown">
+                    <div class="ui-ctl-after ui-ctl-icon-angle"></div>
+                    <select id="rail-destination-point" class="ui-ctl-element" name="destinationPoint">
+                        <option value="">
+                            Выбрать город
+                        </option>
+                        <?php
+                        foreach ($filter->getDestinationPoints() as $destinationPoint) {
+                            ?>
+                            <option value="<?= $destinationPoint ?>"><?= $destinationPoint ?></option>
                         <?php } ?>
                     </select>
                 </div>
@@ -38,16 +60,10 @@
             <div class="ui-form-content">
                 <div class="ui-ctl ui-ctl-after-icon ui-ctl-dropdown">
                     <div class="ui-ctl-after ui-ctl-icon-angle"></div>
-                    <select id="rail-destination-station" class="ui-ctl-element" name="destination">
+                    <select id="rail-destination-station" class="ui-ctl-element" name="destinationStation">
                         <option value="">
                             Выбрать станцию
                         </option>
-                        <?php
-                        foreach ($filter->getDestinations() as $destination) {
-                            ?>
-                            <option value="<?= $destination ?>">
-                                <?= $destination ?></option>
-                        <?php } ?>
                     </select>
                 </div>
             </div>
@@ -56,7 +72,7 @@
         <!-- Собственность -->
         <div class="col-md-2">
             <div class="ui-form-label">
-                <label for="rail-ownership" class="ui-ctl-label-text">Собственность</label>
+                <label for="rail-ownership" class="ui-ctl-label-text">Собственность *</label>
             </div>
             <div class="ui-form-content">
                 <div class="ui-ctl ui-ctl-after-icon ui-ctl-dropdown">
@@ -79,7 +95,7 @@
         <!-- Контейнер -->
         <div class="col-md-2">
             <div class="ui-form-label">
-                <label for="rail-container" class="ui-ctl-label-text">Контейнер</label>
+                <label for="rail-container" class="ui-ctl-label-text">Контейнер *</label>
             </div>
             <div class="ui-form-content">
                 <div class="ui-ctl ui-ctl-after-icon ui-ctl-dropdown">

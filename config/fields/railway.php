@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'pod' => [
+    'departureStation' => [
         'id' => [
             'dev' => 'UF_CRM_5_POD',
             'prod' => 'UF_CRM_5_POD',
@@ -11,7 +11,16 @@ return [
             'list' => true,
         ],
     ],
-    'destination' => [
+    'destinationPoint' => [
+        'id' => [
+            'dev' => 'UF_CRM_5_POINT',
+            'prod' => 'UF_CRM_5_POINT',
+        ],
+        'view' => [
+            'filter' => true,
+            'list' => true,
+        ],
+    ], 'destinationStation' => [
         'id' => [
             'dev' => 'UF_CRM_5_STATION',
             'prod' => 'UF_CRM_5_STATION',

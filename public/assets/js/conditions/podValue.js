@@ -4,7 +4,7 @@ import {updateTable} from "../action/updateTable.js";
 
 export function handlePodValueChange() {
     const seaPodValue = document.querySelector('#sea-form select[name="pod"]');
-    const railPodValue = document.querySelector('#rail-form select[name="pod"]');
+    const railPodValue = document.querySelector('#rail-form select[name="departureStation"]');
 
     if (!seaPodValue || !railPodValue) return;
 
@@ -51,6 +51,6 @@ document.addEventListener('DOMContentLoaded', function () {
         seaPodValue.addEventListener('change', handlePodValueChange);
     }
 
-    // Инициализация обрабочика изменений
+    // Инициализация обработчика изменений
     handlePodValueChange();
 });

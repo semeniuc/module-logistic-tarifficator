@@ -24,7 +24,7 @@ class ApiGetListDataController extends Controller
         $filterId = str_replace('-form', '', $this->request()->post['formId']);
         return $this->getListData($filterId, $this->request()->post['fields']);
     }
-
+    
     private function getListData(string $filterId, array $filter): array
     {
         $listService = new ListService();
@@ -38,8 +38,9 @@ class ApiGetListDataController extends Controller
                 containerType: $filter['containerType'] ?? '',
             ),
             'rail' => $listService->getRailListService(
-                pod: $filter['pod'] ?? '',
-                destination: $filter['destination'] ?? '',
+                departureStation: $filter['departureStation'] ?? '',
+                destinationPoint: $filter['destinationPoint'] ?? '',
+                destinationStation: $filter['destinationStation'] ?? '',
                 containerOwner: $filter['containerOwner'] ?? '',
                 containerType: $filter['containerType'] ?? '',
             ),

@@ -1,6 +1,7 @@
 import {sendAjaxRequest} from "../action/ajax.js";
 import {updateTable} from "../action/updateTable.js";
 import {updateSummationForm} from "../action/updateSummationForm.js";
+import {updateSelectOptions} from "../action/updateFilter.js";
 
 // Обработка изменения значений в полях всех форм на странице
 export function handleFormChanges() {
@@ -44,6 +45,12 @@ export function handleFormChanges() {
             sendAjaxRequest(formAction, 'POST', data, function (response) {
                 // Обновление таблицы с новыми данными
                 updateTable(response, form.id);
+
+                // Обновление связанного фильтра
+                if (form.id === 'rail-form') {
+                    const destinationStations = [...new Set(response.map(item => item.destinationStation))];
+                    updateSelectOptions('rail-destination-station', destinationStations);
+                }
             });
         });
     });

@@ -13,10 +13,10 @@ class RailwayFilterService extends AbstractFilterService
         $data = $this->getItems($this->entityTypeIds['railway']);
         $fields = $this->getFieldsToFilter('railway');
         $values = $this->getUniqueValues($fields, $data);
-
+        
         return new RailwayFilterDTO(
-            pods: $values['pod'] ?? [],
-            destinations: $values['destination'] ?? []
+            departureStations: $values['departureStation'] ?? [],
+            destinationPoints: $values['destinationPoint'] ?? []
         );
     }
 }

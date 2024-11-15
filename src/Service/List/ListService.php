@@ -31,13 +31,14 @@ class ListService
     }
 
     public function getRailListService(
-        string $pod,
-        string $destination,
+        string $departureStation,
+        string $destinationPoint,
+        string $destinationStation,
         string $containerOwner,
         string $containerType,
     ): array
     {
-        return $this->railListService->getList($pod, $destination, $containerOwner, $containerType);
+        return $this->railListService->getList($departureStation, $destinationPoint, $destinationStation, $containerOwner, $containerType);
     }
 
     public function getAutoListService(

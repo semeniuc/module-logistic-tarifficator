@@ -13,28 +13,45 @@ class RailListService extends AbstractListService
      * @return ListDTO[]
      */
     public function getList(
-        string $pod,
-        string $destination,
+        string $departureStation,
+        string $destinationPoint,
+        string $destinationStation,
         string $containerOwner,
         string $containerType
     ): array
     {
-        $filterFields = $this->getFieldsToFilter('railway');
+        $filter = $this->prepareFilter($departureStation, $destinationPoint, $destinationStation);
 
-        $filter = [
-            '=' . $filterFields['pod'] => $pod,
-            '=' . $filterFields['destination'] => $destination,
-        ];
-
-        $items = $this->getItems($this->entityTypeIds['railway'], ['filter' => $filter]);
-
-        if (count($items) > 0) {
-            foreach ($items as $item) {
-                $result[] = $this->prepareDTO($item, $containerOwner, $containerType);
+        if ($filter && $containerType && $containerOwner) {
+            $items = $this->getItems($this->entityTypeIds['railway'], ['filter' => $filter]);
+            
+            if (count($items) > 0) {
+                foreach ($items as $item) {
+                    $result[] = $this->prepareDTO($item, $containerOwner, $containerType);
+                }
             }
         }
 
         return $result ?? [];
+    }
+
+    private function prepareFilter(string $departureStation, string $destinationPoint, string $destinationStation): ?array
+    {
+        $filterFields = $this->getFieldsToFilter('railway');
+
+        if (!empty($departureStation)) {
+            $filter['=' . $filterFields['departureStation']] = $departureStation;
+        }
+
+        if (!empty($destinationPoint)) {
+            $filter['=' . $filterFields['destinationPoint']] = $destinationPoint;
+        }
+
+        if (!empty($destinationStation)) {
+            $filter['=' . $filterFields['destinationStation']] = $destinationStation;
+        }
+
+        return $filter ?? null;
     }
 
     protected function prepareDTO(array $item, string $containerOwner, string $containerType): RailListDTO
@@ -46,7 +63,8 @@ class RailListService extends AbstractListService
 
         return new RailListDTO(
             contractor: $item[$listFields['contractor']],
-            destination: $item[$listFields['destination']],
+            destinationPoint: $item[$listFields['destinationPoint']],
+            destinationStation: $item[$listFields['destinationStation']],
             containerOwner: $containerOwner,
             containerType: $containerType,
             deliveryCost: $deliveryCost,

@@ -100,9 +100,9 @@ export function updateSummationForm() {
     // Проверяем доп. опции
     const isRailSecurity = document.getElementById('rail-security').checked;
     if (isRailSecurity) {
-        railSum = getSumFromTable('rail-results', [5, 6]);
+        railSum = getSumFromTable('rail-results', [6, 7]);
     } else {
-        railSum = getSumFromTable('rail-results', [5]);
+        railSum = getSumFromTable('rail-results', [6]);
     }
 
     // Проверяем доп. опции
