@@ -46,5 +46,13 @@ export function handleRowSelection() {
                 updateSummationForm();
             }
         });
+
+        // Отслеживание изменений значений в input внутри таблицы
+        tbody.addEventListener('input', function (event) {
+            if (event.target.tagName === 'INPUT' && event.target.type === 'text') {
+                // Запускаем пересчёт при каждом изменении значения
+                updateSummationForm();
+            }
+        });
     });
 }
