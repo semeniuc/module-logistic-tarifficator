@@ -50,6 +50,31 @@ export function handleRowSelection() {
         // Отслеживание изменений значений в input внутри таблицы
         tbody.addEventListener('input', function (event) {
             if (event.target.tagName === 'INPUT' && event.target.type === 'text') {
+                const input = event.target;
+                let value = input.value;
+
+                // Удаляем все символы, кроме цифр и точки
+                value = value.replace(/[^0-9.]/g, '');
+
+                // Удаляем лишние точки (оставляем только одну)
+                const parts = value.split('.');
+                if (parts.length > 2) {
+                    value = `${parts[0]}.${parts[1]}`;
+                }
+
+                // Если поле пустое, устанавливаем 0
+                if (value === '' || value === '.') {
+                    value = '0';
+                }
+
+                // Ограничиваем значение максимумом 100
+                if (parseFloat(value) > 100) {
+                    value = '100';
+                }
+
+                // Обновляем значение поля
+                input.value = value;
+
                 // Запускаем пересчёт при каждом изменении значения
                 updateSummationForm();
             }
