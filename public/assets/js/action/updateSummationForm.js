@@ -87,9 +87,7 @@ export function updateSummationForm() {
     // Получаем суммы из таблиц
     let seaConversion = getSumFromTable('sea-results', [7]);
     let seaSum = getSumFromTable('sea-results', [6]);
-
-    console.log('seaConversion', seaConversion);
-
+    
     if (seaConversion > 0) {
         seaSum += (seaSum * seaConversion / 100);
     }
