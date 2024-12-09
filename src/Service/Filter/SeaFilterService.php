@@ -12,12 +12,14 @@ class SeaFilterService extends AbstractFilterService
     {
         $data = $this->getItems($this->entityTypeIds['sea']);
         $fields = $this->getFieldsToFilter('sea');
+
+
         $values = $this->getUniqueValues($fields, $data);
 
         return new SeaFilterDTO(
             pols: $values['pol'] ?? [],
-            pods: $values['pod'] ?? [],
-            destinations: $values['destination'] ?? []
+            destinations: $values['destination'] ?? [],
+            terminals: $values['terminal'] ?? []
         );
     }
 }

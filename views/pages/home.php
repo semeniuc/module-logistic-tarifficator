@@ -1,7 +1,7 @@
 <?php
 
-use Tarifficator\Kernel\View\View;
 use Bitrix\Main\UI\Extension;
+use Tarifficator\Kernel\View\View;
 
 /**
  * @var View $view

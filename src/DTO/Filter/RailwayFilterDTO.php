@@ -18,11 +18,26 @@ class RailwayFilterDTO implements FilterDTO
     ];
 
     public function __construct(
-        private readonly array $departureStations,
-        private readonly array $destinationPoints,
-        private readonly array $destinationStations,
+        private readonly array $terminals,
+        private readonly array $destinations,
+        private readonly array $stations,
     )
     {
+    }
+
+    public function getTerminals(): array
+    {
+        return $this->terminals;
+    }
+
+    public function getDestinations(): array
+    {
+        return $this->destinations;
+    }
+
+    public function getStations(): array
+    {
+        return $this->stations;
     }
 
     public function getContainerOwners(): array
@@ -33,20 +48,5 @@ class RailwayFilterDTO implements FilterDTO
     public function getContainerTypes(): array
     {
         return $this->containerTypes;
-    }
-
-    public function getDepartureStations(): array
-    {
-        return $this->departureStations;
-    }
-
-    public function getDestinationPoints(): array
-    {
-        return $this->destinationPoints;
-    }
-
-    public function getDestinationStations(): array
-    {
-        return $this->destinationStations;
     }
 }

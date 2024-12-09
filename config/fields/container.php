@@ -1,16 +1,6 @@
 <?php
 
 return [
-    'type' => [
-        'id' => [
-            'dev' => 'UF_CRM_7_TYPE',
-            'prod' => 'UF_CRM_7_TYPE',
-        ],
-        'view' => [
-            'filter' => true,
-            'list' => false,
-        ],
-    ],
     'destination' => [
         'id' => [
             'dev' => 'UF_CRM_7_DESTINATION',
@@ -27,7 +17,7 @@ return [
             'prod' => 'UF_CRM_7_CONTRACTOR',
         ],
         'view' => [
-            'filter' => false,
+            'filter' => true,
             'list' => true,
         ],
     ],
@@ -80,16 +70,6 @@ return [
         'view' => [
             'filter' => false,
             'list' => true,
-        ],
-    ],
-    'pol' => [
-        'id' => [
-            'dev' => 'UF_CRM_7_POL',
-            'prod' => 'UF_CRM_7_POL',
-        ],
-        'view' => [
-            'filter' => false,
-            'list' => false,
         ],
     ],
 ];

@@ -21,43 +21,44 @@ class ListService
 
     public function getSeaListService(
         string $pol,
-        string $pod,
         string $destination,
+        string $terminal,
         string $containerOwner,
         string $containerType,
     ): array
     {
-        return $this->seaListService->getList($pol, $pod, $destination, $containerOwner, $containerType);
+        return $this->seaListService->getList($pol, $destination, $terminal, $containerOwner, $containerType);
     }
 
     public function getRailListService(
-        string $departureStation,
-        string $destinationPoint,
-        string $destinationStation,
+        string $terminal,
+        string $destination,
+        string $station,
         string $containerOwner,
         string $containerType,
     ): array
     {
-        return $this->railListService->getList($departureStation, $destinationPoint, $destinationStation, $containerOwner, $containerType);
+        return $this->railListService->getList($terminal, $destination, $station, $containerOwner, $containerType);
     }
 
     public function getAutoListService(
-        string $station,
-        string $point,
+        string $destination,
+        string $terminal,
         string $containerOwner,
         string $containerType,
     ): array
     {
-        return $this->autoListService->getList($station, $point, $containerOwner, $containerType);
+        return $this->autoListService->getList($destination, $terminal, $containerOwner, $containerType);
     }
 
     public function getContainerListService(
         string $destination,
+        string $contractor,
         string $containerOwner,
         string $containerType,
     ): array
     {
-        return $this->containerListService->getList($destination, $containerOwner, $containerType);
+        return $this->containerListService->getList($destination, $contractor, $containerOwner, $containerType);
     }
 }
 

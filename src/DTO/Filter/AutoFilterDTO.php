@@ -17,8 +17,8 @@ class AutoFilterDTO implements FilterDTO
     ];
 
     public function __construct(
-        private readonly array $stations,
-        private readonly array $points,
+        private readonly array $terminals,
+        private readonly array $destinations,
     )
     {
     }
@@ -33,13 +33,13 @@ class AutoFilterDTO implements FilterDTO
         return $this->containerTypes;
     }
 
-    public function getStations(): array
+    public function getTerminals(): array
     {
-        return $this->stations;
+        return $this->terminals;
     }
 
-    public function getPoints(): array
+    public function getDestinations(): array
     {
-        return $this->points;
+        return $this->destinations;
     }
 }

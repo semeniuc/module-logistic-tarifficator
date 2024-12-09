@@ -11,7 +11,7 @@ return [
             'list' => true,
         ],
     ],
-    'pod' => [
+    'destination' => [
         'id' => [
             'dev' => 'UF_CRM_4_POD',
             'prod' => 'UF_CRM_4_POD',
@@ -21,10 +21,10 @@ return [
             'list' => true,
         ],
     ],
-    'destination' => [
+    'terminal' => [
         'id' => [
-            'dev' => 'UF_CRM_4_DESTINATION',
-            'prod' => 'UF_CRM_4_DESTINATION',
+            'dev' => 'UF_CRM_4_TERMINAL',
+            'prod' => null,
         ],
         'view' => [
             'filter' => true,

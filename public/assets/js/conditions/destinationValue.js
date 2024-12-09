@@ -7,7 +7,7 @@ export function handleDropOffDestinationChange() {
     const dropOffDestination = document.querySelector('#container-form select[name="destination"]');
 
     if (!seaDestination) return;
-    
+
     // Drop off
     if (dropOffDestination) {
         if (dropOffDestination.value !== seaDestination.value) {

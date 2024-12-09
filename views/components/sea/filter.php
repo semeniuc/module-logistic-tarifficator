@@ -7,9 +7,7 @@
 ?>
 
 <form id="sea-form" class="mb-4">
-
     <div class="ui-form row">
-
         <!-- Порт отправления -->
         <div class="col-md-2">
             <div class="ui-form-label">
@@ -36,19 +34,19 @@
         <!-- Порт назначения -->
         <div class="col-md-2">
             <div class="ui-form-label">
-                <label for="sea-destination-port" class="ui-ctl-label-text">Порт назначения</label>
+                <label for="sea-destination" class="ui-ctl-label-text">Пункт назначения</label>
             </div>
             <div class="ui-form-content">
                 <div class="ui-ctl ui-ctl-after-icon ui-ctl-dropdown">
                     <div class="ui-ctl-after ui-ctl-icon-angle"></div>
-                    <select id="sea-destination-port" class="ui-ctl-element" name="pod">
+                    <select id="sea-destination" class="ui-ctl-element" name="destination">
                         <option value="">
-                            Выбрать порт
+                            Выбрать пункт
                         </option>
                         <?php
-                        foreach ($filter->getPods() as $pod) {
+                        foreach ($filter->getDestinations() as $destination) {
                             ?>
-                            <option value="<?= htmlspecialchars($pod) ?>"><?= $pod ?></option>
+                            <option value="<?= htmlspecialchars($destination) ?>"><?= $destination ?></option>
                             <?php
                         } ?>
                     </select>
@@ -56,22 +54,22 @@
             </div>
         </div>
 
-        <!-- Пункт назначения -->
+        <!-- Терминал выгрузки -->
         <div class="col-md-2">
             <div class="ui-form-label">
-                <label for="sea-destination-point" class="ui-ctl-label-text">Пункт назначения</label>
+                <label for="sea-terminal" class="ui-ctl-label-text">Терминал выгрузки</label>
             </div>
             <div class="ui-form-content">
                 <div class="ui-ctl ui-ctl-after-icon ui-ctl-dropdown">
                     <div class="ui-ctl-after ui-ctl-icon-angle"></div>
-                    <select id="sea-destination-point" class="ui-ctl-element" name="destination">
+                    <select id="sea-terminal" class="ui-ctl-element" name="terminal">
                         <option value="">
-                            Выбрать город
+                            Выбрать терминал
                         </option>
                         <?php
-                        foreach ($filter->getDestinations() as $destination) {
+                        foreach ($filter->getTerminals() as $terminal) {
                             ?>
-                            <option value="<?= htmlspecialchars($destination) ?>"><?= $destination ?></option>
+                            <option value="<?= htmlspecialchars($terminal) ?>"><?= $terminal ?></option>
                             <?php
                         } ?>
                     </select>

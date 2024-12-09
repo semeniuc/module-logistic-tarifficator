@@ -14,13 +14,13 @@ class SeaListService extends AbstractListService
      */
     public function getList(
         string $pol,
-        string $pod,
         string $destination,
+        string $terminal,
         string $containerOwner,
         string $containerType
     ): array
     {
-        $filter = $this->prepareFilter($pol, $pod, $destination);
+        $filter = $this->prepareFilter($pol, $destination, $terminal);
 
         if ($filter && $containerType && $containerOwner) {
             $items = $this->getItems($this->entityTypeIds['sea'], ['filter' => $filter]);
@@ -35,7 +35,7 @@ class SeaListService extends AbstractListService
         return $result ?? [];
     }
 
-    private function prepareFilter(string $pol, string $pod, string $destination): ?array
+    private function prepareFilter(string $pol, string $destination, string $terminal): ?array
     {
         $filterFields = $this->getFieldsToFilter('sea');
 
@@ -43,12 +43,12 @@ class SeaListService extends AbstractListService
             $filter['=' . $filterFields['pol']] = $pol;
         }
 
-        if (!empty($pod)) {
-            $filter['=' . $filterFields['pod']] = $pod;
-        }
-
         if (!empty($destination)) {
             $filter['=' . $filterFields['destination']] = $destination;
+        }
+
+        if (!empty($terminal)) {
+            $filter['=' . $filterFields['terminal']] = $terminal;
         }
 
         return $filter ?? null;
@@ -65,6 +65,7 @@ class SeaListService extends AbstractListService
             contractor: $item[$listFields['contractor']],
             route: $item[$listFields['route']],
             destination: $item[$listFields['destination']],
+            terminal: $item[$listFields['terminal']],
             containerOwner: $containerOwner,
             containerType: $containerType,
             deliveryCost: $deliveryCost,

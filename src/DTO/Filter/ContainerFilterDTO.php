@@ -18,6 +18,7 @@ class ContainerFilterDTO implements FilterDTO
 
     public function __construct(
         private readonly array $destinations,
+        private readonly array $contractors,
     )
     {
     }
@@ -35,5 +36,10 @@ class ContainerFilterDTO implements FilterDTO
     public function getDestinations(): array
     {
         return $this->destinations;
+    }
+
+    public function getContractors(): array
+    {
+        return $this->contractors;
     }
 }

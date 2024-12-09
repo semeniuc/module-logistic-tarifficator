@@ -13,7 +13,7 @@ class ContainerFilterService extends AbstractFilterService
         $data = $this->getItems($this->entityTypeIds['container']);
         $fields = $this->getFieldsToFilter('container');
         $values = $this->getUniqueValues($fields, $data);
-
-        return new ContainerFilterDTO(destinations: $values['destination'] ?? []);
+        
+        return new ContainerFilterDTO(destinations: $values['destination'] ?? [], contractors: $values['contractor'] ?? []);
     }
 }

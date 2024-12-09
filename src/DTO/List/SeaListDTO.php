@@ -10,6 +10,7 @@ class SeaListDTO implements ListDTO
         public readonly string $contractor,
         public readonly string $route,
         public readonly string $destination,
+        public readonly string $terminal,
         public readonly string $containerOwner,
         public readonly string $containerType,
         public readonly string $deliveryCost,

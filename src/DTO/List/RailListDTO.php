@@ -8,8 +8,8 @@ class RailListDTO implements ListDTO
 {
     public function __construct(
         public readonly string $contractor,
-        public readonly string $destinationPoint,
-        public readonly string $destinationStation,
+        public readonly string $destination,
+        public readonly string $station,
         public readonly string $containerOwner,
         public readonly string $containerType,
         public readonly string $deliveryCost,

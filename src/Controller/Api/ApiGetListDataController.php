@@ -24,34 +24,37 @@ class ApiGetListDataController extends Controller
         $filterId = str_replace('-form', '', $this->request()->post['formId']);
         return $this->getListData($filterId, $this->request()->post['fields']);
     }
-    
+
     private function getListData(string $filterId, array $filter): array
     {
         $listService = new ListService();
 
+//        dd([$filterId => $filter]);
+
         return match ($filterId) {
             'sea' => $listService->getSeaListService(
                 pol: $filter['pol'] ?? '',
-                pod: $filter['pod'] ?? '',
                 destination: $filter['destination'] ?? '',
+                terminal: $filter['terminal'] ?? '',
                 containerOwner: $filter['containerOwner'] ?? '',
                 containerType: $filter['containerType'] ?? '',
             ),
             'rail' => $listService->getRailListService(
-                departureStation: $filter['departureStation'] ?? '',
-                destinationPoint: $filter['destinationPoint'] ?? '',
-                destinationStation: $filter['destinationStation'] ?? '',
+                terminal: $filter['terminal'] ?? '',
+                destination: $filter['destination'] ?? '',
+                station: $filter['station'] ?? '',
                 containerOwner: $filter['containerOwner'] ?? '',
                 containerType: $filter['containerType'] ?? '',
             ),
             'auto' => $listService->getAutoListService(
-                station: $filter['station'] ?? '',
-                point: $filter['point'] ?? '',
+                destination: $filter['destination'] ?? '',
+                terminal: $filter['terminal'] ?? '',
                 containerOwner: $filter['containerOwner'] ?? '',
                 containerType: $filter['containerType'] ?? '',
             ),
             'container' => $listService->getContainerListService(
                 destination: $filter['destination'] ?? '',
+                contractor: $filter['contractor'] ?? '',
                 containerOwner: $filter['containerOwner'] ?? '',
                 containerType: $filter['containerType'] ?? '',
             ),

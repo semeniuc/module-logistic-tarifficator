@@ -15,8 +15,8 @@ class AutoFilterService extends AbstractFilterService
         $values = $this->getUniqueValues($fields, $data);
 
         return new AutoFilterDTO(
-            stations: $values['station'] ?? [],
-            points: $values['point'] ?? []
+            terminals: $values['terminal'] ?? [],
+            destinations: $values['destination'] ?? []
         );
     }
 }

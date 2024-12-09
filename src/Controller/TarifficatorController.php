@@ -25,6 +25,7 @@ class TarifficatorController extends Controller
 
         return [
             'sea' => $filterService->getSea(),
+            
             'railway' => $filterService->getRailway(),
             'auto' => $filterService->getAuto(),
             'container' => $filterService->getContainer(),

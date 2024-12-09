@@ -13,18 +13,18 @@ class RailListService extends AbstractListService
      * @return ListDTO[]
      */
     public function getList(
-        string $departureStation,
-        string $destinationPoint,
-        string $destinationStation,
+        string $terminal,
+        string $destination,
+        string $station,
         string $containerOwner,
         string $containerType
     ): array
     {
-        $filter = $this->prepareFilter($departureStation, $destinationPoint, $destinationStation);
+        $filter = $this->prepareFilter($terminal, $destination, $station);
 
         if ($filter && $containerType && $containerOwner) {
             $items = $this->getItems($this->entityTypeIds['railway'], ['filter' => $filter]);
-            
+
             if (count($items) > 0) {
                 foreach ($items as $item) {
                     $result[] = $this->prepareDTO($item, $containerOwner, $containerType);
@@ -35,20 +35,20 @@ class RailListService extends AbstractListService
         return $result ?? [];
     }
 
-    private function prepareFilter(string $departureStation, string $destinationPoint, string $destinationStation): ?array
+    private function prepareFilter(string $terminal, string $destination, string $station): ?array
     {
         $filterFields = $this->getFieldsToFilter('railway');
 
-        if (!empty($departureStation)) {
-            $filter['=' . $filterFields['departureStation']] = $departureStation;
+        if (!empty($terminal)) {
+            $filter['=' . $filterFields['terminal']] = $terminal;
         }
 
-        if (!empty($destinationPoint)) {
-            $filter['=' . $filterFields['destinationPoint']] = $destinationPoint;
+        if (!empty($destination)) {
+            $filter['=' . $filterFields['destination']] = $destination;
         }
 
-        if (!empty($destinationStation)) {
-            $filter['=' . $filterFields['destinationStation']] = $destinationStation;
+        if (!empty($station)) {
+            $filter['=' . $filterFields['station']] = $station;
         }
 
         return $filter ?? null;
@@ -63,8 +63,8 @@ class RailListService extends AbstractListService
 
         return new RailListDTO(
             contractor: $item[$listFields['contractor']],
-            destinationPoint: $item[$listFields['destinationPoint']],
-            destinationStation: $item[$listFields['destinationStation']],
+            destination: $item[$listFields['destination']],
+            station: $item[$listFields['station']],
             containerOwner: $containerOwner,
             containerType: $containerType,
             deliveryCost: $deliveryCost,

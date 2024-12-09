@@ -14,26 +14,39 @@ class ContainerListService extends AbstractListService
      */
     public function getList(
         string $destination,
+        string $contractor,
         string $containerOwner,
         string $containerType
     ): array
     {
-        $filterFields = $this->getFieldsToFilter('container');
+        $filter = $this->prepareFilter($destination, $contractor);
 
-        $filter = [
-            '=' . $filterFields['destination'] => $destination,
-            '=' . $filterFields['type'] => mb_convert_case($containerOwner, MB_CASE_UPPER),
-        ];
+        if ($filter && $containerOwner && $containerType) {
+            $items = $this->getItems($this->entityTypeIds['container'], ['filter' => $filter]);
 
-        $items = $this->getItems($this->entityTypeIds['container'], ['filter' => $filter]);
-        
-        if (count($items) > 0) {
-            foreach ($items as $item) {
-                $result[] = $this->prepareDTO($item, $containerOwner, $containerType);
+            if (count($items) > 0) {
+                foreach ($items as $item) {
+                    $result[] = $this->prepareDTO($item, $containerOwner, $containerType);
+                }
             }
         }
 
         return $result ?? [];
+    }
+
+    private function prepareFilter(string $destination, string $contractor): ?array
+    {
+        $filterFields = $this->getFieldsToFilter('container');
+
+        if (!empty($destination)) {
+            $filter['=' . $filterFields['destination']] = $destination;
+        }
+
+        if (!empty($contractor)) {
+            $filter['=' . $filterFields['contractor']] = $contractor;
+        }
+
+        return $filter ?? null;
     }
 
     protected function prepareDTO(array $item, string $containerOwner, string $containerType): ContainerListDTO

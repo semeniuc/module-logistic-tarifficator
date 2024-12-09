@@ -1,26 +1,27 @@
 <?php
 
 return [
-    'departureStation' => [
+    'terminal' => [
         'id' => [
-            'dev' => 'UF_CRM_5_POD',
-            'prod' => 'UF_CRM_5_POD',
+            'dev' => 'UF_CRM_5_TERMINAL',
+            'prod' => null,
         ],
         'view' => [
             'filter' => true,
             'list' => true,
         ],
     ],
-    'destinationPoint' => [
+    'destination' => [
         'id' => [
-            'dev' => 'UF_CRM_5_POINT',
-            'prod' => 'UF_CRM_5_POINT',
+            'dev' => 'UF_CRM_5_DESTINATION',
+            'prod' => null,
         ],
         'view' => [
             'filter' => true,
             'list' => true,
         ],
-    ], 'destinationStation' => [
+    ],
+    'station' => [
         'id' => [
             'dev' => 'UF_CRM_5_STATION',
             'prod' => 'UF_CRM_5_STATION',

@@ -6,7 +6,7 @@
     <thead class="table-light">
     <tr>
         <th></th>
-        <th>Агент</th>
+        <th>Оператор</th>
         <th>Пункт назначения</th>
         <th>Станция назначения</th>
         <th>COC/SOC</th>

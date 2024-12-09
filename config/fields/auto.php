@@ -1,20 +1,20 @@
 <?php
 
 return [
-    'station' => [
+    'terminal' => [
         'id' => [
-            'dev' => 'UF_CRM_6_STATION',
-            'prod' => 'UF_CRM_6_STATION',
+            'dev' => 'UF_CRM_6_TERMINAL',
+            'prod' => null,
         ],
         'view' => [
             'filter' => true,
             'list' => true,
         ],
     ],
-    'point' => [
+    'destination' => [
         'id' => [
-            'dev' => 'UF_CRM_6_POINT',
-            'prod' => 'UF_CRM_6_POINT',
+            'dev' => 'UF_CRM_6_DESTINATION',
+            'prod' => null,
         ],
         'view' => [
             'filter' => true,
@@ -72,60 +72,50 @@ return [
         ],
     ],
 
-    'terminal20Dry' => [
+    'loadingFee20Dry' => [
         'id' => [
-            'dev' => 'UF_CRM_6_TERMINAL_20DRY',
-            'prod' => 'UF_CRM_6_TERMINAL_20DRY',
+            'dev' => 'UF_CRM_6_LOADING_FEE_20DRY',
+            'prod' => null,
         ],
         'view' => [
             'filter' => false,
             'list' => true,
         ],
     ],
-    'terminal40Hc' => [
+    'loadingFee40Hc' => [
         'id' => [
-            'dev' => 'UF_CRM_6_TERMINAL_40HC',
-            'prod' => 'UF_CRM_6_TERMINAL_40HC',
+            'dev' => 'UF_CRM_6_LOADING_FEE_40HC',
+            'prod' => null,
         ],
         'view' => [
             'filter' => false,
             'list' => true,
         ],
     ],
-    'terminalValidFrom' => [
+    'loadingFeeValidFrom' => [
         'id' => [
-            'dev' => 'UF_CRM_6_TERMINAL_VALID_FROM',
-            'prod' => 'UF_CRM_6_TERMINAL_VALID_FROM',
+            'dev' => 'UF_CRM_6_LOADING_FEE_VALID_FROM',
+            'prod' => null,
         ],
         'view' => [
             'filter' => false,
             'list' => true,
         ],
     ],
-    'terminalValidTill' => [
+    'loadingFeeValidTill' => [
         'id' => [
-            'dev' => 'UF_CRM_6_TERMINAL_VALID_TILL',
-            'prod' => 'UF_CRM_6_TERMINAL_VALID_TILL',
+            'dev' => 'UF_CRM_6_LOADING_FEE_VALID_TILL',
+            'prod' => null,
         ],
         'view' => [
             'filter' => false,
             'list' => true,
         ],
     ],
-    'deliveryComment' => [
+    'comment' => [
         'id' => [
-            'dev' => 'UF_CRM_6_DELIVERY_COMMENT',
-            'prod' => 'UF_CRM_6_DELIVERY_COMMENT',
-        ],
-        'view' => [
-            'filter' => false,
-            'list' => true,
-        ],
-    ],
-    'terminalComment' => [
-        'id' => [
-            'dev' => 'UF_CRM_6_TERMINAL_COMMENT',
-            'prod' => 'UF_CRM_6_TERMINAL_COMMENT',
+            'dev' => 'UF_CRM_6_COMMENT',
+            'prod' => null,
         ],
         'view' => [
             'filter' => false,

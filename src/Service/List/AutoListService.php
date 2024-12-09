@@ -6,7 +6,6 @@ namespace Tarifficator\Service\List;
 
 use Tarifficator\DTO\List\AutoListDTO;
 use Tarifficator\DTO\List\ListDTO;
-use Tarifficator\DTO\List\RailListDTO;
 
 class AutoListService extends AbstractListService
 {
@@ -14,28 +13,40 @@ class AutoListService extends AbstractListService
      * @return ListDTO[]
      */
     public function getList(
-        string $station,
-        string $point,
+        string $destination,
+        string $terminal,
         string $containerOwner,
         string $containerType
     ): array
     {
-        $filterFields = $this->getFieldsToFilter('auto');
+        $filter = $this->prepareFilter($destination, $terminal);
 
-        $filter = [
-            '=' . $filterFields['station'] => $station,
-            '=' . $filterFields['point'] => $point,
-        ];
+        if ($filter && $containerType && $containerOwner) {
+            $items = $this->getItems($this->entityTypeIds['auto'], ['filter' => $filter]);
 
-        $items = $this->getItems($this->entityTypeIds['auto'], ['filter' => $filter]);
-
-        if (count($items) > 0) {
-            foreach ($items as $item) {
-                $result[] = $this->prepareDTO($item, $containerOwner, $containerType);
+            if (count($items) > 0) {
+                foreach ($items as $item) {
+                    $result[] = $this->prepareDTO($item, $containerOwner, $containerType);
+                }
             }
         }
 
         return $result ?? [];
+    }
+
+    private function prepareFilter(string $destination, string $terminal): ?array
+    {
+        $filterFields = $this->getFieldsToFilter('auto');
+
+        if (!empty($destination)) {
+            $filter['=' . $filterFields['destination']] = $destination;
+        }
+
+        if (!empty($terminal)) {
+            $filter['=' . $filterFields['terminal']] = $terminal;
+        }
+
+        return $filter ?? null;
     }
 
     protected function prepareDTO(array $item, string $containerOwner, string $containerType): AutoListDTO
@@ -46,18 +57,18 @@ class AutoListService extends AbstractListService
         $terminalCost = $this->getTerminalCost($item, $containerType);
 
         $deliveryValidTill = $this->getDate($item[$listFields['deliveryPriceValidTill']]);
-        $terminalValidTill = $this->getDate($item[$listFields['terminalValidTill']]);
+        $terminalValidTill = $this->getDate($item[$listFields['loadingFeeValidTill']]);
 
         return new AutoListDTO(
             contractor: $item[$listFields['contractor']],
-            point: $item[$listFields['point']],
+            destination: $item[$listFields['destination']],
             containerOwner: $containerOwner,
             containerType: $containerType,
             deliveryCost: $deliveryCost,
             deliveryValidTill: $deliveryValidTill,
             terminalCost: $terminalCost,
             terminalValidTill: $terminalValidTill,
-            comment: $item[$listFields['deliveryComment']],
+            comment: $item[$listFields['comment']],
             isActive: $this->isActive($deliveryValidTill),
         );
     }
