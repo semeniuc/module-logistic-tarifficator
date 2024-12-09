@@ -2,19 +2,19 @@
 import {sendAjaxRequest} from "../action/ajax.js";
 import {updateTable} from "../action/updateTable.js";
 
-export function handlePodValueChange() {
-    const seaPodValue = document.querySelector('#sea-form select[name="pod"]');
-    const railPodValue = document.querySelector('#rail-form select[name="departureStation"]');
+export function handleTerminalChange() {
+    const seaTerminal = document.querySelector('#sea-form select[name="terminal"]');
+    const railTerminal = document.querySelector('#rail-form select[name="terminal"]');
 
-    if (!seaPodValue || !railPodValue) return;
+    if (!seaTerminal || !railTerminal) return;
 
-    const selectedSeaValue = seaPodValue.value;
+    const selectedSeaValue = seaTerminal.value;
 
-    // Существует ли значение seaPodValue в railPodValue
-    const optionExists = Array.from(railPodValue.options).some(option => option.value === selectedSeaValue);
+    // Существует ли значение seaTerminal в railTerminal
+    const optionExists = Array.from(railTerminal.options).some(option => option.value === selectedSeaValue);
 
     if (optionExists) {
-        railPodValue.value = selectedSeaValue;
+        railTerminal.value = selectedSeaValue;
         updateResults('rail-form');
     }
 }
@@ -45,12 +45,12 @@ function updateResults(formId) {
 
 // Вызываем функции при загрузке страницы
 document.addEventListener('DOMContentLoaded', function () {
-    const seaPodValue = document.querySelector('#sea-form select[name="pod"]');
+    const seaTerminal = document.querySelector('#sea-form select[name="terminal"]');
 
-    if (seaPodValue) {
-        seaPodValue.addEventListener('change', handlePodValueChange);
+    if (seaTerminal) {
+        seaTerminal.addEventListener('change', handleTerminalChange);
     }
 
     // Инициализация обработчика изменений
-    handlePodValueChange();
+    handleTerminalChange();
 });

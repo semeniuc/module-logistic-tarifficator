@@ -48,9 +48,9 @@ export function handleFormChanges() {
 
                 // Обновление связанного фильтра
                 if (form.id === 'rail-form') {
-                    if (changedElement.name !== 'destinationStation') {
-                        const destinationStations = [...new Set(response.map(item => item.destinationStation))];
-                        updateSelectOptions('rail-destination-station', destinationStations);
+                    if (changedElement.name !== 'station') {
+                        const stations = [...new Set(response.map(item => item.station))];
+                        updateSelectOptions('rail-station', stations);
                     }
                 }
             });

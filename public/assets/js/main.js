@@ -7,7 +7,7 @@ import {fetchAndUpdateExchangeRate} from "./action/getExchangeRate.js";
 
 import './conditions/containerOwner.js';
 import './conditions/containerType.js';
-import './conditions/podValue.js';
+import './conditions/terminalValue.js';
 import './conditions/destinationValue.js';
 
 // Listener
