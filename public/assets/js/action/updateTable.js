@@ -90,35 +90,39 @@ export function updateTable(data, formId) {
         const checkboxTd = createCheckboxCell(row.isActive);
         tr.appendChild(checkboxTd);
 
+        let isSecondCell = true; // Флаг для отслеживания второй ячейки
         Object.keys(row).forEach(key => {
-            if (key !== 'isActive') {
+            if (key !== 'isActive' && key !== 'isService') {
                 const td = document.createElement('td');
 
-                // Проверка: если ключ равен "conversion", делаем ячейку редактируемой
                 if (key === 'conversion') {
                     const input = document.createElement('input');
                     input.type = 'text';
                     input.value = row[key];
                     input.classList.add('ui-ctl-element');
 
-                    td.classList.add('conversion-input'); // Класс для стилизации
-                    td.appendChild(input); // Добавляем input в ячейку
+                    td.classList.add('conversion-input');
+                    td.appendChild(input);
                 } else {
                     td.textContent = formatCellData(row[key], key);
 
                     if (key === 'comment' && row[key].length > 0) {
                         td.classList.add('comment-icon');
                         td.setAttribute('data-title', row[key]);
-                        td.textContent = ''; // Очищаем текстовое содержимое ячейки
+                        td.textContent = '';
 
-                        // Создаем внутренний span для иконки
                         const iconSpan = document.createElement('span');
-                        iconSpan.className = 'icon'; // Устанавливаем класс для span
-                        td.appendChild(iconSpan); // Добавляем span в ячейку
+                        iconSpan.className = 'icon';
+                        td.appendChild(iconSpan);
                     }
                 }
 
-                tr.appendChild(td); // Добавляем ячейку в строку
+                if (row.isService === true && isSecondCell) {
+                    td.classList.add('is-service');
+                    isSecondCell = false;
+                }
+
+                tr.appendChild(td);
             }
         });
 
@@ -131,6 +135,7 @@ export function updateTable(data, formId) {
 
         return tr;
     }
+
 
     function createCheckboxCell(isActive) {
         const checkboxTd = document.createElement('td');

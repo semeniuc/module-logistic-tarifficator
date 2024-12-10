@@ -181,3 +181,26 @@ td.conversion-input > input {
     text-align: center;
     padding: 0 5px;
 }
+
+
+.is-service {
+    position: relative;
+}
+
+.is-service::before {
+    content: 'С'; /* Буква "С" */
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    padding: 5px 6px;
+    width: 40px; /* Ширина угла */
+    height: 40px; /* Высота угла */
+    background: #087f7a; /* Цвет угла */
+    color: white; /* Цвет буквы */
+    font-size: 14px; /* Размер буквы */
+    font-weight: bold; /* Толщина буквы */
+    clip-path: polygon(0 0, 100% 0, 0 100%); /* Треугольная форма */
+    z-index: 1;
+}
+
