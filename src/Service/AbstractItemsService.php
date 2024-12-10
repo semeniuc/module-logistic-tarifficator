@@ -7,6 +7,7 @@ namespace Tarifficator\Service;
 use FilesystemIterator;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use SplFileInfo;
 use Tarifficator\Repository\EntityRepository;
 
 abstract class AbstractItemsService
@@ -28,14 +29,17 @@ abstract class AbstractItemsService
             );
 
             foreach ($iterator as $item) {
+                /** @var SplFileInfo $item */
+
                 if ($item->isFile()) {
                     if ($item->getExtension() === 'php') {
-                        $entityType = str_replace('.php', '', $item->getFilename());
 
+                        $entityType = str_replace('.php', '', $item->getFilename());
+                        $entityCategory = basename($item->getPath());
                         $entityTypeId = (include $item->getPathname())['entityType'][APP_ENV];
 
                         if ($entityTypeId) {
-                            $this->entityTypeIds[$entityType] = $entityTypeId;
+                            $this->entityTypeIds[$entityCategory][$entityType] = $entityTypeId;
                         }
                     }
                 }

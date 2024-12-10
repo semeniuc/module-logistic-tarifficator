@@ -9,24 +9,27 @@ use Tarifficator\DTO\List\ListDTO;
 
 class AutoListService extends AbstractListService
 {
+    public string $category = 'auto';
+
     /**
      * @return ListDTO[]
      */
     public function getList(
+        string $entityType,
         string $destination,
         string $terminal,
         string $containerOwner,
         string $containerType
     ): array
     {
-        $filter = $this->prepareFilter($destination, $terminal);
+        $filter = $this->prepareFilter($entityType, $destination, $terminal);
 
         if ($filter && $containerType && $containerOwner) {
-            $items = $this->getItems($this->entityTypeIds['auto'], ['filter' => $filter]);
+            $items = $this->getItems($this->entityTypeIds[$this->category][$entityType], ['filter' => $filter]);
 
             if (count($items) > 0) {
                 foreach ($items as $item) {
-                    $result[] = $this->prepareDTO($item, $containerOwner, $containerType);
+                    $result[] = $this->prepareDTO($entityType, $item, $containerOwner, $containerType);
                 }
             }
         }
@@ -34,9 +37,9 @@ class AutoListService extends AbstractListService
         return $result ?? [];
     }
 
-    private function prepareFilter(string $destination, string $terminal): ?array
+    private function prepareFilter(string $entityType, string $destination, string $terminal): ?array
     {
-        $filterFields = $this->getFieldsToFilter('auto');
+        $filterFields = $this->getFieldsToFilter($this->category, $entityType);
 
         if (!empty($destination)) {
             $filter['=' . $filterFields['destination']] = $destination;
@@ -49,12 +52,12 @@ class AutoListService extends AbstractListService
         return $filter ?? null;
     }
 
-    protected function prepareDTO(array $item, string $containerOwner, string $containerType): AutoListDTO
+    protected function prepareDTO(string $entityType, array $item, string $containerOwner, string $containerType): AutoListDTO
     {
-        $listFields = $this->getFieldsToList('auto');
+        $listFields = $this->getFieldsToList($this->category, $entityType);
 
-        $deliveryCost = $this->getDeliveryCost($item, $containerType);
-        $terminalCost = $this->getTerminalCost($item, $containerType);
+        $deliveryCost = $this->getDeliveryCost($entityType, $item, $containerType);
+        $terminalCost = $this->getTerminalCost($entityType, $item, $containerType);
 
         $deliveryValidTill = $this->getDate($item[$listFields['deliveryPriceValidTill']]);
         $terminalValidTill = $this->getDate($item[$listFields['loadingFeeValidTill']]);
@@ -73,9 +76,9 @@ class AutoListService extends AbstractListService
         );
     }
 
-    private function getDeliveryCost(array $item, string $containerType): ?string
+    private function getDeliveryCost(string $entityType, array $item, string $containerType): ?string
     {
-        $listFields = $this->getFieldsToList('auto');
+        $listFields = $this->getFieldsToList($this->category, $entityType);
 
         if ($containerType === '40hc (<20т)') {
             $value = $item[$listFields['deliveryCost40HcLess20']];
@@ -86,9 +89,9 @@ class AutoListService extends AbstractListService
         return $this->getCost($value ?? '');
     }
 
-    private function getTerminalCost(array $item, string $containerType): string
+    private function getTerminalCost(string $entityType, array $item, string $containerType): string
     {
-        $listFields = $this->getFieldsToList('auto');
+        $listFields = $this->getFieldsToList($this->category, $entityType);
 
         if ($containerType === '40hc (<20т)') {
             $value = $item[$listFields['terminal40Hc']];

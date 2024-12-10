@@ -9,10 +9,13 @@ use Tarifficator\DTO\List\RailListDTO;
 
 class RailListService extends AbstractListService
 {
+    public string $category = 'railway';
+
     /**
      * @return ListDTO[]
      */
     public function getList(
+        string $entityType,
         string $terminal,
         string $destination,
         string $station,
@@ -20,14 +23,14 @@ class RailListService extends AbstractListService
         string $containerType
     ): array
     {
-        $filter = $this->prepareFilter($terminal, $destination, $station);
+        $filter = $this->prepareFilter($entityType, $terminal, $destination, $station);
 
         if ($filter && $containerType && $containerOwner) {
-            $items = $this->getItems($this->entityTypeIds['railway'], ['filter' => $filter]);
+            $items = $this->getItems($this->entityTypeIds[$this->category][$entityType], ['filter' => $filter]);
 
             if (count($items) > 0) {
                 foreach ($items as $item) {
-                    $result[] = $this->prepareDTO($item, $containerOwner, $containerType);
+                    $result[] = $this->prepareDTO($entityType, $item, $containerOwner, $containerType);
                 }
             }
         }
@@ -35,9 +38,9 @@ class RailListService extends AbstractListService
         return $result ?? [];
     }
 
-    private function prepareFilter(string $terminal, string $destination, string $station): ?array
+    private function prepareFilter(string $entityType, string $terminal, string $destination, string $station): ?array
     {
-        $filterFields = $this->getFieldsToFilter('railway');
+        $filterFields = $this->getFieldsToFilter($this->category, $entityType);
 
         if (!empty($terminal)) {
             $filter['=' . $filterFields['terminal']] = $terminal;
@@ -54,11 +57,11 @@ class RailListService extends AbstractListService
         return $filter ?? null;
     }
 
-    protected function prepareDTO(array $item, string $containerOwner, string $containerType): RailListDTO
+    protected function prepareDTO(string $entityType, array $item, string $containerOwner, string $containerType): RailListDTO
     {
-        $listFields = $this->getFieldsToList('railway');
-        $deliveryCost = $this->getDeliveryCost($item, $containerOwner, $containerType);
-        $securityCost = $this->getSecurityCost($item, $containerType);
+        $listFields = $this->getFieldsToList($this->category, $entityType);
+        $deliveryCost = $this->getDeliveryCost($entityType, $item, $containerOwner, $containerType);
+        $securityCost = $this->getSecurityCost($entityType, $item, $containerType);
         $validTill = $this->getDate($item[$listFields['deliveryPriceValidTill']]);
 
         return new RailListDTO(
@@ -72,13 +75,13 @@ class RailListService extends AbstractListService
             deliveryPriceValidFrom: $validTill,
             comment: $item[$listFields['comment']],
             isActive: $this->isActive($validTill),
-            isService: true,
+            isService: $this->isService($entityType),
         );
     }
 
-    private function getDeliveryCost(array $item, string $containerOwner, string $containerType): ?string
+    private function getDeliveryCost(string $entityType, array $item, string $containerOwner, string $containerType): ?string
     {
-        $listFields = $this->getFieldsToList('railway');
+        $listFields = $this->getFieldsToList($this->category, $entityType);
 
         if ($containerType === '40hc') {
             if ($containerOwner === 'soc') {
@@ -103,9 +106,9 @@ class RailListService extends AbstractListService
         return $this->getCost($value ?? '');
     }
 
-    private function getSecurityCost(array $item, string $containerType): string
+    private function getSecurityCost(string $entityType, array $item, string $containerType): string
     {
-        $listFields = $this->getFieldsToList('railway');
+        $listFields = $this->getFieldsToList($this->category, $entityType);
 
         if ($containerType === '40hc') {
             $value = $item[$listFields['securityCost40Hc']];
@@ -114,5 +117,10 @@ class RailListService extends AbstractListService
         }
 
         return $this->getCost($value ?? '');
+    }
+
+    private function isService(string $type): bool
+    {
+        return $type === 'railway-service';
     }
 }

@@ -9,24 +9,27 @@ use Tarifficator\DTO\List\ListDTO;
 
 class ContainerListService extends AbstractListService
 {
+    public string $category = 'container';
+
     /**
      * @return ListDTO[]
      */
     public function getList(
+        string $entityType,
         string $destination,
         string $contractor,
         string $containerOwner,
         string $containerType
     ): array
     {
-        $filter = $this->prepareFilter($destination, $contractor);
+        $filter = $this->prepareFilter($entityType, $destination, $contractor);
 
         if ($filter && $containerOwner && $containerType) {
-            $items = $this->getItems($this->entityTypeIds['container'], ['filter' => $filter]);
+            $items = $this->getItems($this->entityTypeIds[$this->category][$entityType], ['filter' => $filter]);
 
             if (count($items) > 0) {
                 foreach ($items as $item) {
-                    $result[] = $this->prepareDTO($item, $containerOwner, $containerType);
+                    $result[] = $this->prepareDTO($entityType, $item, $containerOwner, $containerType);
                 }
             }
         }
@@ -34,9 +37,9 @@ class ContainerListService extends AbstractListService
         return $result ?? [];
     }
 
-    private function prepareFilter(string $destination, string $contractor): ?array
+    private function prepareFilter(string $entityType, string $destination, string $contractor): ?array
     {
-        $filterFields = $this->getFieldsToFilter('container');
+        $filterFields = $this->getFieldsToFilter($this->category, $entityType);
 
         if (!empty($destination)) {
             $filter['=' . $filterFields['destination']] = $destination;
@@ -49,10 +52,10 @@ class ContainerListService extends AbstractListService
         return $filter ?? null;
     }
 
-    protected function prepareDTO(array $item, string $containerOwner, string $containerType): ContainerListDTO
+    protected function prepareDTO(string $entityType, array $item, string $containerOwner, string $containerType): ContainerListDTO
     {
-        $listFields = $this->getFieldsToList('container');
-        $rentalCost = $this->getRentalCost($item, $containerOwner, $containerType);
+        $listFields = $this->getFieldsToList($this->category, $entityType);
+        $rentalCost = $this->getRentalCost($entityType, $item, $containerOwner, $containerType);
         $validTill = $this->getDate($item[$listFields['priceValidTill']]);
 
         return new ContainerListDTO(
@@ -63,12 +66,13 @@ class ContainerListService extends AbstractListService
             rentalPriceValidFrom: $validTill,
             comment: $item[$listFields['comment']],
             isActive: $this->isActive($validTill),
+            isService: $this->isService($entityType),
         );
     }
 
-    private function getRentalCost(array $item, string $containerOwner, string $containerType): ?string
+    private function getRentalCost(string $entityType, array $item, string $containerOwner, string $containerType): ?string
     {
-        $listFields = $this->getFieldsToList('container');
+        $listFields = $this->getFieldsToList($this->category, $entityType);
 
         if ($containerType === '40hc') {
             $value = $item[$listFields['cost40Hc']];
@@ -77,5 +81,10 @@ class ContainerListService extends AbstractListService
         }
 
         return $this->getCost($value ?? '', '$');
+    }
+
+    private function isService(string $type): bool
+    {
+        return $type === 'container-drop';
     }
 }

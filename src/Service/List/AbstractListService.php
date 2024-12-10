@@ -13,9 +13,9 @@ abstract class AbstractListService extends AbstractItemsService
         parent::__construct();
     }
 
-    protected function getFieldsToFilter(string $type): array
+    protected function getFieldsToFilter(string $category, string $type): array
     {
-        $fields = (include APP_PATH . '/config/fields/' . $type . '.php');
+        $fields = (include APP_PATH . "/config/library/{$category}/$type.php")['fields'];
         $result = [];
 
         foreach ($fields as $key => $field) {
@@ -27,9 +27,9 @@ abstract class AbstractListService extends AbstractItemsService
         return $result;
     }
 
-    protected function getFieldsToList(string $type): array
+    protected function getFieldsToList(string $category, string $type): array
     {
-        $fields = (include APP_PATH . '/config/fields/' . $type . '.php');
+        $fields = (include APP_PATH . "/config/library/{$category}/$type.php")['fields'];
         $result = [];
 
         foreach ($fields as $key => $field) {
