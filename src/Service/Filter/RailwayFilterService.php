@@ -13,14 +13,14 @@ class RailwayFilterService extends AbstractFilterService
     public function getFilter(...$libraries): RailwayFilterDTO
     {
         foreach ($libraries as $library) {
-            $data[$library] = $this->getItems($this->entityTypeIds[$library]);
+            $data[$library] = $this->getItems($this->entityTypeIds[$this->category][$library]);
             $fields[$library] = $this->getFieldsToFilter($this->category, $library);
         }
 
         if (!empty($fields) && !empty($data)) {
             $values = $this->getUniqueValues($fields, $data);
         }
-        
+
         return new RailwayFilterDTO(
             terminals: $values['terminal'] ?? [],
             destinations: $values['destination'] ?? [],

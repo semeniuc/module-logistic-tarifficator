@@ -13,7 +13,7 @@ class AutoFilterService extends AbstractFilterService
     public function getFilter(...$libraries): AutoFilterDTO
     {
         foreach ($libraries as $library) {
-            $data[$library] = $this->getItems($this->entityTypeIds[$library]);
+            $data[$library] = $this->getItems($this->entityTypeIds[$this->category][$library]);
             $fields[$library] = $this->getFieldsToFilter($this->category, $library);
         }
 
