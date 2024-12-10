@@ -10,10 +10,10 @@ class ContainerFilterService extends AbstractFilterService
 {
     public function getFilter(): ContainerFilterDTO
     {
-        $data = $this->getItems($this->entityTypeIds['container']);
-        $fields = $this->getFieldsToFilter('container');
+        $data = $this->getItems($this->entityTypeIds['container-drop']);
+        $fields = $this->getFieldsToFilter('container', 'container-drop');
         $values = $this->getUniqueValues($fields, $data);
-        
+
         return new ContainerFilterDTO(destinations: $values['destination'] ?? [], contractors: $values['contractor'] ?? []);
     }
 }

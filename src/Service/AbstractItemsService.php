@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Tarifficator\Service;
 
+use FilesystemIterator;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use Tarifficator\Repository\EntityRepository;
 
 abstract class AbstractItemsService
@@ -20,11 +23,22 @@ abstract class AbstractItemsService
     private function getEntityTypeIds(): void
     {
         if (empty($this->entityTypeIds)) {
-            if ($list = (include APP_PATH . '/config/app/categories.php')) {
-                foreach ($list as $entityType => $libraries) {
-                    $types[$entityType] = $libraries[mb_convert_case(APP_ENV, MB_CASE_LOWER)];
+            $iterator = new RecursiveIteratorIterator(
+                new RecursiveDirectoryIterator(APP_PATH . '/config/library', FilesystemIterator::SKIP_DOTS)
+            );
+
+            foreach ($iterator as $item) {
+                if ($item->isFile()) {
+                    if ($item->getExtension() === 'php') {
+                        $entityType = str_replace('.php', '', $item->getFilename());
+
+                        $entityTypeId = (include $item->getPathname())['entityType'][APP_ENV];
+
+                        if ($entityTypeId) {
+                            $this->entityTypeIds[$entityType] = $entityTypeId;
+                        }
+                    }
                 }
-                $this->entityTypeIds = $types ?? [];
             }
         }
     }

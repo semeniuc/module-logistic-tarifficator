@@ -11,7 +11,7 @@ class SeaFilterService extends AbstractFilterService
     public function getFilter(): SeaFilterDTO
     {
         $data = $this->getItems($this->entityTypeIds['sea']);
-        $fields = $this->getFieldsToFilter('sea');
+        $fields = $this->getFieldsToFilter('sea', 'sea');
 
 
         $values = $this->getUniqueValues($fields, $data);

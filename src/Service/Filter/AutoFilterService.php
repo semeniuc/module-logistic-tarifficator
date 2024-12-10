@@ -11,7 +11,7 @@ class AutoFilterService extends AbstractFilterService
     public function getFilter(): AutoFilterDTO
     {
         $data = $this->getItems($this->entityTypeIds['auto']);
-        $fields = $this->getFieldsToFilter('auto');
+        $fields = $this->getFieldsToFilter('auto', 'auto');
         $values = $this->getUniqueValues($fields, $data);
 
         return new AutoFilterDTO(

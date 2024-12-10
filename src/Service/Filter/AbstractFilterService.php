@@ -41,14 +41,20 @@ abstract class AbstractFilterService extends AbstractItemsService
         return $values ?? [];
     }
 
-    protected function getFieldsToFilter(string $type): array
+    protected function getFieldsToFilter(string $category, string $type): array
     {
-        $fields = (include APP_PATH . '/config/fields/' . $type . '.php');
         $result = [];
 
-        foreach ($fields as $key => $field) {
-            if ($field['view']['filter']) {
-                $result[$key] = $field['id'][APP_ENV];
+        $pathToFile = APP_PATH . "/config/library/{$category}/{$type}.php";
+        if (file_exists($pathToFile)) {
+            $fields = (include $pathToFile)['fields'];
+
+            if (!empty($fields)) {
+                foreach ($fields as $key => $field) {
+                    if ($field['view']['filter']) {
+                        $result[$key] = $field['id'][APP_ENV];
+                    }
+                }
             }
         }
 
