@@ -73,6 +73,7 @@ class SeaListService extends AbstractListService
             deliveryPriceValidFrom: $validTill,
             comment: $item[$listFields['comment']],
             isActive: $this->isActive($validTill),
+            isService: true,
         );
     }
 
