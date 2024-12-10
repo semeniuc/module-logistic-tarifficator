@@ -8,14 +8,19 @@ use Tarifficator\DTO\Filter\SeaFilterDTO;
 
 class SeaFilterService extends AbstractFilterService
 {
-    public function getFilter(): SeaFilterDTO
+    private string $category = 'sea';
+
+    public function getFilter(...$libraries): SeaFilterDTO
     {
-        $data = $this->getItems($this->entityTypeIds['sea']);
-        $fields = $this->getFieldsToFilter('sea', 'sea');
+        foreach ($libraries as $library) {
+            $data[$library] = $this->getItems($this->entityTypeIds[$library]);
+            $fields[$library] = $this->getFieldsToFilter($this->category, $library);
+        }
 
-
-        $values = $this->getUniqueValues($fields, $data);
-
+        if (!empty($fields) && !empty($data)) {
+            $values = $this->getUniqueValues($fields, $data);
+        }
+        
         return new SeaFilterDTO(
             pols: $values['pol'] ?? [],
             destinations: $values['destination'] ?? [],

@@ -8,11 +8,18 @@ use Tarifficator\DTO\Filter\AutoFilterDTO;
 
 class AutoFilterService extends AbstractFilterService
 {
-    public function getFilter(): AutoFilterDTO
+    private string $category = 'auto';
+
+    public function getFilter(...$libraries): AutoFilterDTO
     {
-        $data = $this->getItems($this->entityTypeIds['auto']);
-        $fields = $this->getFieldsToFilter('auto', 'auto');
-        $values = $this->getUniqueValues($fields, $data);
+        foreach ($libraries as $library) {
+            $data[$library] = $this->getItems($this->entityTypeIds[$library]);
+            $fields[$library] = $this->getFieldsToFilter($this->category, $library);
+        }
+
+        if (!empty($fields) && !empty($data)) {
+            $values = $this->getUniqueValues($fields, $data);
+        }
 
         return new AutoFilterDTO(
             terminals: $values['terminal'] ?? [],

@@ -24,23 +24,23 @@ class FilterService
         $this->autoFilterService = new AutoFilterService();
     }
 
-    public function getSea(): SeaFilterDTO
+    public function getSea(...$libraries): SeaFilterDTO
     {
-        return $this->seaFilterService->getFilter();
+        return $this->seaFilterService->getFilter(...$libraries);
     }
 
-    public function getRailway(): RailwayFilterDTO
+    public function getRailway(...$libraries): RailwayFilterDTO
     {
-        return $this->railwayFilterService->getFilter();
+        return $this->railwayFilterService->getFilter(...$libraries);
     }
 
-    public function getContainer(): ContainerFilterDTO
+    public function getContainer(...$libraries): ContainerFilterDTO
     {
-        return $this->containerFilterService->getFilter();
+        return $this->containerFilterService->getFilter(...$libraries);
     }
 
-    public function getAuto(): AutoFilterDTO
+    public function getAuto(...$libraries): AutoFilterDTO
     {
-        return $this->autoFilterService->getFilter();
+        return $this->autoFilterService->getFilter(...$libraries);
     }
 }

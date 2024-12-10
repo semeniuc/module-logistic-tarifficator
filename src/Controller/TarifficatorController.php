@@ -24,11 +24,10 @@ class TarifficatorController extends Controller
         $filterService = new FilterService();
 
         return [
-            'sea' => $filterService->getSea(),
-            
-            'railway' => $filterService->getRailway(),
-            'auto' => $filterService->getAuto(),
-            'container' => $filterService->getContainer(),
+            'sea' => $filterService->getSea('sea', 'sea-drop', 'sea-service'),
+            'railway' => $filterService->getRailway('train', 'train-service'),
+            'auto' => $filterService->getAuto('auto'),
+            'container' => $filterService->getContainer('container-drop', 'container-rent'),
         ];
     }
 }

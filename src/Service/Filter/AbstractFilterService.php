@@ -16,15 +16,17 @@ abstract class AbstractFilterService extends AbstractItemsService
 
     abstract public function getFilter(): FilterDTO;
 
-    protected function getUniqueValues(array $fields, array $items): array
+    protected function getUniqueValues(array $entityFields, array $entityItems): array
     {
         $values = [];
 
-        if (!empty($fields) && !empty($items)) {
-            foreach ($items as $item) {
-                foreach ($fields as $key => $fieldId) {
-                    if (isset($item[$fieldId])) {
-                        $values[$key][] = $item[$fieldId];
+        foreach ($entityItems as $entityType => $items) {
+            if (!empty($entityFields[$entityType]) && !empty($items)) {
+                foreach ($items as $item) {
+                    foreach ($entityFields[$entityType] as $key => $fieldId) {
+                        if (isset($item[$fieldId])) {
+                            $values[$key][] = $item[$fieldId];
+                        }
                     }
                 }
             }
@@ -34,7 +36,7 @@ abstract class AbstractFilterService extends AbstractItemsService
             $values = array_map(function ($array) {
                 $uniqueValues = array_unique($array);
                 sort($uniqueValues);
-                return $uniqueValues;
+                return array_filter($uniqueValues);
             }, $values);
         }
 

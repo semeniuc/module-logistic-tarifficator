@@ -8,12 +8,19 @@ use Tarifficator\DTO\Filter\RailwayFilterDTO;
 
 class RailwayFilterService extends AbstractFilterService
 {
-    public function getFilter(): RailwayFilterDTO
+    private string $category = 'train';
+
+    public function getFilter(...$libraries): RailwayFilterDTO
     {
-        $data = $this->getItems($this->entityTypeIds['train']);
-        $fields = $this->getFieldsToFilter('train', 'train');
-        $values = $this->getUniqueValues($fields, $data);
-        
+        foreach ($libraries as $library) {
+            $data[$library] = $this->getItems($this->entityTypeIds[$library]);
+            $fields[$library] = $this->getFieldsToFilter($this->category, $library);
+        }
+
+        if (!empty($fields) && !empty($data)) {
+            $values = $this->getUniqueValues($fields, $data);
+        }
+
         return new RailwayFilterDTO(
             terminals: $values['terminal'] ?? [],
             destinations: $values['destination'] ?? [],

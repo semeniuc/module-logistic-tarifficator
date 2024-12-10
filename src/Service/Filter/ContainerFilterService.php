@@ -8,11 +8,18 @@ use Tarifficator\DTO\Filter\ContainerFilterDTO;
 
 class ContainerFilterService extends AbstractFilterService
 {
-    public function getFilter(): ContainerFilterDTO
+    private string $category = 'container';
+
+    public function getFilter(...$libraries): ContainerFilterDTO
     {
-        $data = $this->getItems($this->entityTypeIds['container-drop']);
-        $fields = $this->getFieldsToFilter('container', 'container-drop');
-        $values = $this->getUniqueValues($fields, $data);
+        foreach ($libraries as $library) {
+            $data[$library] = $this->getItems($this->entityTypeIds[$library]);
+            $fields[$library] = $this->getFieldsToFilter($this->category, $library);
+        }
+
+        if (!empty($fields) && !empty($data)) {
+            $values = $this->getUniqueValues($fields, $data);
+        }
 
         return new ContainerFilterDTO(destinations: $values['destination'] ?? [], contractors: $values['contractor'] ?? []);
     }
