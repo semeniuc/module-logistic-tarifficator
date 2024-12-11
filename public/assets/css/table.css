@@ -188,19 +188,19 @@ td.conversion-input > input {
 }
 
 .is-service::before {
-    content: 'С'; /* Буква "С" */
+    content: 'С';
     position: absolute;
     top: 0;
     left: 0;
     display: flex;
-    padding: 5px 6px;
-    width: 40px; /* Ширина угла */
-    height: 40px; /* Высота угла */
-    background: #087f7a; /* Цвет угла */
-    color: white; /* Цвет буквы */
-    font-size: 14px; /* Размер буквы */
-    font-weight: bold; /* Толщина буквы */
-    clip-path: polygon(0 0, 100% 0, 0 100%); /* Треугольная форма */
+    padding: 1px 4px;
+    width: 33px;
+    height: 33px;
+    background: #087f7a;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    clip-path: polygon(0 0, 100% 0, 0 100%);
     z-index: 1;
 }
 
