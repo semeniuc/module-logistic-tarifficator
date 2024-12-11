@@ -52,7 +52,7 @@ table tbody tr:hover {
 
 /* Стили для появления строки */
 table tbody tr.show {
-    height: 30px;
+    height: 55px;
     opacity: 1;
     transform: translateY(0);
 }

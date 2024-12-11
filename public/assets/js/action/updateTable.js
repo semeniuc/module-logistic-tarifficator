@@ -169,7 +169,27 @@ export function updateTable(data, formId) {
 
     function sortRows() {
         const rows = Array.from(tableBody.querySelectorAll('tr'));
-        rows.sort((a, b) => a.classList.contains('table-row-disabled') - b.classList.contains('table-row-disabled'));
+
+        // Сортируем сначала по классу .table-row-disabled, потом по классу .is-service
+        rows.sort((a, b) => {
+            // Сортировка по .table-row-disabled (сначала строки без этого класса, потом с этим)
+            const disabledA = a.classList.contains('table-row-disabled');
+            const disabledB = b.classList.contains('table-row-disabled');
+
+            if (disabledA && !disabledB) return 1; // a вниз, b вверх
+            if (!disabledA && disabledB) return -1; // a вверх, b вниз
+
+            // Если оба или ни один из элементов не имеет .table-row-disabled, сортируем по .is-service
+            const hasServiceA = a.querySelector('.is-service') !== null;
+            const hasServiceB = b.querySelector('.is-service') !== null;
+
+            if (hasServiceA && !hasServiceB) return -1; // a вверх
+            if (!hasServiceA && hasServiceB) return 1; // b вверх
+
+            return 0; // если оба условия равны, оставляем как есть
+        });
+
+        // Перемещаем строки в DOM в отсортированном порядке
         rows.forEach(row => tableBody.appendChild(row));
     }
 

@@ -61,7 +61,7 @@ class SeaListService extends AbstractListService
     {
         $listFields = $this->getFieldsToList($this->category, $entityType);
 
-        $deliveryCost = $this->getDeliveryCost($item, $containerOwner, $containerType);
+        $deliveryCost = $this->getDeliveryCost($entityType, $item, $containerOwner, $containerType);
         $validTill = $this->getDate($item[$listFields['deliveryPriceValidTill']]);
 
 
@@ -82,9 +82,9 @@ class SeaListService extends AbstractListService
         );
     }
 
-    private function getDeliveryCost(array $item, string $containerOwner, string $containerType): string
+    private function getDeliveryCost(string $entityType, array $item, string $containerOwner, string $containerType): string
     {
-        $listFields = $this->getFieldsToList($this->category, 'sea');
+        $listFields = $this->getFieldsToList($this->category, $entityType);
 
         if ($containerType === '40hc') {
             if ($containerOwner === 'soc') {
