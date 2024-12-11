@@ -46,11 +46,20 @@ export function handleFormChanges() {
                 // Обновление таблицы с новыми данными
                 updateTable(response, form.id);
 
-                // Обновление связанного фильтра
-                if (form.id === 'rail-form') {
-                    if (changedElement.name !== 'station') {
-                        const stations = [...new Set(response.map(item => item.station))];
-                        updateSelectOptions('rail-station', stations);
+                // Обновление связанных фильтров
+                if (form.id === 'sea-form') {
+                    if (changedElement.name === 'destination') {
+                        let terminals = [...new Set(response.map(item => item.terminal))];
+                        if (terminals.length > 0) {
+                            updateSelectOptions('sea-terminal', terminals);
+                        }
+                    }
+                } else if (form.id === 'rail-form') {
+                    if (changedElement.name === 'destination') {
+                        let stations = [...new Set(response.map(item => item.station))];
+                        if (stations.length > 0) {
+                            updateSelectOptions('rail-station', stations);
+                        }
                     }
                 }
             });

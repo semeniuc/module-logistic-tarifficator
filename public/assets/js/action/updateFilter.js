@@ -15,7 +15,7 @@ export function updateSelectOptions(selectId, options) {
     // Очищаем старые опции
     selectElement.innerHTML = `
         <option value="">
-            Выбрать станцию
+            Выбрать
         </option>
     `;
 
