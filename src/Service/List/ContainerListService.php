@@ -67,10 +67,11 @@ class ContainerListService extends AbstractListService
             comment: $item[$listFields['comment']],
             isActive: $this->isActive($validTill),
             isService: $this->isService($entityType),
+            isHidden: $this->isHidden($rentalCost),
         );
     }
 
-    private function getRentalCost(string $entityType, array $item, string $containerOwner, string $containerType): ?string
+    private function getRentalCost(string $entityType, array $item, string $containerOwner, string $containerType): string
     {
         $listFields = $this->getFieldsToList($this->category, $entityType);
 
@@ -78,6 +79,10 @@ class ContainerListService extends AbstractListService
             $value = $item[$listFields['cost40Hc']];
         } else {
             $value = $item[$listFields['cost20Dry']];
+        }
+
+        if ($value === null || $value === '' || !is_numeric(str_replace(',', '', $value))) {
+            return $value ?? '';
         }
 
         return $this->getCost($value ?? '', '$');

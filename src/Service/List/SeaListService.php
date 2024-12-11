@@ -78,10 +78,11 @@ class SeaListService extends AbstractListService
             comment: $item[$listFields['comment']],
             isActive: $this->isActive($validTill),
             isService: $this->isService($entityType),
+            isHidden: $this->isHidden($deliveryCost),
         );
     }
 
-    private function getDeliveryCost(array $item, string $containerOwner, string $containerType): ?string
+    private function getDeliveryCost(array $item, string $containerOwner, string $containerType): string
     {
         $listFields = $this->getFieldsToList($this->category, 'sea');
 
@@ -97,6 +98,10 @@ class SeaListService extends AbstractListService
             } else {
                 $value = $item[$listFields['deliveryCostCoc20Dry']];
             }
+        }
+
+        if ($value === null || $value === '' || !is_numeric(str_replace(',', '', $value))) {
+            return $value ?? '';
         }
 
         return $this->getCost($value ?? '', '$');

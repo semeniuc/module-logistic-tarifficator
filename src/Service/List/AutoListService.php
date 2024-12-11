@@ -73,10 +73,11 @@ class AutoListService extends AbstractListService
             terminalValidTill: $terminalValidTill,
             comment: $item[$listFields['comment']],
             isActive: $this->isActive($deliveryValidTill),
+            isHidden: $this->isHidden($deliveryCost),
         );
     }
 
-    private function getDeliveryCost(string $entityType, array $item, string $containerType): ?string
+    private function getDeliveryCost(string $entityType, array $item, string $containerType): string
     {
         $listFields = $this->getFieldsToList($this->category, $entityType);
 
@@ -84,6 +85,10 @@ class AutoListService extends AbstractListService
             $value = $item[$listFields['deliveryCost40HcLess20']];
         } else {
             $value = $item[$listFields['deliveryCost20DryLess18']];
+        }
+
+        if ($value === null || $value === '' || !is_numeric(str_replace(',', '', $value))) {
+            return $value ?? '';
         }
 
         return $this->getCost($value ?? '');
@@ -97,6 +102,10 @@ class AutoListService extends AbstractListService
             $value = $item[$listFields['terminal40Hc']];
         } else {
             $value = $item[$listFields['terminal20Dry']];
+        }
+
+        if ($value === null || $value === '' || !is_numeric(str_replace(',', '', $value))) {
+            return $value ?? '';
         }
 
         return $this->getCost($value ?? '');

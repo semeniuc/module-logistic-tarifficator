@@ -12,7 +12,9 @@ class ApiGetListDataController extends Controller
     public function execute(): void
     {
         $content = $this->prepareResponse();
-        
+
+//        dd($content);
+
         $this->response()->send(
             content: json_encode($content),
             headers: ['Content-Type' => 'application/json']

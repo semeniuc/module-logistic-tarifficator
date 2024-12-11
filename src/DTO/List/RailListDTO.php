@@ -18,6 +18,7 @@ class RailListDTO implements ListDTO
         public readonly string $comment,
         public readonly bool   $isActive,
         public readonly bool   $isService,
+        public readonly bool   $isHidden,
     )
     {
     }

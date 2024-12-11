@@ -76,10 +76,11 @@ class RailListService extends AbstractListService
             comment: $item[$listFields['comment']],
             isActive: $this->isActive($validTill),
             isService: $this->isService($entityType),
+            isHidden: $this->isHidden($deliveryCost),
         );
     }
 
-    private function getDeliveryCost(string $entityType, array $item, string $containerOwner, string $containerType): ?string
+    private function getDeliveryCost(string $entityType, array $item, string $containerOwner, string $containerType): string
     {
         $listFields = $this->getFieldsToList($this->category, $entityType);
 
@@ -103,7 +104,11 @@ class RailListService extends AbstractListService
             }
         }
 
-        return $this->getCost($value ?? '');
+        if ($value === null || $value === '' || !is_numeric(str_replace(',', '', $value))) {
+            return $value ?? '';
+        }
+
+        return $this->getCost($value);
     }
 
     private function getSecurityCost(string $entityType, array $item, string $containerType): string
@@ -116,7 +121,11 @@ class RailListService extends AbstractListService
             $value = $item[$listFields['securityCost20Dry']];
         }
 
-        return $this->getCost($value ?? '');
+        if ($value === null || $value === '' || !is_numeric(str_replace(',', '', $value))) {
+            return $value ?? '';
+        }
+
+        return $this->getCost($value);
     }
 
     private function isService(string $type): bool

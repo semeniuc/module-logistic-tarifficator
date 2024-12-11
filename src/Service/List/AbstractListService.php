@@ -86,4 +86,13 @@ abstract class AbstractListService extends AbstractItemsService
 
         return '0';
     }
+
+    protected function isHidden(?string $value): bool
+    {
+        if (empty($value) || strlen($value) < 3) {
+            return true;
+        }
+
+        return false;
+    }
 }

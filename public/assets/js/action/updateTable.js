@@ -37,7 +37,10 @@ export function updateTable(data, formId) {
         data.forEach(row => {
             if (!isDuplicateRow(tableBody, row)) {
                 const tr = createTableRow(row);
-                tableBody.appendChild(tr);
+
+                if (tr) {
+                    tableBody.appendChild(tr);
+                }
             }
         });
     }
@@ -84,6 +87,11 @@ export function updateTable(data, formId) {
     }
 
     function createTableRow(row) {
+        // Скрытая строка
+        if (row.isHidden === true) {
+            return null;
+        }
+
         const tr = document.createElement('tr');
         if (row.isActive === false) tr.classList.add('table-row-disabled');
 
@@ -92,7 +100,7 @@ export function updateTable(data, formId) {
 
         let isSecondCell = true; // Флаг для отслеживания второй ячейки
         Object.keys(row).forEach(key => {
-            if (key !== 'isActive' && key !== 'isService') {
+            if (key !== 'isActive' && key !== 'isService' && key !== 'isHidden') {
                 const td = document.createElement('td');
 
                 if (key === 'conversion') {

@@ -17,6 +17,7 @@ class AutoListDTO implements ListDTO
         public readonly string $terminalValidTill,
         public readonly string $comment,
         public readonly bool   $isActive,
+        public readonly bool   $isHidden,
     )
     {
     }
