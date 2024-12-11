@@ -4,9 +4,18 @@ import {updateTable} from "../action/updateTable.js";
 
 export function handleDropOffDestinationChange() {
     const seaDestination = document.querySelector('#sea-form select[name="destination"]');
+    const railDestination = document.querySelector('#rail-form select[name="destination"]');
     const dropOffDestination = document.querySelector('#container-form select[name="destination"]');
 
     if (!seaDestination) return;
+
+    // Rail
+    if (railDestination) {
+        if (railDestination.value !== seaDestination.value) {
+            railDestination.value = seaDestination.value;
+            updateListResults('rail-form');
+        }
+    }
 
     // Drop off
     if (dropOffDestination) {
