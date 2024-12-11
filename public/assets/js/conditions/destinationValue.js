@@ -10,18 +10,22 @@ export function handleDropOffDestinationChange() {
     if (!seaDestination) return;
 
     // Rail
-    if (railDestination) {
-        if (railDestination.value !== seaDestination.value) {
+    if (railDestination && seaDestination) {
+        if (railDestination.value !== seaDestination.value && Array.from(railDestination.options).some(option => option.value === seaDestination.value)) {
             railDestination.value = seaDestination.value;
             updateListResults('rail-form');
+        } else {
+            railDestination.value = '';
         }
     }
 
     // Drop off
-    if (dropOffDestination) {
-        if (dropOffDestination.value !== seaDestination.value) {
+    if (dropOffDestination && seaDestination) {
+        if (dropOffDestination.value !== seaDestination.value && Array.from(dropOffDestination.options).some(option => option.value === seaDestination.value)) {
             dropOffDestination.value = seaDestination.value;
             updateListResults('container-form');
+        } else {
+            dropOffDestination.value = '';
         }
     }
 }
