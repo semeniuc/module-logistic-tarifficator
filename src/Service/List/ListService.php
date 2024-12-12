@@ -21,8 +21,9 @@ class ListService
 
     public function getSeaListService(
         string $pol,
-        string $destination,
+        string $pod,
         string $terminal,
+        string $destination,
         string $containerOwner,
         string $containerType,
     ): array
@@ -32,7 +33,7 @@ class ListService
 
         if ($entityTypes) {
             foreach ($entityTypes as $entityType => $entityTypeId) {
-                $list = $this->seaListService->getList($entityType, $pol, $destination, $terminal, $containerOwner, $containerType);
+                $list = $this->seaListService->getList($entityType, $pol, $pod, $terminal, $destination, $containerOwner, $containerType);
                 $result = array_merge_recursive($result, $list);
             }
         }

@@ -22,7 +22,7 @@ return [
                 'prod' => null,
             ],
             'view' => [
-                'filter' => false,
+                'filter' => true,
                 'list' => false,
             ],
         ],

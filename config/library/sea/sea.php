@@ -16,14 +16,14 @@ return [
                 'list' => true,
             ],
         ],
-        'destination' => [
+        'pod' => [
             'id' => [
                 'dev' => 'UF_CRM_4_POD',
                 'prod' => 'UF_CRM_4_POD',
             ],
             'view' => [
                 'filter' => true,
-                'list' => true,
+                'list' => false,
             ],
         ],
         'terminal' => [

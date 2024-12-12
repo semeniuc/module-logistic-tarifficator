@@ -18,6 +18,7 @@ class SeaFilterDTO implements FilterDTO
 
     public function __construct(
         private readonly array $pols,
+        private readonly array $pods,
         private readonly array $destinations,
         private readonly array $terminals,
     )
@@ -37,6 +38,11 @@ class SeaFilterDTO implements FilterDTO
     public function getPols(): array
     {
         return $this->pols;
+    }
+
+    public function getPods(): array
+    {
+        return $this->pods;
     }
 
     public function getDestinations(): array

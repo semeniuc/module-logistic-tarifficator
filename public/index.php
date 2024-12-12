@@ -4,7 +4,6 @@ define('APP_PATH', dirname(__DIR__));
 
 use Symfony\Component\Dotenv\Dotenv;
 use Tarifficator\Kernel\App;
-use Tarifficator\Kernel\Http\Response;
 
 try {
     require_once $_SERVER['DOCUMENT_ROOT'] . '/bitrix/modules/main/include/prolog_before.php';
@@ -24,14 +23,9 @@ try {
     $app = new App();
     $app->run();
 } catch (Throwable $th) {
-    $response = new Response();
-    $response->send(
-        content: json_encode([
-            'file' => $th->getFile(),
-            'line' => $th->getLine(),
-            'error' => $th->getMessage(),
-        ]),
-        status: $th->getCode(),
-        headers: ['Content-Type' => 'application/json'],
-    );
+    echo json_encode([
+        'error' => $th->getMessage(),
+        'file' => $th->getFile(),
+        'line' => $th->getLine(),
+    ], JSON_PRETTY_PRINT);
 }

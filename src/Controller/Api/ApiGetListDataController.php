@@ -12,7 +12,7 @@ class ApiGetListDataController extends Controller
     public function execute(): void
     {
         $content = $this->prepareResponse();
-        
+
         $this->response()->send(
             content: json_encode($content),
             headers: ['Content-Type' => 'application/json']
@@ -32,8 +32,9 @@ class ApiGetListDataController extends Controller
         return match ($filterId) {
             'sea' => $listService->getSeaListService(
                 pol: $filter['pol'] ?? '',
-                destination: $filter['destination'] ?? '',
+                pod: $filter['pod'] ?? '',
                 terminal: $filter['terminal'] ?? '',
+                destination: $filter['destination'] ?? '',
                 containerOwner: $filter['containerOwner'] ?? '',
                 containerType: $filter['containerType'] ?? '',
             ),

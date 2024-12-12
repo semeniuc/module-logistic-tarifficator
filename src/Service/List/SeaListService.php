@@ -17,13 +17,14 @@ class SeaListService extends AbstractListService
     public function getList(
         string $entityType,
         string $pol,
-        string $destination,
+        string $pod,
         string $terminal,
+        string $destination,
         string $containerOwner,
         string $containerType,
     ): array
     {
-        $filter = $this->prepareFilter($entityType, $pol, $destination, $terminal);
+        $filter = $this->prepareFilter($entityType, $pol, $pod, $terminal, $destination);
 
         if ($filter && $containerType && $containerOwner) {
             $items = $this->getItems($this->entityTypeIds[$this->category][$entityType], ['filter' => $filter]);
@@ -38,7 +39,7 @@ class SeaListService extends AbstractListService
         return $result ?? [];
     }
 
-    private function prepareFilter(string $entityType, string $pol, string $destination, string $terminal): ?array
+    private function prepareFilter(string $entityType, string $pol, string $pod, string $terminal, string $destination): ?array
     {
         $filterFields = $this->getFieldsToFilter($this->category, $entityType);
 
@@ -46,12 +47,21 @@ class SeaListService extends AbstractListService
             $filter['=' . $filterFields['pol']] = $pol;
         }
 
-        if (!empty($destination)) {
-            $filter['=' . $filterFields['destination']] = $destination;
+        if (!empty($pod)) {
+            $filter['=' . $filterFields['pod']] = $pod;
         }
 
         if (!empty($terminal)) {
             $filter['=' . $filterFields['terminal']] = $terminal;
+        }
+
+        if (!empty($destination)) {
+            $filter['=' . $filterFields['destination']] = $destination;
+        }
+
+        // Исключаем справочник Фрахт, если заполнено Пункт назначения
+        if (!empty($destination) && $entityType === 'sea') {
+            return [];
         }
 
         return $filter ?? null;
@@ -64,12 +74,11 @@ class SeaListService extends AbstractListService
         $deliveryCost = $this->getDeliveryCost($entityType, $item, $containerOwner, $containerType);
         $validTill = $this->getDate($item[$listFields['deliveryPriceValidTill']]);
 
-
         return new SeaListDTO(
             contractor: $item[$listFields['contractor']],
             route: $item[$listFields['route']],
-            destination: $item[$listFields['destination']],
             terminal: $item[$listFields['terminal']],
+            destination: $item[$listFields['destination']] ?? '',
             containerOwner: $containerOwner,
             containerType: $containerType,
             deliveryCost: $deliveryCost,

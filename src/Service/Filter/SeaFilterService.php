@@ -23,6 +23,7 @@ class SeaFilterService extends AbstractFilterService
 
         return new SeaFilterDTO(
             pols: $values['pol'] ?? [],
+            pods: $values['pod'] ?? [],
             destinations: $values['destination'] ?? [],
             terminals: $values['terminal'] ?? []
         );

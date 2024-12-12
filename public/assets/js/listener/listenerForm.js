@@ -1,7 +1,6 @@
 import {sendAjaxRequest} from "../action/ajax.js";
 import {updateTable} from "../action/updateTable.js";
 import {updateSummationForm} from "../action/updateSummationForm.js";
-import {updateSelectOptions} from "../action/updateFilter.js";
 
 // Обработка изменения значений в полях всех форм на странице
 export function handleFormChanges() {
@@ -47,21 +46,21 @@ export function handleFormChanges() {
                 updateTable(response, form.id);
 
                 // Обновление связанных фильтров
-                if (form.id === 'sea-form') {
-                    if (changedElement.name === 'destination') {
-                        let terminals = [...new Set(response.map(item => item.terminal))];
-                        if (terminals.length > 0) {
-                            updateSelectOptions('sea-terminal', terminals);
-                        }
-                    }
-                } else if (form.id === 'rail-form') {
-                    if (changedElement.name === 'destination') {
-                        let stations = [...new Set(response.map(item => item.station))];
-                        if (stations.length > 0) {
-                            updateSelectOptions('rail-station', stations);
-                        }
-                    }
-                }
+                // if (form.id === 'sea-form') {
+                //     if (changedElement.name === 'destination') {
+                //         let terminals = [...new Set(response.map(item => item.terminal))];
+                //         if (terminals.length > 0) {
+                //             updateSelectOptions('sea-terminal', terminals);
+                //         }
+                //     }
+                // } else if (form.id === 'rail-form') {
+                //     if (changedElement.name === 'destination') {
+                //         let stations = [...new Set(response.map(item => item.station))];
+                //         if (stations.length > 0) {
+                //             updateSelectOptions('rail-station', stations);
+                //         }
+                //     }
+                // }
             });
         });
     });
