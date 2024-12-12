@@ -85,9 +85,9 @@ function formatSum(sum) {
 // Основная функция обновления формы
 export function updateSummationForm() {
     // Получаем суммы из таблиц
-    let seaConversion = getSumFromTable('sea-results', [8]);
-    let seaSum = getSumFromTable('sea-results', [7]);
-    
+    let seaConversion = getSumFromTable('sea-results', [9]);
+    let seaSum = getSumFromTable('sea-results', [8]);
+
     if (seaConversion > 0) {
         seaSum += (seaSum * seaConversion / 100);
     }
@@ -111,7 +111,7 @@ export function updateSummationForm() {
         autoSum = getSumFromTable('auto-results', [5]);
     }
 
-    let dropOffSum = getSumFromTable('container-results', [4]);
+    let dropOffSum = getSumFromTable('container-results', [5]);
     let totalSum = 0;
 
     // Получаем комиссии и курс обмена
