@@ -66,11 +66,18 @@ function updateContainerName() {
     const seaContainerOwner = document.querySelector('#sea-form select[name="containerOwner"]');
     const selectedValue = seaContainerOwner ? seaContainerOwner.value : '';
 
-    const elements = document.querySelectorAll('.container-dynamic-name');
-    elements.forEach(element => {
-        element.textContent = selectedValue === 'soc' ? 'Аренда контейнера' : 'Drop off';
+    const updates = [
+        {selector: '.container-dynamic-name', text: selectedValue === 'soc' ? 'Аренда контейнера' : 'Drop off'},
+        {selector: '.container-dynamic-pod', text: selectedValue === 'soc' ? 'POL' : 'POD'}
+    ];
+
+    updates.forEach(update => {
+        document.querySelectorAll(update.selector).forEach(element => {
+            element.textContent = update.text;
+        });
     });
 }
+
 
 // Вызываем функции при загрузке страницы
 document.addEventListener('DOMContentLoaded', function () {

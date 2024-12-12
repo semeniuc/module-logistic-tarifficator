@@ -58,7 +58,10 @@ class ContainerListService extends AbstractListService
         $rentalCost = $this->getRentalCost($entityType, $item, $containerOwner, $containerType);
         $validTill = $this->getDate($item[$listFields['priceValidTill']]);
 
+        $polOrPod = ($containerOwner === 'coc') ? $item[$listFields['pod']] : $item[$listFields['pol']];
+
         return new ContainerListDTO(
+            polOrPod: $polOrPod,
             contractor: $item[$listFields['contractor']],
             destination: $item[$listFields['destination']],
             containerType: $containerType,

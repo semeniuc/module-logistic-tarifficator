@@ -13,7 +13,7 @@ return [
             ],
             'view' => [
                 'filter' => false,
-                'list' => false,
+                'list' => true,
             ],
         ],
         'destination' => [
