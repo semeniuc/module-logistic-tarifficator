@@ -39,19 +39,19 @@ Extension::load("ui.forms");
                 ?>
             </div>
 
-            <h2>Автоперевозка</h2>
-            <div class="content-block">
-                <?php
-                $view->component('auto/filter', ['filter' => $data['filters']['auto']]);
-                $view->component('auto/list');
-                ?>
-            </div>
-
             <h2 class="container-dynamic-name">Drop Off</h2>
             <div class="content-block">
                 <?php
                 $view->component('container/filter', ['filter' => $data['filters']['container']]);
                 $view->component('container/list');
+                ?>
+            </div>
+
+            <h2>Автоперевозка</h2>
+            <div class="content-block">
+                <?php
+                $view->component('auto/filter', ['filter' => $data['filters']['auto']]);
+                $view->component('auto/list');
                 ?>
             </div>
         </div>

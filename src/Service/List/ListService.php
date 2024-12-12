@@ -28,24 +28,12 @@ class ListService
     ): array
     {
         $result = [];
-//        $entityTypes = $this->seaListService->entityTypeIds[$this->seaListService->category];
+        $entityTypes = $this->seaListService->entityTypeIds[$this->seaListService->category];
 
-        if ($containerOwner) {
-            $entityTypes = match ($containerOwner) {
-                'coc' => [
-                    'sea-service',
-                    'sea-drop',
-                ],
-                'soc' => [
-                    'sea',
-                ],
-            };
-
-            if ($entityTypes) {
-                foreach ($entityTypes as $entityType) {
-                    $list = $this->seaListService->getList($entityType, $pol, $destination, $terminal, $containerOwner, $containerType);
-                    $result = array_merge_recursive($result, $list);
-                }
+        if ($entityTypes) {
+            foreach ($entityTypes as $entityType => $entityTypeId) {
+                $list = $this->seaListService->getList($entityType, $pol, $destination, $terminal, $containerOwner, $containerType);
+                $result = array_merge_recursive($result, $list);
             }
         }
 
@@ -61,22 +49,12 @@ class ListService
     ): array
     {
         $result = [];
+        $entityTypes = $this->railListService->entityTypeIds[$this->railListService->category];
 
-        if ($containerOwner) {
-            $entityTypes = match ($containerOwner) {
-                'coc' => [
-                    'railway-service',
-                ],
-                'soc' => [
-                    'railway',
-                ],
-            };
-
-            if ($entityTypes) {
-                foreach ($entityTypes as $entityType) {
-                    $list = $this->railListService->getList($entityType, $terminal, $destination, $station, $containerOwner, $containerType);
-                    $result = array_merge_recursive($result, $list);
-                }
+        if ($entityTypes) {
+            foreach ($entityTypes as $entityType => $entityTypeId) {
+                $list = $this->railListService->getList($entityType, $terminal, $destination, $station, $containerOwner, $containerType);
+                $result = array_merge_recursive($result, $list);
             }
         }
 
