@@ -77,6 +77,7 @@ class SeaListService extends AbstractListService
         return new SeaListDTO(
             contractor: $item[$listFields['contractor']],
             route: $item[$listFields['route']],
+            pod: $item[$listFields['pod']],
             terminal: $item[$listFields['terminal']],
             destination: $item[$listFields['destination']] ?? '',
             containerOwner: $containerOwner,

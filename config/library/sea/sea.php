@@ -23,7 +23,7 @@ return [
             ],
             'view' => [
                 'filter' => true,
-                'list' => false,
+                'list' => true,
             ],
         ],
         'terminal' => [

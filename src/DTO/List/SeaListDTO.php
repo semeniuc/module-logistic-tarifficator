@@ -9,6 +9,7 @@ class SeaListDTO implements ListDTO
     public function __construct(
         public readonly string $contractor,
         public readonly string $route,
+        public readonly string $pod,
         public readonly string $terminal,
         public readonly string $destination,
         public readonly string $containerOwner,
