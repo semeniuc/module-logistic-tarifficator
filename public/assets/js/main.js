@@ -7,8 +7,8 @@ import {fetchAndUpdateExchangeRate} from "./action/getExchangeRate.js";
 
 // Listener
 import "./conditions/filterSync.js";
-import "./conditions/selectSeaOffer.js";
-import "./conditions/changeName.js";
+import "./conditions/selectDropOffer.js";
+import "./conditions/changeDropName.js";
 import {handleRowSelection} from './listener/listenerTable.js';
 import {handleFormChanges} from "./listener/listenerForm.js";
 
