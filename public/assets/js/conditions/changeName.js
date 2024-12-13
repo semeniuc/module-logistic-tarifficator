@@ -14,12 +14,16 @@ function updateContainerNameAndPod(selectedValue) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const seaContainerOwner = document.querySelector('#container-form select[name="containerOwner"]');
-    if (seaContainerOwner) {
-        // Обновляем значения сразу при загрузке
-        updateContainerNameAndPod(seaContainerOwner.value);
+    const dropContainerOwner = document.querySelector('#container-form select[name="containerOwner"]');
+    const seaContainerOwner = document.querySelector('#sea-form select[name="containerOwner"]');
 
-        // Добавляем обработчик изменения
+    if (dropContainerOwner) {
+        dropContainerOwner.addEventListener('change', () => {
+            updateContainerNameAndPod(dropContainerOwner.value);
+        });
+    }
+
+    if (seaContainerOwner) {
         seaContainerOwner.addEventListener('change', () => {
             updateContainerNameAndPod(seaContainerOwner.value);
         });
