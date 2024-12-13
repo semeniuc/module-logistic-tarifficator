@@ -18,8 +18,9 @@ class SeaListDTO implements ListDTO
         public readonly string $conversion,
         public readonly string $deliveryPriceValidFrom,
         public readonly string $comment,
+        public readonly bool   $isWithService,
+        public readonly bool   $isWithDrop,
         public readonly bool   $isActive,
-        public readonly bool   $isService,
         public readonly bool   $isHidden,
     )
     {

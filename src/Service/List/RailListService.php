@@ -74,8 +74,8 @@ class RailListService extends AbstractListService
             securityCost: $securityCost,
             deliveryPriceValidFrom: $validTill,
             comment: $item[$listFields['comment']],
+            isWithService: $this->isWithService($entityType),
             isActive: $this->isActive($validTill),
-            isService: $this->isService($entityType),
             isHidden: $this->isHidden($deliveryCost),
         );
     }
@@ -128,7 +128,7 @@ class RailListService extends AbstractListService
         return $this->getCost($value);
     }
 
-    private function isService(string $type): bool
+    private function isWithService(string $type): bool
     {
         return $type === 'railway-service';
     }

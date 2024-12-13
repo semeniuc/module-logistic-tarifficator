@@ -87,63 +87,65 @@ export function updateTable(data, formId) {
     }
 
     function createTableRow(row) {
-        // Скрытая строка
-        if (row.isHidden === true) {
-            return null;
-        }
+        // Пропустить скрытые строки
+        if (row.isHidden) return null;
 
         const tr = document.createElement('tr');
-        if (row.isActive === false) tr.classList.add('table-row-disabled');
+        if (!row.isActive) tr.classList.add('table-row-disabled');
 
-        const checkboxTd = createCheckboxCell(row.isActive);
-        tr.appendChild(checkboxTd);
+        // Добавляем чекбокс
+        tr.appendChild(createCheckboxCell(row.isActive));
 
-        let isSecondCell = true; // Флаг для отслеживания второй ячейки
-        Object.keys(row).forEach(key => {
-            if (key !== 'isActive' && key !== 'isService' && key !== 'isHidden') {
-                const td = document.createElement('td');
+        const exceptionKeys = ['isActive', 'isHidden', 'isWithService', 'isWithDrop'];
+        let isSecondCell = true; // Флаг для добавления класса is-with-service
 
-                if (key === 'conversion') {
-                    const input = document.createElement('input');
-                    input.type = 'text';
-                    input.value = row[key];
-                    input.classList.add('ui-ctl-element');
+        Object.entries(row).forEach(([key, value]) => {
+            if (exceptionKeys.includes(key)) return;
 
-                    td.classList.add('conversion-input');
-                    td.appendChild(input);
-                } else {
-                    td.textContent = formatCellData(row[key], key);
+            const td = document.createElement('td');
 
-                    if (key === 'comment' && row[key].length > 0) {
-                        td.classList.add('comment-icon');
-                        td.setAttribute('data-title', row[key]);
-                        td.textContent = '';
+            if (key === 'conversion') {
+                // Ячейка с вводом
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.value = value;
+                input.classList.add('ui-ctl-element');
+                td.classList.add('conversion-input');
+                td.appendChild(input);
+            } else if (key === 'comment' && value.length > 0) {
+                // Ячейка с иконкой комментария
+                td.classList.add('comment-icon');
+                td.setAttribute('data-title', value);
 
-                        const iconSpan = document.createElement('span');
-                        iconSpan.className = 'icon';
-                        td.appendChild(iconSpan);
-                    }
-                }
-
-                if (row.isService === true && isSecondCell) {
-                    td.classList.add('is-service');
-                    isSecondCell = false;
-                }
-
-                tr.appendChild(td);
+                const iconSpan = document.createElement('span');
+                iconSpan.className = 'icon';
+                td.appendChild(iconSpan);
+            } else {
+                // Обычная ячейка
+                td.textContent = formatCellData(value, key);
             }
+
+            // Добавляем классы для сервисных или drop-ячейкок
+            if (row.isWithService && isSecondCell) {
+                tr.classList.add('is-with-service');
+                td.classList.add('icon-service');
+                isSecondCell = false;
+            }
+            if (row.isWithDrop) {
+                tr.classList.add('is-with-drop');
+            }
+
+            tr.appendChild(td);
         });
 
+        // Анимация появления строки
         tr.classList.add('hide');
-
         setTimeout(() => {
-            tr.classList.remove('hide');
-            tr.classList.add('show');
+            tr.classList.replace('hide', 'show');
         }, 100);
 
         return tr;
     }
-
 
     function createCheckboxCell(isActive) {
         const checkboxTd = document.createElement('td');

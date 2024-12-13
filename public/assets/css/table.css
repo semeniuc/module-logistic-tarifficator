@@ -183,11 +183,11 @@ td.conversion-input > input {
 }
 
 
-.is-service {
+.icon-service {
     position: relative;
 }
 
-.is-service::before {
+.icon-service::before {
     content: 'С';
     position: absolute;
     top: 0;

@@ -86,8 +86,9 @@ class SeaListService extends AbstractListService
             conversion: $this->getFloat($item[$listFields['conversion']]),
             deliveryPriceValidFrom: $validTill,
             comment: $item[$listFields['comment']],
+            isWithService: $this->isWithService($entityType),
+            isWithDrop: $this->isWithDrop($entityType),
             isActive: $this->isActive($validTill),
-            isService: $this->isService($entityType),
             isHidden: $this->isHidden($deliveryCost),
         );
     }
@@ -117,8 +118,13 @@ class SeaListService extends AbstractListService
         return $this->getCost($value ?? '', '$');
     }
 
-    private function isService(string $type): bool
+    private function isWithService(string $type): bool
     {
         return $type === 'sea-service';
+    }
+
+    private function isWithDrop(string $type): bool
+    {
+        return $type === 'sea-drop';
     }
 }

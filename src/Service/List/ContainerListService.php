@@ -68,8 +68,8 @@ class ContainerListService extends AbstractListService
             rentalCost: $rentalCost,
             rentalPriceValidFrom: $validTill,
             comment: $item[$listFields['comment']],
+            isWithService: $this->isWithService($entityType),
             isActive: $this->isActive($validTill),
-            isService: $this->isService($entityType),
             isHidden: $this->isHidden($rentalCost),
         );
     }
@@ -91,7 +91,7 @@ class ContainerListService extends AbstractListService
         return $this->getCost($value ?? '', '$');
     }
 
-    private function isService(string $type): bool
+    private function isWithService(string $type): bool
     {
         return $type === 'container-drop';
     }
