@@ -9,6 +9,7 @@ import {fetchAndUpdateExchangeRate} from "./action/getExchangeRate.js";
 import "./conditions/filterSync.js";
 import "./conditions/selectDropOffer.js";
 import "./conditions/changeDropName.js";
+import "./conditions/hideDropRows.js";
 import {handleRowSelection} from './listener/listenerTable.js';
 import {handleFormChanges} from "./listener/listenerForm.js";
 
