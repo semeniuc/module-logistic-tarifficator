@@ -24,7 +24,7 @@ class ContainerListService extends AbstractListService
     {
         $filter = $this->prepareFilter($entityType, $destination, $contractor);
 
-        if ($filter && $containerOwner && $containerType) {
+        if ($filter && $destination && $containerOwner && $containerType) {
             $items = $this->getItems($this->entityTypeIds[$this->category][$entityType], ['filter' => $filter]);
 
             if (count($items) > 0) {

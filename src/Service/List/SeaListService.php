@@ -26,7 +26,7 @@ class SeaListService extends AbstractListService
     {
         $filter = $this->prepareFilter($entityType, $pol, $pod, $terminal, $destination);
 
-        if ($filter && $containerType && $containerOwner) {
+        if ($filter && $pol && $containerType && $containerOwner) {
             $items = $this->getItems($this->entityTypeIds[$this->category][$entityType], ['filter' => $filter]);
 
             if (count($items) > 0) {
