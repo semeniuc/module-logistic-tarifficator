@@ -6,10 +6,11 @@ import {sendFormOnLoad} from './action/sendFormOnLoad.js';
 import {fetchAndUpdateExchangeRate} from "./action/getExchangeRate.js";
 
 // Listener
-import "./listener/filterSync.js";
+import "./conditions/filterSync.js";
+import "./conditions/selectSeaOffer.js";
+import "./conditions/changeName.js";
 import {handleRowSelection} from './listener/listenerTable.js';
 import {handleFormChanges} from "./listener/listenerForm.js";
-import {checkSeaResultsSelection} from "./listener/seaResultsSelection.js";
 
 
 // Вызываем функции при загрузке страницы
@@ -18,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     handleFormChanges(); // Подписка на изменение форм (select)
     handleRowSelection(); // Подписка на выбор строк (row)
-    checkSeaResultsSelection(); // Доп. подписка на выделенную строку во Фрахте
 
     fetchAndUpdateExchangeRate(); // Обновление курса
 });
