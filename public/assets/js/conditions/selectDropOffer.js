@@ -1,6 +1,5 @@
 // Обработчик автоматического выбора строки
-export function autoSelectRow(table, selected) {
-    const containerForm = document.getElementById('container-form');
+function autoSelectRow(table, selected) {
 
     if (table === 'sea-results' && selected) {
         const seaContractor = selected.cells[1]?.innerText.trim().toLowerCase();
@@ -21,7 +20,6 @@ export function autoSelectRow(table, selected) {
                     const dropPortDestination = row.cells[1]?.innerText.trim().toLowerCase();
                     const dropDestination = row.cells[3]?.innerText.trim().toLowerCase();
 
-
                     if (
                         dropContractor === seaContractor &&
                         dropPortDestination === seaPortDestination &&
@@ -29,7 +27,6 @@ export function autoSelectRow(table, selected) {
                         !row.classList.contains('table-row-disabled') &&
                         !row.classList.contains('table-row-selected')
                     ) {
-
                         row.click();
 
                         // Переместить выбранную строку наверх таблицы

@@ -16,14 +16,14 @@ function handleRowClick(event, containerForm, containerResultsTable) {
                 toggleFormInputs(containerForm, false);
 
                 // Очищаем таблицу container-results
-                updateResultsTable(containerResultsTable, false);
+                // updateResultsTable(containerResultsTable, false);
             }
         } else {
             // Разблокируем все инпуты, если класса is-with-drop нет
             toggleFormInputs(containerForm, false);
 
             // Очищаем таблицу container-results
-            updateResultsTable(containerResultsTable, false);
+            // updateResultsTable(containerResultsTable, false);
         }
     }
 }
