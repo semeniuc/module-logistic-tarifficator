@@ -16,6 +16,9 @@
         <th>Срок действия</th>
         <th>Нотация</th>
     </tr>
+    <tr class="table-row-not-found show">
+        <td colspan="12" style="text-align: center;">Заполните фильтр</td>
+    </tr>
     </thead>
     <tbody>
     </tbody>

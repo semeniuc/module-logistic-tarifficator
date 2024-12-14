@@ -1,6 +1,9 @@
-import {updateSummationForm} from "../action/updateSummationForm.js";
-
 // Обработка выбора строки в таблицах на странице
+import {fetchTotalSum} from "../form/updateSumForm.js";
+
+/**
+ * todo: на основе выбора изменять формы других блоков
+ */
 export function handleRowSelection() {
     const tableBodies = document.querySelectorAll('table tbody');
     tableBodies.forEach(tbody => {
@@ -43,7 +46,7 @@ export function handleRowSelection() {
                     }
                 }
 
-                updateSummationForm();
+                fetchTotalSum();
             }
         });
 
@@ -76,8 +79,12 @@ export function handleRowSelection() {
                 input.value = value;
 
                 // Запускаем пересчёт при каждом изменении значения
-                updateSummationForm();
+                fetchTotalSum();
             }
         });
     });
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    handleRowSelection();
+});

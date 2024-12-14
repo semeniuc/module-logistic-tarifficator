@@ -1,6 +1,6 @@
-import {notationHover} from "../listener/listenerNotation.js";
+import {showComments} from "./showComment.js";
 
-export function updateTable(data, formId) {
+export function updateTable(formId, data) {
     const tableId = formId.replace('-form', '-results');
     const tableBody = document.querySelector(`#${tableId} tbody`);
 
@@ -44,8 +44,7 @@ export function updateTable(data, formId) {
             }
         });
     }
-
-
+    
     function createNoDataRow() {
         const tr = document.createElement('tr');
         const td = document.createElement('td');
@@ -200,7 +199,7 @@ export function updateTable(data, formId) {
         clearTable();
         addRows();
         sortRows();
-        notationHover();
+        showComments();
     }
 
     update();

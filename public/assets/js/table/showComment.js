@@ -1,4 +1,4 @@
-export function notationHover() {
+export function showComments() {
     const commentIcons = document.querySelectorAll('.comment-icon');
     if (commentIcons.length === 0) {
         return;
