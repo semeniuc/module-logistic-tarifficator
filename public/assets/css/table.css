@@ -59,6 +59,7 @@ table tbody tr.show {
 
 /* Стили для удаления строки */
 table tbody tr.hide {
+    position: absolute;
     opacity: 0;
     transform: translateY(10px);
 }

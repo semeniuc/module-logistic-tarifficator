@@ -182,8 +182,8 @@ export function updateTable(data, formId) {
             if (!disabledA && disabledB) return -1; // a вверх, b вниз
 
             // Если оба или ни один из элементов не имеет .table-row-disabled, сортируем по .is-service
-            const hasServiceA = a.querySelector('.is-service') !== null;
-            const hasServiceB = b.querySelector('.is-service') !== null;
+            const hasServiceA = a.querySelector('.is-with-service') !== null;
+            const hasServiceB = b.querySelector('.is-with-service') !== null;
 
             if (hasServiceA && !hasServiceB) return -1; // a вверх
             if (!hasServiceA && hasServiceB) return 1; // b вверх

@@ -16,14 +16,14 @@ function handleRowClick(event, containerForm, containerResultsTable) {
                 toggleFormInputs(containerForm, false);
 
                 // Очищаем таблицу container-results
-                // updateResultsTable(containerResultsTable, false);
+                updateResultsTable(containerResultsTable, false);
             }
         } else {
             // Разблокируем все инпуты, если класса is-with-drop нет
             toggleFormInputs(containerForm, false);
 
             // Очищаем таблицу container-results
-            // updateResultsTable(containerResultsTable, false);
+            updateResultsTable(containerResultsTable, false);
         }
     }
 }
@@ -31,29 +31,54 @@ function handleRowClick(event, containerForm, containerResultsTable) {
 function toggleFormInputs(containerForm, disable) {
     const inputs = containerForm.querySelectorAll('input, select, textarea, button');
     inputs.forEach(input => {
-        input.disabled = disable;
+        if (input.disabled !== disable) {
+            input.disabled = disable;
+        }
     });
 }
 
 function updateResultsTable(containerResultsTable, showNoData) {
     const tbodyResults = containerResultsTable.querySelector('tbody');
-    tbodyResults.innerHTML = ''; // Очищаем все строки
 
     if (showNoData) {
-        const tr = document.createElement('tr');
-        const td = document.createElement('td');
-        td.textContent = 'Дроп уже включен в ставку Фрахт';
-        td.colSpan = containerResultsTable.closest('table').querySelectorAll('th').length;
-        td.style.textAlign = 'center';
-        tr.appendChild(td);
-        tr.classList.add('table-row-not-found', 'hide');
+        // Скрываем все существующие строки
+        const rows = tbodyResults.querySelectorAll('tr');
+        rows.forEach(row => {
+            row.classList.remove('show');
+            row.classList.add('hide');
+        }); // Добавляем класс для скрытия
 
-        tbodyResults.appendChild(tr);
+        // Добавляем строку с сообщением
+        let noDataRow = tbodyResults.querySelector('.table-row-not-found');
+        if (!noDataRow) {
+            noDataRow = document.createElement('tr');
+            const td = document.createElement('td');
+            td.textContent = 'Дроп уже включен в ставку Фрахт';
+            td.colSpan = containerResultsTable.closest('table').querySelectorAll('th').length;
+            td.style.textAlign = 'center';
+            noDataRow.appendChild(td);
+            noDataRow.classList.add('table-row-not-found', 'hide');
+            tbodyResults.appendChild(noDataRow);
+        }
 
+        // Плавно показываем строку с сообщением
         setTimeout(() => {
-            tr.classList.remove('hide');
-            tr.classList.add('show');
+            noDataRow.classList.remove('hide');
+            noDataRow.classList.add('show');
         }, 100);
+    } else {
+        // Убираем скрытие у всех строк
+        const rows = tbodyResults.querySelectorAll('tr');
+        rows.forEach(row => {
+            row.classList.remove('hide');
+            row.classList.add('show');
+        });
+
+        // Удаляем строку с сообщением
+        const noDataRow = tbodyResults.querySelector('.table-row-not-found');
+        if (noDataRow) {
+            noDataRow.remove();
+        }
     }
 }
 
