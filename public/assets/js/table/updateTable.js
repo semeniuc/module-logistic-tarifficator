@@ -12,7 +12,8 @@ export function updateTable(formId, data) {
 
         await Promise.all(existingRows.map(row =>
             new Promise(resolve => {
-                row.classList.add('hide');
+                // Удаляем все строки, включая table-row-not-found
+                row.classList.replace('show', 'hide');
                 row.addEventListener('transitionend', () => {
                     row.remove();
                     resolve();
@@ -44,7 +45,7 @@ export function updateTable(formId, data) {
             }
         });
     }
-    
+
     function createNoDataRow() {
         const tr = document.createElement('tr');
         const td = document.createElement('td');
@@ -55,8 +56,7 @@ export function updateTable(formId, data) {
         tr.classList.add('table-row-not-found', 'hide');
 
         setTimeout(() => {
-            tr.classList.remove('hide');
-            tr.classList.add('show');
+            tr.classList.replace('hide', 'show');
         }, 100);
 
         return tr;

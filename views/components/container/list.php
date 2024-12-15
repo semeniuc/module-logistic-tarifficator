@@ -14,10 +14,10 @@
         <th>Срок действия</th>
         <th><span class="simple-line-icons--exclamation"></span> Нотация</th>
     </tr>
+    </thead>
+    <tbody>
     <tr class="table-row-not-found show">
         <td colspan="12" style="text-align: center;">Заполните фильтр</td>
     </tr>
-    </thead>
-    <tbody>
     </tbody>
 </table>
