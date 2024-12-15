@@ -31,7 +31,6 @@ async function updateTableData(form) {
 forms.forEach(form => {
     // Событие для завершения синхронизации
     form.addEventListener('formSyncComplete', function () {
-        console.log(`Синхронизация формы ${form.id} завершена`);
         updateTableData(form);
     });
 
