@@ -10,18 +10,20 @@ export function updateTable(formId, data) {
         const existingRows = Array.from(tableBody.querySelectorAll('tr'));
         if (existingRows.length === 0) return;
 
-        await Promise.all(existingRows.map(row =>
-            new Promise(resolve => {
-                // Удаляем все строки, включая table-row-not-found
+        // Используем Promise.all для асинхронного ожидания завершения анимации всех строк
+        await Promise.all(existingRows.map(row => {
+            return new Promise(resolve => {
+                // Добавляем класс 'hide' для анимации
                 row.classList.replace('show', 'hide');
+                // Слушаем завершение анимации
                 row.addEventListener('transitionend', () => {
-                    row.remove();
+                    row.remove(); // Удаляем строку из DOM
                     resolve();
-                }, {once: true});
-            })
-        ));
+                }, {once: true}); // Обработчик срабатывает только один раз
+            });
+        }));
     }
-
+    
     function clearTable() {
         const selectedRows = tableBody.querySelectorAll('tr.table-row-selected');
         tableBody.innerHTML = '';

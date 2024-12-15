@@ -44,6 +44,7 @@ table tbody tr {
     transform: translateY(-10px);
     transition: opacity 0.3s ease, transform 0.3s ease;
     border: 1px solid var(--border-light) !important;
+    overflow: hidden;
 }
 
 table tbody tr:hover {
@@ -59,7 +60,8 @@ table tbody tr.show {
 
 /* Стили для удаления строки */
 table tbody tr.hide {
-    position: absolute;
+    /*position: absolute;*/
+    height: 0;
     opacity: 0;
     transform: translateY(10px);
 }
