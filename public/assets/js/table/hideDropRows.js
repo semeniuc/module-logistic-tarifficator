@@ -46,6 +46,7 @@ function updateResultsTable(containerResultsTable, showNoData) {
         const rows = tbodyResults.querySelectorAll('tr');
         rows.forEach(row => {
             row.classList.replace('show', 'hide');
+            row.style.display = 'none';
         });
 
         // Добавляем строку с сообщением
@@ -70,6 +71,7 @@ function updateResultsTable(containerResultsTable, showNoData) {
         const rows = tbodyResults.querySelectorAll('tr');
         rows.forEach(row => {
             row.classList.replace('hide', 'show');
+            row.style.display = 'table-row';
         });
 
         // Удаляем строку с сообщением
