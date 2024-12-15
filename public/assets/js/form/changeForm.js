@@ -1,6 +1,7 @@
 import {fetchTableData} from "../api/table/list.js";
 import {updateTable} from "../table/updateTable.js";
 import {syncFormChange} from "./syncFormChange.js";
+import {fetchTotalSum} from "./updateSumForm.js";
 
 const forms = document.querySelectorAll('form');
 
@@ -45,6 +46,7 @@ forms.forEach(form => {
 
         // Пропускаем чекбоксы
         if (changedElement.type === 'checkbox') {
+            fetchTotalSum();
             return;
         }
 

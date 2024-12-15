@@ -162,7 +162,7 @@ document.querySelectorAll('.ui-ctl-icon-clear').forEach((button) => {
         const input = document.getElementById(targetId);
         if (input) {
             input.value = ''; // Очищаем поле
-            updateSummationForm();
+            fetchTotalSum();
         }
     });
 });
@@ -173,7 +173,12 @@ document.querySelectorAll('input').forEach((input) => {
         if (event.key === 'Enter') {
             event.preventDefault(); // Отключаем стандартное поведение (отправку формы)
             input.blur(); // Снимаем фокус с инпута
-
+            fetchTotalSum();
         }
+    });
+
+    // Обработчик для снятия фокуса (blur)
+    input.addEventListener('blur', () => {
+        fetchTotalSum(); // Запускаем обновление суммы при потере фокуса
     });
 });
