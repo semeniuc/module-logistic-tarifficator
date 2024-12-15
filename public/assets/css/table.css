@@ -184,7 +184,6 @@ td.conversion-input > input {
     padding: 0 5px;
 }
 
-
 .icon-service {
     position: relative;
 }
@@ -205,4 +204,3 @@ td.conversion-input > input {
     clip-path: polygon(0 0, 100% 0, 0 100%);
     z-index: 1;
 }
-
