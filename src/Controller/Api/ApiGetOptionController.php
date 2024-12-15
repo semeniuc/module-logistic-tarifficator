@@ -34,15 +34,15 @@ class ApiGetOptionController extends Controller
     }
 
     private function getSelectOptions(
-        string $category,
-        string $sourceSelect,
-        string $sourceSelectOption,
-        string $targetSelect
+        string  $category,
+        string  $sourceSelect,
+        ?string $sourceSelectOption,
+        string  $targetSelect
     ): array
     {
         $options = [];
 
-        if ($category && $sourceSelect && $sourceSelectOption && $targetSelect) {
+        if ($category && $sourceSelect && $targetSelect) {
             $options = (new OptionService())->getOptions($category, $sourceSelect, $sourceSelectOption, $targetSelect);
         }
 

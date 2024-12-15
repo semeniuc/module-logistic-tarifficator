@@ -10,10 +10,10 @@ class OptionService extends AbstractOptionService
     }
 
     public function getOptions(
-        string $category,
-        string $sourceSelect,
-        string $sourceSelectOption,
-        string $targetSelect
+        string  $category,
+        string  $sourceSelect,
+        ?string $sourceSelectOption,
+        string  $targetSelect
     ): array
     {
         $options = [];
@@ -43,21 +43,29 @@ class OptionService extends AbstractOptionService
                 sort($options);
             }
         }
-        
+
         return $options;
     }
 
-    private function extractOptions(string $sourceFieldId, string $sourceSelectOption, string $targetFieldId, array $items): array
+    private function extractOptions(string $sourceFieldId, ?string $sourceSelectOption, string $targetFieldId, array $items): array
     {
         $options = [];
-        $sourceSelectOption = mb_strtolower($sourceSelectOption);
 
-        foreach ($items as $item) {
-            if (isset($item[$sourceFieldId]) && mb_strtolower($item[$sourceFieldId]) == $sourceSelectOption) {
-                $options[] = $item[$targetFieldId];
+        if ($sourceSelectOption) {
+            $sourceSelectOption = mb_strtolower($sourceSelectOption);
+            foreach ($items as $item) {
+                if (!empty($item[$sourceFieldId]) && mb_strtolower($item[$sourceFieldId]) == $sourceSelectOption) {
+                    $options[] = $item[$targetFieldId];
+                }
+            }
+        } else {
+            foreach ($items as $item) {
+                if (!empty($item[$sourceFieldId])) {
+                    $options[] = $item[$targetFieldId];
+                }
             }
         }
-
+        
         return $options;
     }
 }
