@@ -21,12 +21,8 @@ export async function updateSelectOptions(formId, sourceSelect, targetSelect) {
         const currentValue = targetElement.value;
 
         // Очищаем старые опции в целевом select
-        targetElement.innerHTML = `
-            <option value="">
-                Выбрать
-            </option>
-        `;
-
+        const defaultValue = 'Выбрать ' + ((targetSelect === 'station') ? 'станцию' : (targetSelect === 'terminal') ? 'терминал' : '');
+        targetElement.innerHTML = `<option value="">${defaultValue}</option>`;
         let isValuePreserved = false;
 
         // Добавляем новые опции в целевой select
