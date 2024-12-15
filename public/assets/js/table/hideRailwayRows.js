@@ -1,95 +1,108 @@
-function handleRowClick(event, containerForm, containerResultsTable) {
-    const row = event.target.closest('tr');
-
+function handleRailRowClick(row, railResultsTable) {
     if (row) {
         const checkbox = row.querySelector('input[type="checkbox"]');
+        const containerOwner = row.cells.item(6).textContent.trim().toLowerCase();
+        const route = row.cells.item(2).textContent.trim().toLowerCase();
 
+        // Если чекбокс выбран
         if (checkbox && checkbox.checked) {
-            if (row.classList.contains('is-with-drop')) {
-                // Блокируем все инпуты в container-form
-                toggleFormInputs(containerForm, true);
-
-                // Очищаем таблицу container-results и добавляем строку "Нет данных"
-                updateResultsTable(containerResultsTable, true);
+            // Проверяем, есть ли у строки класс 'is-with-service'
+            if (row.classList.contains('is-with-service')) {
+                // Скрываем все строки в railResultsTable с route, отличным от текущего
+                updateRailResultsTable(railResultsTable, route);
             } else {
-                // Разблокируем все инпуты, если класса is-with-drop нет
-                toggleFormInputs(containerForm, false);
-
-                // Очищаем таблицу container-results
-                updateResultsTable(containerResultsTable, false);
+                // Показываем все строки в railResultsTable
+                showAllRailRows(railResultsTable);
             }
         } else {
-            // Разблокируем все инпуты, если класса is-with-drop нет
-            toggleFormInputs(containerForm, false);
-
-            // Очищаем таблицу container-results
-            updateResultsTable(containerResultsTable, false);
+            // Показываем все строки в railResultsTable, если чекбокс не выбран
+            showAllRailRows(railResultsTable);
         }
     }
 }
 
-function toggleFormInputs(containerForm, disable) {
-    const inputs = containerForm.querySelectorAll('input, select, textarea, button');
-    inputs.forEach(input => {
-        if (input.disabled !== disable) {
-            input.disabled = disable;
+// Функция для скрытия строк в railResultsTable по условию
+function updateRailResultsTable(railResultsTable, route) {
+    const rows = railResultsTable.querySelectorAll('tbody tr');
+    let rowsVisible = false; // Флаг, показывающий есть ли видимые строки
+
+    rows.forEach(row => {
+        const contractor = row.cells.item(1).textContent.trim().toLowerCase();
+
+        // Скрываем строки, у которых route отличается от текущего
+        if (contractor !== route) {
+            row.style.display = 'none';
+        } else {
+            row.style.display = 'table-row'; // Показываем строку, если route совпадает
+            rowsVisible = true;
         }
     });
+
+    // Если нет видимых строк, показываем строку с сообщением "Нет данных"
+    toggleNoDataMessage(railResultsTable, rowsVisible);
 }
 
-function updateResultsTable(containerResultsTable, showNoData) {
-    const tbodyResults = containerResultsTable.querySelector('tbody');
+// Функция для показа всех строк в railResultsTable
+function showAllRailRows(railResultsTable) {
+    const rows = railResultsTable.querySelectorAll('tbody tr');
+    let rowsVisible = false; // Флаг, показывающий есть ли видимые строки
 
+    rows.forEach(row => {
+        row.style.display = 'table-row'; // Убираем стиль display, чтобы строка была видимой
+        rowsVisible = true;
+    });
 
-    if (showNoData) {
-        // Скрываем все существующие строки
-        const rows = tbodyResults.querySelectorAll('tr');
-        rows.forEach(row => {
-            row.classList.replace('show', 'hide');
-        });
+    // Если нет видимых строк, показываем строку с сообщением "Нет данных"
+    toggleNoDataMessage(railResultsTable, rowsVisible);
+}
 
-        // Добавляем строку с сообщением
-        let rowNotFound = tbodyResults.querySelector('.table-row-not-found');
-        if (!rowNotFound) {
-            rowNotFound = document.createElement('tr');
-            const td = document.createElement('td');
-            td.textContent = 'Дроп уже включен в ставку Фрахт';
-            td.colSpan = containerResultsTable.closest('table').querySelectorAll('th').length;
-            td.style.textAlign = 'center';
-            rowNotFound.appendChild(td);
-            rowNotFound.classList.add('table-row-not-found', 'hide');
-            tbodyResults.appendChild(rowNotFound);
-        }
+// Функция для отображения строки с сообщением "Нет данных", если все строки скрыты
+function toggleNoDataMessage(railResultsTable, rowsVisible) {
+    const tbodyResults = railResultsTable.querySelector('tbody');
+    let rowNotFound = tbodyResults.querySelector('.table-row-not-found');
 
-        // Плавно показываем строку с сообщением
+    if (!rowNotFound) {
+        // Создаем строку с сообщением, если её нет
+        rowNotFound = document.createElement('tr');
+        const td = document.createElement('td');
+        td.textContent = 'Нет данных';
+        td.colSpan = railResultsTable.querySelectorAll('th').length;
+        td.style.textAlign = 'center';
+        rowNotFound.appendChild(td);
+        rowNotFound.classList.add('table-row-not-found', 'hide');
+        tbodyResults.appendChild(rowNotFound);
+    }
+
+    // Если строки не видны, показываем строку с сообщением
+    if (!rowsVisible) {
         setTimeout(() => {
             rowNotFound.classList.replace('hide', 'show');
         }, 100);
     } else {
-        // Убираем скрытие у всех строк
-        const rows = tbodyResults.querySelectorAll('tr');
-        rows.forEach(row => {
-            row.classList.replace('hide', 'show');
-        });
-
-        // Удаляем строку с сообщением
-        const rowNotFound = tbodyResults.querySelector('.table-row-not-found');
-        if (rowNotFound) {
-            rowNotFound.remove();
-        }
+        // Если есть хотя бы одна видимая строка, скрываем сообщение
+        rowNotFound.classList.replace('show', 'hide');
     }
 }
 
 document.addEventListener('DOMContentLoaded', function () {
     const seaResultsTable = document.getElementById('sea-results');
-    const railForm = document.getElementById('rail-form');
     const railResultsTable = document.getElementById('rail-results');
 
-    if (seaResultsTable && railForm && railResultsTable) {
-        const tbody = seaResultsTable.querySelector('tbody');
+    if (seaResultsTable && railResultsTable) {
+        const seaTable = seaResultsTable.querySelector('tbody');
+        seaTable.addEventListener('click', function (event) {
+            const row = event.target.closest('tr');
+            if (row) {
+                handleRailRowClick(row, railResultsTable);
+            }
+        });
 
-        tbody.addEventListener('click', function (event) {
-            // handleRowClick(event, containerForm, containerResultsTable);
+        const railForm = document.getElementById('rail-form');
+        railForm.addEventListener('change', function (event) {
+            const row = seaResultsTable.querySelector('.table-row-selected');
+            if (row) {
+                handleRailRowClick(row, railResultsTable);
+            }
         });
     }
 });
