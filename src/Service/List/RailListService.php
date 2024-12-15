@@ -25,7 +25,7 @@ class RailListService extends AbstractListService
     {
         $filter = $this->prepareFilter($entityType, $terminal, $destination, $station);
 
-        if ($filter && $containerType && $containerOwner) {
+        if ($filter && $terminal && $containerType && $containerOwner) {
             $items = $this->getItems($this->entityTypeIds[$this->category][$entityType], ['filter' => $filter]);
 
             if (count($items) > 0) {
