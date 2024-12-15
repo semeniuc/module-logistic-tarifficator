@@ -35,7 +35,7 @@ function autoSelectRow(table, selected) {
                             tbody.insertBefore(row, tbody.firstChild);
                         }
 
-                        break;
+                        return;
                     }
                 }
             }
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (row) {
                 const checkbox = row.querySelector('input[type="checkbox"]');
-                if (checkbox && !checkbox.checked) {
+                if (checkbox && checkbox.checked) {
                     autoSelectRow('sea-results', row);
                 }
             }
