@@ -1,4 +1,6 @@
 // Универсальная функция обработки изменений
+import {updateSelectOptions} from "./updateSelectOptions.js";
+
 function handleFormChange(sourceSelector, targetSelector, formId) {
     const sourceElement = document.querySelector(sourceSelector);
     const targetElement = document.querySelector(targetSelector);
@@ -100,6 +102,10 @@ export function syncFormChange(form) {
             if (railDestination || railTerminal || railContainerOwner || railContainerType) {
                 const targetElement = document.querySelector('#rail-form select[name="containerOwner"]');
                 createEvent(targetElement);
+
+                if (railDestination) {
+                    updateSelectOptions('rail-form', 'destination', 'station');
+                }
             }
 
             if (dropDestination || dropContainerOwner || dropContainerType) {
@@ -115,8 +121,12 @@ export function syncFormChange(form) {
             {
                 const targetElement = document.querySelector('#sea-form select[name="containerOwner"]');
                 createEvent(targetElement);
+                updateSelectOptions('sea-form', 'pod', 'terminal');
             }
 
+        }
+        case 'rail-form': {
+            updateSelectOptions('rail-form', 'destination', 'station');
         }
     }
 }
