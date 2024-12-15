@@ -1,28 +1,3 @@
-// Обработчик для кнопок очистки
-document.querySelectorAll('.ui-ctl-icon-clear').forEach((button) => {
-    button.addEventListener('click', (event) => {
-        event.preventDefault(); // Отключаем стандартное действие кнопки
-
-        const targetId = button.getAttribute('data-clear-target'); // Получаем ID инпута для очистки
-        const input = document.getElementById(targetId);
-        if (input) {
-            input.value = ''; // Очищаем поле
-            updateSummationForm();
-        }
-    });
-});
-
-// Обработчик для нажатия Enter в инпутах
-document.querySelectorAll('input').forEach((input) => {
-    input.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter') {
-            event.preventDefault(); // Отключаем стандартное поведение (отправку формы)
-            input.blur(); // Снимаем фокус с инпута
-
-        }
-    });
-});
-
 // Получение суммы из таблицы
 function getSumFromTable(tableId, cellIndexes) {
     let sum = 0;
@@ -177,3 +152,28 @@ export function fetchTotalSum() {
         document.getElementById('result-auto-commission').value = ``;
     }
 }
+
+// Обработчик для кнопок очистки
+document.querySelectorAll('.ui-ctl-icon-clear').forEach((button) => {
+    button.addEventListener('click', (event) => {
+        event.preventDefault(); // Отключаем стандартное действие кнопки
+
+        const targetId = button.getAttribute('data-clear-target'); // Получаем ID инпута для очистки
+        const input = document.getElementById(targetId);
+        if (input) {
+            input.value = ''; // Очищаем поле
+            updateSummationForm();
+        }
+    });
+});
+
+// Обработчик для нажатия Enter в инпутах
+document.querySelectorAll('input').forEach((input) => {
+    input.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Отключаем стандартное поведение (отправку формы)
+            input.blur(); // Снимаем фокус с инпута
+
+        }
+    });
+});
