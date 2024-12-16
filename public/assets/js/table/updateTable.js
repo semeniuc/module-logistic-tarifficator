@@ -51,7 +51,7 @@ export function updateTable(formId, data) {
     function createNoDataRow() {
         const tr = document.createElement('tr');
         const td = document.createElement('td');
-        td.textContent = 'Нет данных';
+        td.textContent = 'Нет данных для выбранного маршрута';
         td.colSpan = tableBody.closest('table').querySelectorAll('th').length;
         td.style.textAlign = 'center';
         tr.appendChild(td);
@@ -172,7 +172,7 @@ export function updateTable(formId, data) {
 
     function sortRows() {
         const rows = Array.from(tableBody.querySelectorAll('tr'));
-        
+
         // Сортируем сначала по классу .table-row-disabled, потом по классу .is-with-service
         rows.sort((a, b) => {
             // Сортировка по .table-row-disabled (сначала строки без этого класса, потом с этим)
