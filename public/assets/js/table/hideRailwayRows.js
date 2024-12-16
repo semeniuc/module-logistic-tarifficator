@@ -1,96 +1,111 @@
+// Обработчик клика по строке
 function handleRailRowClick(row, railResultsTable) {
-    if (row) {
-        const checkbox = row.querySelector('input[type="checkbox"]');
-        const containerOwner = row.cells.item(6).textContent.trim().toLowerCase();
-        const route = row.cells.item(2).textContent.trim().toLowerCase();
+    if (!row) return;
 
-        // Если чекбокс выбран
-        if (checkbox && checkbox.checked) {
-            // Проверяем, есть ли у строки класс 'is-with-service'
-            if (row.classList.contains('is-with-service')) {
-                // Скрываем все строки в railResultsTable с route, отличным от текущего
-                updateRailResultsTable(railResultsTable, route);
-            } else {
-                // Показываем все строки в railResultsTable
-                showAllRailRows(railResultsTable);
-            }
+    const checkbox = row.querySelector('input[type="checkbox"]');
+    const route = row.cells.item(2).textContent.trim().toLowerCase();
+
+    if (checkbox && checkbox.checked) {
+        if (row.classList.contains('is-with-service')) {
+            updateRailResultsTable(railResultsTable, route);
         } else {
-            // Показываем все строки в railResultsTable, если чекбокс не выбран
             showAllRailRows(railResultsTable);
         }
+    } else {
+        showAllRailRows(railResultsTable);
     }
 }
 
-// Функция для скрытия строк в railResultsTable по условию
+// Функция обновления railResultsTable
 function updateRailResultsTable(railResultsTable, route) {
-    const rows = railResultsTable.querySelectorAll('tbody tr');
-    let rowsVisible = false; // Флаг, показывающий есть ли видимые строки
+    const tbody = railResultsTable.querySelector('tbody');
+
+    // Скрываем все строки, не соответствующие маршруту
+    const rows = tbody.querySelectorAll('tr');
+    let hasVisibleRows = false;
 
     rows.forEach(row => {
         const contractor = row.cells.item(1).textContent.trim().toLowerCase();
-
-        // Скрываем строки, у которых route отличается от текущего
-        if (contractor !== route) {
-            row.style.display = 'none';
+        if (contractor === route && !row.classList.contains('table-row-not-found')) {
+            row.classList.replace('hide', 'show');
+            row.style.display = 'table-row';
+            hasVisibleRows = true; // Строка видимая, устанавливаем флаг в true
         } else {
-            row.style.display = 'table-row'; // Показываем строку, если route совпадает
-            rowsVisible = true;
+            row.classList.replace('show', 'hide');
+            row.style.display = 'none';
         }
     });
 
-    // Если нет видимых строк, показываем строку с сообщением "Нет данных"
-    toggleNoDataMessage(railResultsTable, rowsVisible);
+    console.log('hasVisibleRows', hasVisibleRows);
+
+    // Если нет видимых строк, показываем сообщение "Нет данных"
+    if (!hasVisibleRows) {
+        addNoDataRow(tbody, 'Нет данных для выбранного маршрута');
+    } else {
+        removeNoDataRow(tbody);
+    }
 }
 
-// Функция для показа всех строк в railResultsTable
+// Функция отображения всех строк в railResultsTable
 function showAllRailRows(railResultsTable) {
-    const rows = railResultsTable.querySelectorAll('tbody tr');
-    let rowsVisible = false; // Флаг, показывающий есть ли видимые строки
+    const tbody = railResultsTable.querySelector('tbody');
+    const rows = tbody.querySelectorAll('tr');
+    let hasVisibleRows = false;
 
+    // Показываем все строки
     rows.forEach(row => {
-        row.style.display = 'table-row'; // Убираем стиль display, чтобы строка была видимой
-        rowsVisible = true;
+        row.classList.replace('hide', 'show');
+        row.style.display = 'table-row';
+        if (row.style.display !== 'none') {
+            hasVisibleRows = true; // Если хотя бы одна строка видимая, устанавливаем флаг
+        }
     });
 
-    // Если нет видимых строк, показываем строку с сообщением "Нет данных"
-    toggleNoDataMessage(railResultsTable, rowsVisible);
-}
-
-// Функция для отображения строки с сообщением "Нет данных", если все строки скрыты
-function toggleNoDataMessage(railResultsTable, rowsVisible) {
-    const tbodyResults = railResultsTable.querySelector('tbody');
-    let rowNotFound = tbodyResults.querySelector('.table-row-not-found');
-
-    if (!rowNotFound) {
-        // Создаем строку с сообщением, если её нет
-        rowNotFound = document.createElement('tr');
-        const td = document.createElement('td');
-        td.textContent = 'Нет данных';
-        td.colSpan = railResultsTable.querySelectorAll('th').length;
-        td.style.textAlign = 'center';
-        rowNotFound.appendChild(td);
-        rowNotFound.classList.add('table-row-not-found', 'hide');
-    }
-
-    // Если строки не видны, показываем строку с сообщением
-    if (!rowsVisible) {
-        tbodyResults.appendChild(rowNotFound);
-        setTimeout(() => {
-            rowNotFound.classList.replace('hide', 'show');
-        }, 100);
+    // Если нет видимых строк, показываем сообщение "Нет данных"
+    if (!hasVisibleRows) {
+        addNoDataRow(tbody, 'Нет данных для выбранного маршрута');
     } else {
-        // Если есть хотя бы одна видимая строка, скрываем сообщение
-        rowNotFound.classList.replace('show', 'hide');
+        removeNoDataRow(tbody);
     }
 }
 
+// Функция добавления строки "Нет данных"
+function addNoDataRow(tbody, message) {
+    let noDataRow = tbody.querySelector('.table-row-not-found');
+    if (!noDataRow) {
+        noDataRow = document.createElement('tr');
+        const td = document.createElement('td');
+        td.textContent = message;
+        td.colSpan = tbody.closest('table').querySelectorAll('th').length;
+        td.style.textAlign = 'center';
+        noDataRow.appendChild(td);
+        noDataRow.classList.add('table-row-not-found', 'hide');
+        tbody.appendChild(noDataRow);
+    }
+
+    // Показываем строку с сообщением
+    setTimeout(() => {
+        noDataRow.classList.replace('hide', 'show');
+        noDataRow.style.display = 'table-row';
+    }, 100);
+}
+
+// Функция удаления строки "Нет данных"
+function removeNoDataRow(tbody) {
+    const noDataRow = tbody.querySelector('.table-row-not-found');
+    if (noDataRow) {
+        noDataRow.remove();
+    }
+}
+
+// Инициализация обработчиков событий
 document.addEventListener('DOMContentLoaded', function () {
     const seaResultsTable = document.getElementById('sea-results');
     const railResultsTable = document.getElementById('rail-results');
 
     if (seaResultsTable && railResultsTable) {
-        const seaTable = seaResultsTable.querySelector('tbody');
-        seaTable.addEventListener('click', function (event) {
+        const seaTableBody = seaResultsTable.querySelector('tbody');
+        seaTableBody.addEventListener('click', function (event) {
             const row = event.target.closest('tr');
             if (row) {
                 handleRailRowClick(row, railResultsTable);
@@ -98,10 +113,10 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         const railForm = document.getElementById('rail-form');
-        railForm.addEventListener('change', function (event) {
-            const row = seaResultsTable.querySelector('.table-row-selected');
-            if (row) {
-                handleRailRowClick(row, railResultsTable);
+        railForm.addEventListener('change', function () {
+            const selectedRow = seaResultsTable.querySelector('.table-row-selected');
+            if (selectedRow) {
+                // handleRailRowClick(selectedRow, railResultsTable);
             }
         });
     }
