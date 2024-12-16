@@ -51,7 +51,10 @@ return [
                 'dev' => 'UF_CRM_11_DELIVERY_COST_COC_20DRY_LESS_24',
                 'prod' => null,
             ],
-            'column' => 'E'
+            'view' => [
+                'filter' => false,
+                'list' => true,
+            ],
         ],
         'deliveryCostCoc20DryMore24' => [
             'id' => [
