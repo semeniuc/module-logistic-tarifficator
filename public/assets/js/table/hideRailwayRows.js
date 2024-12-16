@@ -70,11 +70,11 @@ function toggleNoDataMessage(railResultsTable, rowsVisible) {
         td.style.textAlign = 'center';
         rowNotFound.appendChild(td);
         rowNotFound.classList.add('table-row-not-found', 'hide');
-        tbodyResults.appendChild(rowNotFound);
     }
 
     // Если строки не видны, показываем строку с сообщением
     if (!rowsVisible) {
+        tbodyResults.appendChild(rowNotFound);
         setTimeout(() => {
             rowNotFound.classList.replace('hide', 'show');
         }, 100);

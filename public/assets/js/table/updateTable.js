@@ -23,7 +23,7 @@ export function updateTable(formId, data) {
             });
         }));
     }
-    
+
     function clearTable() {
         const selectedRows = tableBody.querySelectorAll('tr.table-row-selected');
         tableBody.innerHTML = '';
@@ -172,24 +172,26 @@ export function updateTable(formId, data) {
 
     function sortRows() {
         const rows = Array.from(tableBody.querySelectorAll('tr'));
-
-        // Сортируем сначала по классу .table-row-disabled, потом по классу .is-service
+        
+        // Сортируем сначала по классу .table-row-disabled, потом по классу .is-with-service
         rows.sort((a, b) => {
             // Сортировка по .table-row-disabled (сначала строки без этого класса, потом с этим)
             const disabledA = a.classList.contains('table-row-disabled');
             const disabledB = b.classList.contains('table-row-disabled');
 
-            if (disabledA && !disabledB) return 1; // a вниз, b вверх
-            if (!disabledA && disabledB) return -1; // a вверх, b вниз
+            if (disabledA !== disabledB) {
+                return disabledA ? 1 : -1; // true => 1 (вниз), false => -1 (вверх)
+            }
 
-            // Если оба или ни один из элементов не имеет .table-row-disabled, сортируем по .is-service
-            const hasServiceA = a.querySelector('.is-with-service') !== null;
-            const hasServiceB = b.querySelector('.is-with-service') !== null;
+            // Сортировка по .is-with-service (сначала строки с этим классом, потом без)
+            const serviceA = a.classList.contains('is-with-service');
+            const serviceB = b.classList.contains('is-with-service');
 
-            if (hasServiceA && !hasServiceB) return -1; // a вверх
-            if (!hasServiceA && hasServiceB) return 1; // b вверх
+            if (serviceA !== serviceB) {
+                return serviceA ? -1 : 1; // true => -1 (вверх), false => 1 (вниз)
+            }
 
-            return 0; // если оба условия равны, оставляем как есть
+            return 0; // Если оба равны, порядок не меняется
         });
 
         // Перемещаем строки в DOM в отсортированном порядке
