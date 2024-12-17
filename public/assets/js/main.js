@@ -14,6 +14,7 @@ import './table/selectRow.js';
 
 /* Подписка на выбор строк */
 import './table/selectDropOffer.js';
+import './form/changeRailFilter.js';
 
 /* Подписка на изменение фильтра */
 import './table/changeDropName.js';
