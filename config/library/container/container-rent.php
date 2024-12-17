@@ -3,13 +3,13 @@
 return [
     'entityType' => [
         'dev' => 1046,
-        'prod' => null,
+        'prod' => 1070,
     ],
     'fields' => [
         'pol' => [
             'id' => [
                 'dev' => 'UF_CRM_8_POL',
-                'prod' => null,
+                'prod' => 'UF_CRM_13_POL',
             ],
             'view' => [
                 'filter' => false,
@@ -19,7 +19,7 @@ return [
         'destination' => [
             'id' => [
                 'dev' => 'UF_CRM_8_DESTINATION',
-                'prod' => null,
+                'prod' => 'UF_CRM_13_DESTINATION',
             ],
             'view' => [
                 'filter' => true,
@@ -29,7 +29,7 @@ return [
         'contractor' => [
             'id' => [
                 'dev' => 'UF_CRM_8_CONTRACTOR',
-                'prod' => null,
+                'prod' => 'UF_CRM_13_CONTRACTOR',
             ],
             'view' => [
                 'filter' => true,
@@ -39,7 +39,7 @@ return [
         'cost20Dry' => [
             'id' => [
                 'dev' => 'UF_CRM_8_COST_20DRY',
-                'prod' => null,
+                'prod' => 'UF_CRM_13_COST_20DRY',
             ],
             'view' => [
                 'filter' => false,
@@ -49,7 +49,7 @@ return [
         'cost40Hc' => [
             'id' => [
                 'dev' => 'UF_CRM_8_COST_40HC',
-                'prod' => null,
+                'prod' => 'UF_CRM_13_COST_40HC',
             ],
             'view' => [
                 'filter' => false,
@@ -60,7 +60,7 @@ return [
         'priceValidFrom' => [
             'id' => [
                 'dev' => 'UF_CRM_8_PRICE_VALID_FROM',
-                'prod' => null,
+                'prod' => 'UF_CRM_13_PRICE_VALID_FROM',
             ],
             'view' => [
                 'filter' => false,
@@ -70,7 +70,7 @@ return [
         'priceValidTill' => [
             'id' => [
                 'dev' => 'UF_CRM_8_PRICE_VALID_TILL',
-                'prod' => null,
+                'prod' => 'UF_CRM_13_PRICE_VALID_TILL',
             ],
             'view' => [
                 'filter' => false,
@@ -81,7 +81,7 @@ return [
         'comment' => [
             'id' => [
                 'dev' => 'UF_CRM_8_COMMENT',
-                'prod' => null,
+                'prod' => 'UF_CRM_13_COMMENT',
             ],
             'view' => [
                 'filter' => false,

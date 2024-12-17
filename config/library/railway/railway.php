@@ -9,7 +9,7 @@ return [
         'terminal' => [
             'id' => [
                 'dev' => 'UF_CRM_5_TERMINAL',
-                'prod' => null,
+                'prod' => 'UF_CRM_5_TERMINAL',
             ],
             'view' => [
                 'filter' => true,
@@ -19,7 +19,7 @@ return [
         'destination' => [
             'id' => [
                 'dev' => 'UF_CRM_5_DESTINATION',
-                'prod' => null,
+                'prod' => 'UF_CRM_5_DESTINATION',
             ],
             'view' => [
                 'filter' => true,

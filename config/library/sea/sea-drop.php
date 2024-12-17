@@ -3,13 +3,13 @@
 return [
     'entityType' => [
         'dev' => 1054,
-        'prod' => null,
+        'prod' => 1052,
     ],
     'fields' => [
         'pol' => [
             'id' => [
                 'dev' => 'UF_CRM_10_POL',
-                'prod' => null,
+                'prod' => 'UF_CRM_9_POL',
             ],
             'view' => [
                 'filter' => true,
@@ -19,7 +19,7 @@ return [
         'pod' => [
             'id' => [
                 'dev' => 'UF_CRM_10_POD',
-                'prod' => null,
+                'prod' => 'UF_CRM_9_POD',
             ],
             'view' => [
                 'filter' => true,
@@ -29,7 +29,7 @@ return [
         'destination' => [
             'id' => [
                 'dev' => 'UF_CRM_10_DESTINATION',
-                'prod' => null,
+                'prod' => 'UF_CRM_9_DESTINATION',
             ],
             'view' => [
                 'filter' => true,
@@ -39,7 +39,7 @@ return [
         'terminal' => [
             'id' => [
                 'dev' => 'UF_CRM_10_TERMINAL',
-                'prod' => null,
+                'prod' => 'UF_CRM_9_TERMINAL',
             ],
             'view' => [
                 'filter' => true,
@@ -49,7 +49,7 @@ return [
         'contractor' => [
             'id' => [
                 'dev' => 'UF_CRM_10_CONTRACTOR',
-                'prod' => null,
+                'prod' => 'UF_CRM_9_CONTRACTOR',
             ],
             'view' => [
                 'filter' => false,
@@ -59,7 +59,7 @@ return [
         'route' => [
             'id' => [
                 'dev' => 'UF_CRM_10_ROUTE',
-                'prod' => null,
+                'prod' => 'UF_CRM_9_ROUTE',
             ],
             'view' => [
                 'filter' => false,
@@ -69,7 +69,7 @@ return [
         'deliveryCostCoc20Dry' => [
             'id' => [
                 'dev' => 'UF_CRM_10_DELIVERY_COST_COC_20DRY',
-                'prod' => null,
+                'prod' => 'UF_CRM_9_DELIVERY_COST_COC_20DRY',
             ],
             'view' => [
                 'filter' => false,
@@ -79,7 +79,7 @@ return [
         'deliveryCostCoc40Hc' => [
             'id' => [
                 'dev' => 'UF_CRM_10_DELIVERY_COST_COC_40HC',
-                'prod' => null,
+                'prod' => 'UF_CRM_9_DELIVERY_COST_COC_40HC',
             ],
             'view' => [
                 'filter' => false,
@@ -89,7 +89,7 @@ return [
         'deliveryCostSoc20Dry' => [
             'id' => [
                 'dev' => 'UF_CRM_10_DELIVERY_COST_SOC_20DRY',
-                'prod' => null,
+                'prod' => 'UF_CRM_9_DELIVERY_COST_SOC_20DRY',
             ],
             'view' => [
                 'filter' => false,
@@ -99,7 +99,7 @@ return [
         'deliveryCostSoc40Hc' => [
             'id' => [
                 'dev' => 'UF_CRM_10_DELIVERY_COST_SOC_40HC',
-                'prod' => null,
+                'prod' => 'UF_CRM_9_DELIVERY_COST_SOC_40HC',
             ],
             'view' => [
                 'filter' => false,
@@ -109,7 +109,7 @@ return [
         'deliveryPriceValidFrom' => [
             'id' => [
                 'dev' => 'UF_CRM_10_DELIVERY_PRICE_VALID_FROM',
-                'prod' => null,
+                'prod' => 'UF_CRM_9_DELIVERY_PRICE_VALID_FROM',
             ],
             'view' => [
                 'filter' => false,
@@ -119,7 +119,7 @@ return [
         'deliveryPriceValidTill' => [
             'id' => [
                 'dev' => 'UF_CRM_10_DELIVERY_PRICE_VALID_TILL',
-                'prod' => null,
+                'prod' => 'UF_CRM_9_DELIVERY_PRICE_VALID_TILL',
             ],
             'view' => [
                 'filter' => false,
@@ -129,7 +129,7 @@ return [
         'conversion' => [
             'id' => [
                 'dev' => 'UF_CRM_10_CONVERSION',
-                'prod' => null,
+                'prod' => 'UF_CRM_9_CONVERSION',
             ],
             'view' => [
                 'filter' => false,
@@ -139,7 +139,7 @@ return [
         'comment' => [
             'id' => [
                 'dev' => 'UF_CRM_10_COMMENT',
-                'prod' => null,
+                'prod' => 'UF_CRM_9_COMMENT',
             ],
             'view' => [
                 'filter' => false,

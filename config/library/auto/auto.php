@@ -9,7 +9,7 @@ return [
         'terminal' => [
             'id' => [
                 'dev' => 'UF_CRM_6_TERMINAL',
-                'prod' => null,
+                'prod' => 'UF_CRM_6_TERMINAL',
             ],
             'view' => [
                 'filter' => true,
@@ -19,7 +19,7 @@ return [
         'destination' => [
             'id' => [
                 'dev' => 'UF_CRM_6_DESTINATION',
-                'prod' => null,
+                'prod' => 'UF_CRM_6_DESTINATION',
             ],
             'view' => [
                 'filter' => true,
@@ -80,7 +80,7 @@ return [
         'loadingFee20Dry' => [
             'id' => [
                 'dev' => 'UF_CRM_6_LOADING_FEE_20DRY',
-                'prod' => null,
+                'prod' => 'UF_CRM_6_LOADING_FEE_20DRY',
             ],
             'view' => [
                 'filter' => false,
@@ -90,7 +90,7 @@ return [
         'loadingFee40Hc' => [
             'id' => [
                 'dev' => 'UF_CRM_6_LOADING_FEE_40HC',
-                'prod' => null,
+                'prod' => 'UF_CRM_6_LOADING_FEE_40HC',
             ],
             'view' => [
                 'filter' => false,
@@ -100,7 +100,7 @@ return [
         'loadingFeeValidFrom' => [
             'id' => [
                 'dev' => 'UF_CRM_6_LOADING_FEE_VALID_FROM',
-                'prod' => null,
+                'prod' => 'UF_CRM_6_LOADING_FEE_VALID_FROM',
             ],
             'view' => [
                 'filter' => false,
@@ -110,7 +110,7 @@ return [
         'loadingFeeValidTill' => [
             'id' => [
                 'dev' => 'UF_CRM_6_LOADING_FEE_VALID_TILL',
-                'prod' => null,
+                'prod' => 'UF_CRM_6_LOADING_FEE_VALID_TILL',
             ],
             'view' => [
                 'filter' => false,
@@ -120,7 +120,7 @@ return [
         'comment' => [
             'id' => [
                 'dev' => 'UF_CRM_6_COMMENT',
-                'prod' => null,
+                'prod' => 'UF_CRM_6_COMMENT',
             ],
             'view' => [
                 'filter' => false,
