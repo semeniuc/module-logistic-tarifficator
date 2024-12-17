@@ -1,16 +1,15 @@
+/*
+ * Файл не используется! Ошибка в поведении.
+ * @deprecated
+ */
+
 // Обработчик клика по строке
-function handleRailRowClick(row, railResultsTable) {
-    if (!row) return;
+function handleRailRowClick(railResultsTable) {
+    const selectedRow = document.querySelector('#sea-results .table-row-selected');
 
-    const checkbox = row.querySelector('input[type="checkbox"]');
-    const route = row.cells.item(2).textContent.trim().toLowerCase();
-
-    if (checkbox && checkbox.checked) {
-        if (row.classList.contains('is-with-service')) {
-            updateRailResultsTable(railResultsTable, route);
-        } else {
-            showAllRailRows(railResultsTable);
-        }
+    if (selectedRow) {
+        const route = selectedRow.cells.item(2).textContent.trim().toLowerCase();
+        updateRailResultsTable(railResultsTable, route);
     } else {
         showAllRailRows(railResultsTable);
     }
@@ -19,22 +18,26 @@ function handleRailRowClick(row, railResultsTable) {
 // Функция обновления railResultsTable
 function updateRailResultsTable(railResultsTable, route) {
     const tbody = railResultsTable.querySelector('tbody');
-
-    // Скрываем все строки, не соответствующие маршруту
     const rows = tbody.querySelectorAll('tr');
     let hasVisibleRows = false;
 
     rows.forEach(row => {
-        const contractor = row.cells.item(1).textContent.trim().toLowerCase();
-        if (contractor === route && !row.classList.contains('table-row-not-found')) {
-            row.classList.replace('hide', 'show');
-            row.style.display = 'table-row';
-            hasVisibleRows = true; // Строка видимая, устанавливаем флаг в true
-        } else {
-            row.classList.replace('show', 'hide');
-            row.style.display = 'none';
+        if (row.cells.length > 1) {
+            const contractor = row.cells.item(1).textContent.trim().toLowerCase();
+
+            if (contractor === route) {
+                row.classList.replace('hide', 'show');
+                row.style.display = 'table-row';
+                hasVisibleRows = true;
+
+                console.log('railRow', contractor, route, row);
+            } else {
+                row.classList.replace('show', 'hide');
+                row.style.display = 'none';
+            }
         }
     });
+
 
     console.log('hasVisibleRows', hasVisibleRows);
 
@@ -56,10 +59,10 @@ function showAllRailRows(railResultsTable) {
     rows.forEach(row => {
         row.classList.replace('hide', 'show');
         row.style.display = 'table-row';
-        if (row.style.display !== 'none') {
-            hasVisibleRows = true; // Если хотя бы одна строка видимая, устанавливаем флаг
-        }
+        hasVisibleRows = true;
     });
+
+    console.log('showAllRailRows - hasVisibleRows', hasVisibleRows);
 
     // Если нет видимых строк, показываем сообщение "Нет данных"
     if (!hasVisibleRows) {
@@ -105,19 +108,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (seaResultsTable && railResultsTable) {
         const seaTableBody = seaResultsTable.querySelector('tbody');
-        seaTableBody.addEventListener('click', function (event) {
-            const row = event.target.closest('tr');
-            if (row) {
-                handleRailRowClick(row, railResultsTable);
-            }
+        seaTableBody.addEventListener('click', function () {
+            handleRailRowClick(railResultsTable);
         });
 
         const railForm = document.getElementById('rail-form');
         railForm.addEventListener('change', function () {
-            const selectedRow = seaResultsTable.querySelector('.table-row-selected');
-            if (selectedRow) {
-                // handleRailRowClick(selectedRow, railResultsTable);
-            }
+            handleRailRowClick(railResultsTable);
         });
     }
 });

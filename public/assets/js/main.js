@@ -18,4 +18,6 @@ import './table/selectDropOffer.js';
 /* Подписка на изменение фильтра */
 import './table/changeDropName.js';
 import './table/hideDropRows.js';
-import './table/hideRailwayRows.js';
+
+/* Файл не используется, ошибка в поведении */
+// import './table/hideRailwayRows.js';
