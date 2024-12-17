@@ -56,14 +56,11 @@ class SeaListService extends AbstractListService
         }
 
         if (!empty($destination)) {
-            $filter['=' . $filterFields['destination']] = $destination;
+            if ($entityType !== 'sea') {
+                $filter['=' . $filterFields['destination']] = $destination;
+            }
         }
-
-        // Исключаем справочник Фрахт, если заполнено Пункт назначения
-        if (!empty($destination) && $entityType === 'sea') {
-            return [];
-        }
-
+        
         return $filter ?? null;
     }
 
