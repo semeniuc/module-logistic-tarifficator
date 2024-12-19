@@ -126,15 +126,19 @@ export function updateTable(formId, data) {
                 td.textContent = formatCellData(value, key);
             }
 
-            // Добавляем классы для сервисных или drop-ячейкок
-            if (row.isWithService && isSecondCell) {
-                tr.classList.add('is-with-service');
-                td.classList.add('icon-service');
-                isSecondCell = false;
+            // Добавляем классы для сервисных или drop-ячейкок везде кроме таблицы Drop Off
+            if (row.polOrPod === undefined) {
+                if (row.isWithService && isSecondCell) {
+                    tr.classList.add('is-with-service');
+                    td.classList.add('icon-service');
+                    isSecondCell = false;
+                }
+                if (row.isWithDrop) {
+                    tr.classList.add('is-with-drop');
+                    tr.classList.add('icon-drop');
+                }
             }
-            if (row.isWithDrop) {
-                tr.classList.add('is-with-drop');
-            }
+
 
             tr.appendChild(td);
         });

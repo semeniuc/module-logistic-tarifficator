@@ -184,23 +184,52 @@ td.conversion-input > input {
     padding: 0 5px;
 }
 
-.icon-service {
+.icon-service,
+.icon-drop {
     position: relative;
 }
 
-.icon-service::before {
-    content: 'С';
+.icon-service::before,
+.icon-drop::before {
+    content: attr(data-content);
     position: absolute;
     top: 0;
     left: 0;
     display: flex;
-    padding: 1px 4px;
     width: 33px;
     height: 33px;
-    background: #087f7a;
     color: white;
-    font-size: 14px;
+    font-size: 8px;
     font-weight: bold;
     clip-path: polygon(0 0, 100% 0, 0 100%);
     z-index: 1;
+}
+
+.icon-service::before {
+    content: 'С';
+    background: #087f7a;
+    padding: 4px 6px;
+}
+
+.icon-drop::before {
+    content: 'ФД';
+    background: #5F7FFF;
+    padding: 4px 3px;
+}
+
+div.sea-description span {
+    display: inline-block;
+    padding: 1px 3px;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: bold;
+    border-radius: 2px;
+}
+
+div.sea-description span.sea-service {
+    background: #087f7a;
+}
+
+div.sea-description span.sea-drop {
+    background: #5F7FFF;
 }

@@ -28,6 +28,7 @@ Extension::load("ui.forms");
                 <?php
                 $view->component('sea/filter', ['filter' => $data['filters']['sea']]);
                 $view->component('sea/list');
+                $view->component('sea/description');
                 ?>
             </div>
 

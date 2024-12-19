@@ -99,11 +99,11 @@ class AutoListService extends AbstractListService
         $listFields = $this->getFieldsToList($this->category, $entityType);
 
         if ($containerType === '40hc (<20т)') {
-            $value = $item[$listFields['terminal40Hc']];
+            $value = $item[$listFields['loadingFee20Dry']];
         } else {
-            $value = $item[$listFields['terminal20Dry']];
+            $value = $item[$listFields['loadingFee40Hc']];
         }
-
+        
         if ($value === null || $value === '' || !is_numeric(str_replace(',', '', $value))) {
             return $value ?? '';
         }

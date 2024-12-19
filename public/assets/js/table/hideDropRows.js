@@ -1,4 +1,4 @@
-function handleRowClick(event, containerForm, containerResultsTable) {
+async function handleRowClick(event, containerForm, containerResultsTable) {
     const row = event.target.closest('tr');
 
     if (row) {
@@ -9,22 +9,25 @@ function handleRowClick(event, containerForm, containerResultsTable) {
                 // Блокируем все инпуты в container-form
                 toggleFormInputs(containerForm, true);
 
-                // Очищаем таблицу container-results и добавляем строку "Нет данных"
-                updateResultsTable(containerResultsTable, true);
+                // Скрываем строки с данными
+                await showRowsData(containerResultsTable, false);
             } else {
                 // Разблокируем все инпуты, если класса is-with-drop нет
                 toggleFormInputs(containerForm, false);
 
-                // Очищаем таблицу container-results
-                updateResultsTable(containerResultsTable, false);
+                // Показываем скрытые строки
+                await showRowsData(containerResultsTable, true);
             }
         } else {
             // Разблокируем все инпуты, если класса is-with-drop нет
             toggleFormInputs(containerForm, false);
 
-            // Очищаем таблицу container-results
-            updateResultsTable(containerResultsTable, false);
+            // Показываем скрытые строки
+            await showRowsData(containerResultsTable, true);
         }
+
+        // Показываем или скрываем "Нет данных"
+        showRowNotFound(containerResultsTable);
     }
 }
 
@@ -37,48 +40,63 @@ function toggleFormInputs(containerForm, disable) {
     });
 }
 
-function updateResultsTable(containerResultsTable, showNoData) {
-    const tbodyResults = containerResultsTable.querySelector('tbody');
-
-
-    if (showNoData) {
-        // Скрываем все существующие строки
+function showRowsData(containerResultsTable, show) {
+    return new Promise(resolve => {
+        const tbodyResults = containerResultsTable.querySelector('tbody');
         const rows = tbodyResults.querySelectorAll('tr');
-        rows.forEach(row => {
-            row.classList.replace('show', 'hide');
-            row.style.display = 'none';
+
+        rows.forEach((row, index) => {
+            setTimeout(() => {
+                if (show) {
+                    row.classList.replace('hide', 'show');
+                    row.style.display = 'table-row';
+                } else {
+                    row.classList.replace('show', 'hide');
+                    row.style.display = 'none';
+                }
+
+                // Разрешаем Promise, когда последний элемент обработан
+                if (index === rows.length - 1) {
+                    resolve();
+                }
+            }, 100);
         });
+    });
+}
 
-        // Добавляем строку с сообщением
-        let rowNotFound = tbodyResults.querySelector('.table-row-not-found');
-        if (!rowNotFound) {
-            rowNotFound = document.createElement('tr');
-            const td = document.createElement('td');
-            td.textContent = 'Дроп уже включен в ставку Фрахт';
-            td.colSpan = containerResultsTable.closest('table').querySelectorAll('th').length;
-            td.style.textAlign = 'center';
-            rowNotFound.appendChild(td);
-            rowNotFound.classList.add('table-row-not-found', 'hide');
-            tbodyResults.appendChild(rowNotFound);
-        }
+function showRowNotFound(containerResultsTable) {
+    const tbodyResults = containerResultsTable.querySelector('tbody');
+    const rows = tbodyResults.querySelectorAll('tr:not(.table-row-not-found)');
+    let rowNotFound = tbodyResults.querySelector('.table-row-not-found');
 
-        // Плавно показываем строку с сообщением
+    // Создаем строку "Нет данных", если она не существует
+    if (!rowNotFound) {
+        rowNotFound = document.createElement('tr');
+        const td = document.createElement('td');
+        td.textContent = 'Дроп уже включен в ставку Фрахт';
+        td.colSpan = containerResultsTable.closest('table').querySelectorAll('th').length;
+        td.style.textAlign = 'center';
+
+        rowNotFound.appendChild(td);
+        rowNotFound.classList.add('table-row-not-found', 'hide');
+        rowNotFound.style.display = 'none';
+        tbodyResults.appendChild(rowNotFound);
+    }
+
+    // Проверяем, есть ли хотя бы одна видимая строка
+    const hasVisibleRows = Array.from(rows).some(row => !row.classList.contains('hide'));
+    
+    // Показываем или скрываем строку "Нет данных"
+    if (!hasVisibleRows) {
         setTimeout(() => {
             rowNotFound.classList.replace('hide', 'show');
+            rowNotFound.style.display = 'table-row';
         }, 100);
     } else {
-        // Убираем скрытие у всех строк
-        const rows = tbodyResults.querySelectorAll('tr');
-        rows.forEach(row => {
-            row.classList.replace('hide', 'show');
-            row.style.display = 'table-row';
-        });
-
-        // Удаляем строку с сообщением
-        const rowNotFound = tbodyResults.querySelector('.table-row-not-found');
-        if (rowNotFound) {
-            rowNotFound.remove();
-        }
+        setTimeout(() => {
+            rowNotFound.classList.replace('show', 'hide');
+            rowNotFound.style.display = 'none';
+        }, 100);
     }
 }
 
