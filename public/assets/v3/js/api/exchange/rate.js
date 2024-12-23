@@ -6,7 +6,7 @@ import {sendAjaxRequest} from "../../ajax.js";
  */
 export function fetchExchangeRate() {
     const url = '/local/modules/logistic.tarifficator/api/rate/get';
-
+    
     return new Promise((resolve, reject) => {
         sendAjaxRequest(url, 'POST', null, function (response) {
             if (response && response.rate && response.date) {

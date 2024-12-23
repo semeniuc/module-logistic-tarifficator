@@ -19,6 +19,7 @@ try {
 
     define("APP_ENV", $_SERVER['APP_ENV']);
     define("APP_URL", $_SERVER['APP_URL']);
+    define("APP_VERSION", $_SERVER['APP_VERSION']);
 
     $app = new App();
     $app->run();
