@@ -11,12 +11,7 @@ try {
 
     $dotenv = new Dotenv();
     $dotenv->loadEnv(APP_PATH . '/.env');
-
-    # TEST
-    header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-    header("Pragma: no-cache");
-    header("Expires: Wed, 11 Jan 1984 05:00:00 GMT");
-
+    
     define("APP_ENV", $_SERVER['APP_ENV']);
     define("APP_URL", $_SERVER['APP_URL']);
     define("APP_VERSION", $_SERVER['APP_VERSION']);

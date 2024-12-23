@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tarifficator\Listener;
 
-use Tarifficator\Service\LoggingService;
 use Bitrix\Main\UI\Extension;
 
 define('APP_PATH', dirname(__DIR__, 2));
@@ -13,9 +12,6 @@ class TarifficatorTabListener
 {
     public static function handler()
     {
-        // Подключение скриптов и стилей, если необходимо
-//        Extension::load("ui.buttons");
-
         $engine = new \CComponentEngine();
         $page = $engine->guessComponentPath(
             '/crm/',
@@ -44,7 +40,7 @@ class TarifficatorTabListener
         $assetManager = \Bitrix\Main\Page\Asset::getInstance();
 
         // Подключаем js файл
-        $assetManager->addJs('/local/modules/logistic.tarifficator/public/assets/js/leadTab.js');
+        $assetManager->addJs('/local/modules/logistic.tarifficator/public/assets/common/leadTab.js');
 
         // Подготовим параметры функции
         $jsParams = \Bitrix\Main\Web\Json::encode(
@@ -62,7 +58,5 @@ class TarifficatorTabListener
                 });
             </script>
         ');
-
-//        $GLOBALS['APPLICATION']->AddHeadString('<script src="/path/to/your/frontend.js"></script>');
     }
 }
