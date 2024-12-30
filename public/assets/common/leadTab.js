@@ -10,10 +10,8 @@ function openPopup(url, title) {
         },
         events: {
             onLoad: function (event) {
-                // console.log('Popup loaded');
             },
             onClose: function (event) {
-                // console.log('Popup closed');
             }
         }
     });
@@ -70,7 +68,7 @@ function initialize_foo_crm_detail_tab(params) {
                 loader: {
                     serviceUrl: '/local/modules/logistic.tarifficator?sessid=' + BX.bitrix_sessid(),
                     componentData: {foo: 'bar'},
-                    container: null, // Обновлено: будет установлено позже
+                    container: null, // Будет установлено позже
                     tabId: 'module_tarifficator'
                 }
             };
@@ -98,9 +96,16 @@ function initialize_foo_crm_detail_tab(params) {
             if (!container) {
                 console.error('Не удалось найти контейнер для вкладок');
             } else {
-                // Добавить вкладку в конец контейнера
-                container.appendChild(tabContainer);
-
+                // Найти вторую вкладку
+                var secondTab = container.children[1];
+                if (secondTab) {
+                    // Вставить вкладку перед второй вкладкой
+                    container.insertBefore(tabContainer, secondTab);
+                } else {
+                    // Если второй вкладки нет, добавить в конец
+                    container.appendChild(tabContainer);
+                }
+                
                 // Обновить ссылку на контейнер в `loader`
                 tabData.loader.container = tabContainer;
 
@@ -115,7 +120,6 @@ function initialize_foo_crm_detail_tab(params) {
                     )
                 );
             }
-
         }).catch(function () {
         // console.error('Не удалось найти менеджер вкладок');
     });
